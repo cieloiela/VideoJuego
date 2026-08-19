@@ -1,0 +1,1447 @@
+/* =========================================
+   ESCAPE A CHILE
+   STYLE SYSTEM
+   ========================================= */
+
+
+/* Fuente general */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap');
+
+
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+
+
+body{
+
+font-family:Poppins, Arial, sans-serif;
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+
+
+/* =========================================
+   CONFIGURACIÓN GENERAL DE PANTALLAS
+========================================= */
+
+
+.pantalla{
+
+height:100vh;
+
+width:100%;
+
+position:relative;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+overflow:hidden;
+
+
+}
+
+
+
+
+/* =========================================
+   FONDO GENERAL
+========================================= */
+
+
+.inicio,
+.menu-pantalla{
+
+background:
+
+linear-gradient(
+to bottom,
+#12285e 0%,
+#284f96 45%,
+#e68b62 100%
+);
+
+
+}
+
+
+
+.estrellas{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+
+background-image:
+
+radial-gradient(
+white 1px,
+transparent 1px
+);
+
+
+background-size:
+
+70px 70px;
+
+
+opacity:.6;
+
+
+animation:moverEstrellas 30s linear infinite;
+
+
+}
+
+
+
+
+@keyframes moverEstrellas{
+
+
+from{
+
+transform:translateY(0);
+
+}
+
+
+to{
+
+transform:translateY(70px);
+
+}
+
+
+}
+
+
+
+
+
+
+/* =========================================
+   MONTAÑAS
+========================================= */
+
+
+.montanas{
+
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:45%;
+
+
+background:
+
+linear-gradient(
+135deg,
+transparent 40%,
+#1b316d 40%
+),
+
+linear-gradient(
+45deg,
+transparent 40%,
+#263f80 40%
+);
+
+
+background-size:
+
+260px 180px;
+
+
+opacity:.9;
+
+
+z-index:1;
+
+
+}
+
+
+
+
+
+
+/* =========================================
+   CIUDAD INFERIOR
+========================================= */
+
+
+.ciudad{
+
+
+position:absolute;
+
+bottom:0;
+
+width:100%;
+
+height:25%;
+
+
+background:
+
+linear-gradient(
+90deg,
+#3a210b 10%,
+#512e0c 10%,
+#512e0c 20%,
+#3a210b 20%
+);
+
+
+background-size:120px 100%;
+
+
+z-index:2;
+
+
+opacity:.9;
+
+
+}
+
+
+
+
+
+
+/* =========================================
+   PANTALLA INICIAL
+========================================= */
+
+
+
+.logo-container{
+
+
+z-index:5;
+
+
+animation:entradaLogo 1.5s;
+
+
+}
+
+
+
+
+
+.logo{
+
+
+width:420px;
+
+padding:35px;
+
+
+background:
+
+rgba(45,25,5,.85);
+
+
+border:
+
+3px solid #f9d600;
+
+
+box-shadow:
+
+0 0 35px #f9d600;
+
+
+text-align:center;
+
+
+
+}
+
+
+
+.escuela{
+
+
+letter-spacing:7px;
+
+font-size:18px;
+
+color:#d9a441;
+
+
+}
+
+
+
+.logo h1{
+
+
+font-family:'Bebas Neue';
+
+font-size:80px;
+
+line-height:.8;
+
+letter-spacing:8px;
+
+
+color:white;
+
+
+}
+
+
+
+.logo h1:first-letter{
+
+color:#f9d600;
+
+}
+
+
+
+
+.subtitulo{
+
+
+margin-top:20px;
+
+letter-spacing:6px;
+
+color:#d9a441;
+
+
+}
+
+
+
+
+
+/* =========================================
+   BOTÓN COMENZAR - ESTILO VIDEOJUEGO
+========================================= */
+
+
+.comenzar{
+
+    z-index:10;
+
+    position:absolute;
+
+    bottom:120px;
+
+
+    width:420px;
+
+    padding:18px 25px;
+
+
+    background:rgba(20,15,5,0.85);
+
+
+    color:#f9d600;
+
+
+    font-family:'Bebas Neue', Arial;
+
+
+    font-size:28px;
+
+
+    letter-spacing:6px;
+
+
+    border:3px solid #f9d600;
+
+
+    border-radius:12px;
+
+
+    cursor:pointer;
+
+
+    box-shadow:
+
+    0 0 10px #f9d600,
+
+    0 0 25px #f9d600,
+
+    inset 0 0 15px rgba(249,214,0,.5);
+
+
+
+    animation:
+
+    flotarBoton 3s infinite ease-in-out;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+/* Movimiento constante del botón */
+
+
+@keyframes flotarBoton{
+
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+
+50%{
+
+transform:translateY(-12px);
+
+}
+
+
+}
+
+
+
+
+/* Cuando pasas el mouse */
+
+
+.comenzar:hover{
+
+
+background:#f9d600;
+
+
+color:#251300;
+
+
+box-shadow:
+
+
+0 0 20px #f9d600,
+
+0 0 60px #f9d600,
+
+0 0 100px #f9d600;
+
+
+transform:scale(1.08);
+
+
+}
+
+
+
+/* Cuando lo apretás */
+
+
+.comenzar:active{
+
+
+transform:
+
+scale(.92)
+
+translateY(5px);
+
+
+box-shadow:
+
+
+0 0 80px #ff9100;
+
+
+}
+
+
+
+
+.comenzar span{
+
+
+position:relative;
+
+z-index:2;
+
+
+}
+
+
+
+
+
+@keyframes parpadeo{
+
+
+50%{
+
+opacity:.4;
+
+}
+
+
+}
+
+
+
+
+
+
+@keyframes entradaLogo{
+
+
+from{
+
+opacity:0;
+
+transform:translateY(-80px);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+
+}
+
+
+
+
+
+
+/* =========================================
+   MENU PRINCIPAL
+========================================= */
+
+
+
+.titulo-menu{
+
+
+position:absolute;
+
+top:80px;
+
+z-index:5;
+
+
+background:rgba(40,25,10,.7);
+
+
+border:
+
+2px solid #f9d600;
+
+
+padding:20px 60px;
+
+
+text-align:center;
+
+
+}
+
+
+
+.titulo-menu p{
+
+
+letter-spacing:8px;
+
+font-size:14px;
+
+
+}
+
+
+
+
+.titulo-menu h1{
+
+
+font-family:'Bebas Neue';
+
+font-size:55px;
+
+letter-spacing:5px;
+
+color:#f9d600;
+
+
+}
+
+
+
+
+
+
+
+.botones-menu{
+
+
+z-index:5;
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+
+}
+
+
+
+
+
+.boton{
+
+
+width:390px;
+
+padding:18px;
+
+
+background:
+
+rgba(30,15,10,.75);
+
+
+border:
+
+2px solid #f9d600;
+
+
+text-align:center;
+
+
+color:#f9d600;
+
+
+font-family:'Bebas Neue';
+
+
+font-size:28px;
+
+
+letter-spacing:5px;
+
+
+text-decoration:none;
+
+
+transition:.3s;
+
+
+}
+
+
+
+.boton:hover{
+
+
+background:#f9d600;
+
+color:#221000;
+
+
+transform:scale(1.05);
+
+
+}
+
+
+
+
+
+
+
+/* =========================================
+   INSTRUCCIONES
+========================================= */
+
+
+
+.instrucciones{
+
+
+background:
+
+#2b1705;
+
+
+}
+
+
+
+.marco{
+
+
+width:90%;
+
+height:85%;
+
+
+border:
+
+2px solid #f9d600;
+
+
+background:
+
+rgba(30,15,5,.85);
+
+
+padding:35px;
+
+
+z-index:5;
+
+
+}
+
+
+
+
+.marco h1{
+
+
+font-family:'Bebas Neue';
+
+text-align:center;
+
+font-size:55px;
+
+letter-spacing:8px;
+
+
+color:#f9d600;
+
+
+}
+
+
+
+
+.contenido-instrucciones{
+
+
+display:flex;
+
+justify-content:space-between;
+
+
+margin-top:40px;
+
+
+}
+
+
+
+
+.controles{
+
+
+width:35%;
+
+
+}
+
+
+
+.controles h3,
+.historia h3{
+
+
+color:#d9a441;
+
+letter-spacing:5px;
+
+
+}
+
+
+
+.controles p{
+
+
+margin:20px 0;
+
+font-size:18px;
+
+
+}
+
+
+
+
+.objetivo{
+
+
+width:50%;
+
+
+}
+
+
+
+.item{
+
+
+border:
+
+1px solid #70430d;
+
+
+padding:18px;
+
+
+margin-bottom:15px;
+
+
+background:
+
+rgba(80,45,10,.4);
+
+
+}
+
+
+
+
+
+
+
+.historia{
+
+
+margin-top:40px;
+
+
+border:
+
+1px solid #304b9b;
+
+
+padding:20px;
+
+
+}
+
+
+
+
+
+.historia p{
+
+
+margin-top:15px;
+
+color:#ddd;
+
+
+}
+
+
+
+
+
+
+
+.volver{
+
+
+display:block;
+
+margin:25px auto 0;
+
+
+width:260px;
+
+
+padding:15px;
+
+
+border:
+
+2px solid #f9d600;
+
+
+color:#f9d600;
+
+
+text-decoration:none;
+
+
+text-align:center;
+
+
+font-family:'Bebas Neue';
+
+
+font-size:25px;
+
+
+}
+
+
+
+
+
+.volver:hover{
+
+
+background:#f9d600;
+
+color:black;
+
+
+}
+
+
+
+
+
+/* Pantallas extra */
+
+.extra{
+
+
+background:#14285c;
+
+flex-direction:column;
+
+
+}
+
+
+
+
+
+.extra h1{
+
+
+font-size:70px;
+
+color:#f9d600;
+
+
+}
+
+/* =====================================
+   PARTICULAS TRIANGULARES
+===================================== */
+
+.particulas{
+
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+
+z-index:2;
+
+}
+
+
+
+.particulas span{
+
+position:absolute;
+
+width:0;
+height:0;
+
+
+border-left:8px solid transparent;
+border-right:8px solid transparent;
+border-bottom:15px solid #f9d600;
+
+
+opacity:.5;
+
+
+animation:
+
+flotarParticula 6s infinite linear;
+
+
+}
+
+
+
+/* posiciones */
+
+.particulas span:nth-child(1){
+
+left:10%;
+animation-delay:0s;
+
+}
+
+
+.particulas span:nth-child(2){
+
+left:25%;
+animation-delay:3s;
+
+}
+
+
+.particulas span:nth-child(3){
+
+left:40%;
+animation-delay:6s;
+
+}
+
+
+.particulas span:nth-child(4){
+
+left:60%;
+animation-delay:2s;
+
+}
+
+
+.particulas span:nth-child(5){
+
+left:75%;
+animation-delay:5s;
+
+}
+
+
+.particulas span:nth-child(6){
+
+left:90%;
+animation-delay:1s;
+
+}
+
+
+.particulas span:nth-child(7){
+
+left:50%;
+animation-delay:8s;
+
+}
+
+
+
+@keyframes flotarParticula{
+
+
+0%{
+
+transform:
+translateY(100vh)
+rotate(0deg);
+
+
+opacity:0;
+
+
+}
+
+
+
+20%{
+
+opacity:.8;
+
+}
+
+
+
+100%{
+
+
+transform:
+translateY(-20vh)
+rotate(360deg);
+
+
+opacity:0;
+
+
+}
+
+
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   Adaptación para diferentes dispositivos
+========================================= */
+
+
+
+/* Tablets y pantallas medianas */
+
+@media (max-width: 1024px){
+
+
+.logo{
+
+    width:70%;
+    padding:30px;
+
+}
+
+
+.logo h1{
+
+    font-size:clamp(45px,8vw,70px);
+
+}
+
+
+
+.comenzar{
+
+    width:70%;
+    font-size:24px;
+
+}
+
+
+
+.titulo-menu{
+
+    width:80%;
+    padding:20px;
+
+}
+
+
+
+.titulo-menu h1{
+
+    font-size:45px;
+
+}
+
+
+
+.boton{
+
+    width:70vw;
+    max-width:390px;
+
+}
+
+
+
+.marco{
+
+    width:90%;
+    height:auto;
+
+}
+
+
+
+.contenido-instrucciones{
+
+    gap:20px;
+
+}
+
+
+
+}
+
+
+
+
+/* =========================================
+   CELULARES
+========================================= */
+
+
+@media (max-width:768px){
+
+
+
+.pantalla{
+
+    min-height:100vh;
+
+}
+
+
+
+
+/* LOGO INICIO */
+
+
+.logo{
+
+    width:90%;
+
+    padding:20px;
+
+}
+
+
+
+.escuela{
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+}
+
+
+
+.logo h1{
+
+    font-size:50px;
+
+    letter-spacing:5px;
+
+}
+
+
+
+.subtitulo{
+
+    font-size:14px;
+
+    letter-spacing:3px;
+
+}
+
+
+
+
+/* BOTON COMENZAR */
+
+
+.comenzar{
+
+    width:85%;
+
+    bottom:80px;
+
+    font-size:20px;
+
+    letter-spacing:3px;
+
+
+}
+
+
+
+
+/* MENU */
+
+
+.titulo-menu{
+
+    top:50px;
+
+    width:90%;
+
+}
+
+
+
+.titulo-menu p{
+
+    font-size:12px;
+
+}
+
+
+
+.titulo-menu h1{
+
+    font-size:38px;
+
+}
+
+
+
+
+.botones-menu{
+
+    width:100%;
+
+    align-items:center;
+
+}
+
+
+
+.boton{
+
+    width:85%;
+
+    font-size:22px;
+
+    padding:15px;
+
+}
+
+
+
+
+/* INSTRUCCIONES */
+
+
+.marco{
+
+    width:95%;
+
+    padding:20px;
+
+    overflow-y:auto;
+
+    max-height:90vh;
+
+
+}
+
+
+
+.marco h1{
+
+    font-size:40px;
+
+}
+
+
+
+.contenido-instrucciones{
+
+    flex-direction:column;
+
+}
+
+
+
+.controles,
+.objetivo{
+
+    width:100%;
+
+}
+
+
+
+.item{
+
+    font-size:14px;
+
+}
+
+
+
+.historia p{
+
+    font-size:14px;
+
+}
+
+
+
+.volver{
+
+    width:80%;
+
+}
+
+
+
+}
+
+
+
+/* =========================================
+   CELULARES MUY PEQUEÑOS
+========================================= */
+
+
+@media (max-width:400px){
+
+
+
+.logo h1{
+
+    font-size:40px;
+
+}
+
+
+
+.comenzar{
+
+    font-size:17px;
+
+}
+
+
+
+.boton{
+
+    font-size:18px;
+
+}
+
+
+
+.titulo-menu h1{
+
+    font-size:32px;
+
+}
+
+
+
+}
