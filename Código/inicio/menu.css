@@ -61,10 +61,39 @@ align-items:center;
 
 overflow:hidden;
 
+transition:
+    opacity .5s ease,
+    transform .5s ease;
+
+}
+
+.pantalla:target{
+
+    animation:entradaPantalla .5s;
 
 }
 
 
+@keyframes entradaPantalla{
+
+from{
+
+    opacity:0;
+
+    transform:translateX(80px);
+
+}
+
+
+to{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+}
+
+}
 
 
 /* =========================================
@@ -247,16 +276,14 @@ opacity:.9;
 
 
 .logo-container{
-
-
-z-index:5;
-
-
-animation:entradaLogo 1.5s;
-
-
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:60px;
+    animation:entradaLogo 1.5s;
 }
-
 
 
 
@@ -359,60 +386,35 @@ color:#d9a441;
 
     z-index:10;
 
-    position:absolute;
-
-    bottom:120px;
-
+    position:relative;
 
     width:420px;
 
     padding:18px 25px;
 
-
-    background:rgba(20,15,5,0.85);
-
+    background:rgba(20,15,5,.85);
 
     color:#f9d600;
 
-
     font-family:'Bebas Neue', Arial;
-
 
     font-size:28px;
 
-
     letter-spacing:6px;
-
 
     border:3px solid #f9d600;
 
-
     border-radius:12px;
-
 
     cursor:pointer;
 
-
     box-shadow:
-
     0 0 10px #f9d600,
+    0 0 25px #f9d600;
 
-    0 0 25px #f9d600,
-
-    inset 0 0 15px rgba(249,214,0,.5);
-
-
-
-    animation:
-
-    flotarBoton 3s infinite ease-in-out;
-
-
-    transition:.3s;
-
+    animation:flotarBoton 3s infinite ease-in-out;
 
 }
-
 
 
 /* Movimiento constante del botón */
@@ -620,80 +622,89 @@ color:#f9d600;
 
 
 .botones-menu{
-
-
-z-index:5;
-
-display:flex;
-
-flex-direction:column;
-
-gap:15px;
-
-
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    transform:translateY(40px);
 }
-
-
 
 
 
 .boton{
 
+position:relative;
+overflow:hidden;
 
-width:390px;
+display:block;
 
+width:400px;
 padding:18px;
 
+background:rgba(30,15,10,.8);
 
-background:
-
-rgba(30,15,10,.75);
-
-
-border:
-
-2px solid #f9d600;
-
-
-text-align:center;
-
+border:2px solid #f9d600;
 
 color:#f9d600;
 
+font-family:'Bebas Neue', sans-serif;
 
-font-family:'Bebas Neue';
-
-
-font-size:28px;
-
+font-size:30px;
 
 letter-spacing:5px;
 
+text-align:center;
 
 text-decoration:none;
 
+cursor:pointer;
 
 transition:.3s;
 
+z-index:1;
 
 }
 
+
+.boton::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-100%;
+
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.4),
+transparent
+);
+
+transition:.5s;
+
+z-index:-1;
+
+}
 
 
 .boton:hover{
 
+transform:
+scale(1.08)
+translateY(-5px);
 
-background:#f9d600;
 
-color:#221000;
-
-
-transform:scale(1.05);
+box-shadow:
+0 0 20px #f9d600;
 
 
 }
-
-
 
 
 
@@ -1141,14 +1152,6 @@ opacity:0;
 
 
 
-.comenzar{
-
-    width:70%;
-    font-size:24px;
-
-}
-
-
 
 .titulo-menu{
 
@@ -1263,18 +1266,6 @@ opacity:0;
 /* BOTON COMENZAR */
 
 
-.comenzar{
-
-    width:85%;
-
-    bottom:80px;
-
-    font-size:20px;
-
-    letter-spacing:3px;
-
-
-}
 
 
 
@@ -1445,3 +1436,89 @@ opacity:0;
 
 
 }
+
+/* =========================================
+   PC / PANTALLAS GRANDES
+========================================= */
+
+@media(min-width:1200px){
+
+.logo{
+    width:460px;
+    padding:35px;
+}
+
+.logo h1{
+    font-size:85px;
+}
+
+
+
+
+.titulo-menu{
+    top:40px;
+    padding:20px 60px;
+}
+
+
+.titulo-menu h1{
+    font-size:55px;
+}
+
+
+.botones-menu{
+    margin-top:120px;
+    gap:18px;
+}
+
+
+.boton{
+    width:380px;
+    padding:18px;
+    font-size:28px;
+}
+
+
+.marco{
+    width:80%;
+    height:82%;
+}
+
+
+.marco h1{
+    font-size:60px;
+}
+
+
+.item{
+    font-size:17px;
+}
+
+
+
+.marco{
+
+    width:75%;
+
+    height:80%;
+
+}
+
+
+
+.marco h1{
+
+    font-size:70px;
+
+}
+
+
+.item{
+
+    font-size:20px;
+
+}
+
+
+}
+
