@@ -1,0 +1,1476 @@
+
+/* =========================================================
+   ESCAPE DE BUENOS AIRES
+   NIVEL 2 - PARTE 1
+   LA LLANURA PAMPEANA
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+body {
+    background: #111;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --hud-altura: 88px;
+
+    --controles-altura: 90px;
+
+    --piso: 90px;
+
+    --rojo: #ff2020;
+
+    --rojo-neon: #ff0000;
+
+    --agua: #20bfff;
+
+}
+
+
+/* =========================================================
+   NIVEL
+========================================================= */
+
+.nivel {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/* =========================================================
+   HUD
+========================================================= */
+
+.hud {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: var(--hud-altura);
+
+    z-index: 1000;
+
+    display: grid;
+
+    grid-template-columns:
+        220px
+        1fr
+        300px;
+
+    align-items: center;
+
+    padding: 10px 20px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(10, 10, 10, 0.96),
+            rgba(10, 10, 10, 0.80)
+        );
+
+    border-bottom:
+        2px solid rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   VIDAS
+========================================================= */
+
+.hud-bloque {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.hud-label {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    opacity: 0.8;
+}
+
+
+.vidas {
+
+    display: flex;
+
+    gap: 7px;
+
+    font-size: 25px;
+}
+
+
+.corazon {
+
+    display: inline-block;
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.corazon.perdido {
+
+    filter: grayscale(1);
+
+    opacity: 0.18;
+
+    transform: scale(0.85);
+}
+
+
+/* =========================================================
+   CENTRO HUD
+========================================================= */
+
+.hud-centro {
+
+    text-align: center;
+}
+
+
+.titulo-juego {
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 2px 5px #000;
+}
+
+
+.subtitulo-juego {
+
+    margin-top: 4px;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #ddd;
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
+
+.hud-estadisticas {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 20px;
+}
+
+
+.hud-stat {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.stat-icono {
+
+    font-size: 22px;
+}
+
+
+.hud-stat small {
+
+    display: block;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    opacity: 0.65;
+}
+
+
+.hud-stat strong {
+
+    display: block;
+
+    font-size: 16px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   ESCENARIO
+========================================================= */
+
+.escenario {
+
+    position: absolute;
+
+    top: var(--hud-altura);
+
+    left: 0;
+
+    width: 100%;
+
+    height:
+        calc(
+            100vh
+            - var(--hud-altura)
+            - var(--controles-altura)
+        );
+
+    overflow: hidden;
+
+    background: #c9a66b;
+}
+
+
+/* =========================================================
+   MUNDO
+========================================================= */
+
+.mundo {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 8000px;
+
+    height: 100%;
+
+    /*
+       Fondo grande para que la unión
+       entre repeticiones sea menos visible.
+    */
+
+    background-image:
+        url("../img/fondo1.png");
+
+    background-repeat: repeat-x;
+
+    background-position:
+        center bottom;
+
+    background-size:
+        2200px 100%;
+
+    background-color:
+        #c9a66b;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   PISO
+========================================================= */
+
+.suelo {
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 8000px;
+
+    height: var(--piso);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #8b5a2b 0%,
+            #75461f 55%,
+            #583214 100%
+        );
+
+    border-top:
+        4px solid #c18a4b;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   SARMIENTO
+========================================================= */
+
+#sarmiento {
+
+    position: absolute;
+
+    width: 175px;
+
+    height: 175px;
+
+    bottom: var(--piso);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+}
+
+
+#sarmiento img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 5px 2px rgba(0, 0, 0, 0.35)
+        );
+}
+
+
+/* =========================================================
+   FEDERALES
+========================================================= */
+
+.enemigo {
+
+    position: absolute;
+
+    width: 170px;
+
+    height: 170px;
+
+    bottom: var(--piso);
+
+    z-index: 25;
+
+    pointer-events: none;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+}
+
+
+.enemigo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 5px 2px rgba(0, 0, 0, 0.4)
+        );
+}
+
+
+/* =========================================================
+   AGUA
+========================================================= */
+
+.agua {
+
+    position: absolute;
+
+    width: 125px;
+
+    height: 125px;
+
+    bottom: 68px;
+
+    z-index: 18;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    animation:
+        aguaFlotando 1.3s ease-in-out infinite;
+}
+
+
+.agua img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(0, 190, 255, 0.7)
+        );
+}
+
+
+.brillo-agua {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 3px;
+
+    width: 65px;
+
+    height: 12px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(80, 220, 255, 0.55);
+
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+
+@keyframes aguaFlotando {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+
+/* =========================================================
+   OBSTÁCULOS
+========================================================= */
+
+.obstaculo {
+
+    position: absolute;
+
+    width: 175px;
+
+    height: 175px;
+
+    bottom: 65px;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+
+.obstaculo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 6px 3px rgba(0, 0, 0, 0.4)
+        );
+}
+
+
+/* =========================================================
+   ADVERTENCIA ROJA NEÓN
+========================================================= */
+
+.obstaculo::before {
+
+    content: "⚠";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: -48px;
+
+    transform:
+        translateX(-50%);
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    color: #ff2020;
+
+    text-shadow:
+        0 0 4px #ff0000,
+        0 0 8px #ff0000,
+        0 0 15px #ff0000,
+        0 0 28px #ff0000;
+
+    z-index: 50;
+
+    animation:
+        alertaObstaculo 0.7s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+.obstaculo::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 1px;
+
+    width: 125%;
+
+    height: 7px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 5px;
+
+    background: #ff2020;
+
+    box-shadow:
+        0 0 5px #ff0000,
+        0 0 12px #ff0000,
+        0 0 25px #ff0000;
+
+    z-index: 40;
+
+    animation:
+        brilloObstaculo 0.7s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+@keyframes alertaObstaculo {
+
+    from {
+
+        opacity: 0.45;
+
+        transform:
+            translateX(-50%)
+            scale(0.88);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            scale(1.12);
+    }
+}
+
+
+@keyframes brilloObstaculo {
+
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   POSICIONES DE OBSTÁCULOS
+========================================================= */
+
+#obstaculo1 {
+    left: 850px;
+}
+
+#obstaculo2 {
+    left: 1750px;
+}
+
+#obstaculo3 {
+    left: 2500px;
+}
+
+#obstaculo4 {
+    left: 3200px;
+}
+
+#obstaculo5 {
+    left: 4750px;
+}
+
+#obstaculo6 {
+    left: 5450px;
+}
+
+#obstaculo7 {
+    left: 6100px;
+}
+
+#obstaculo8 {
+    left: 7100px;
+}
+
+
+/* =========================================================
+   POSICIONES AGUA
+========================================================= */
+
+#agua1 {
+    left: 1350px;
+}
+
+#agua2 {
+    left: 4100px;
+}
+
+#agua3 {
+    left: 6600px;
+}
+
+
+/* =========================================================
+   PULPERÍA
+========================================================= */
+
+.negocio {
+
+    position: absolute;
+
+    left: 7500px;
+
+    bottom: var(--piso);
+
+    width: 300px;
+
+    height: 300px;
+
+    z-index: 22;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+}
+
+
+.negocio img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 8px 5px rgba(0, 0, 0, 0.45)
+        );
+}
+
+
+.indicador-negocio {
+
+    position: absolute;
+
+    top: -35px;
+
+    font-size: 30px;
+
+    animation:
+        indicadorPulperia 1s
+        infinite
+        alternate;
+}
+
+
+@keyframes indicadorPulperia {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-8px);
+    }
+}
+
+
+.texto-negocio {
+
+    position: absolute;
+
+    top: 5px;
+
+    padding: 5px 12px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(0, 0, 0, 0.75);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   ZONA DE ENTRADA
+========================================================= */
+
+.zona-entrada {
+
+    position: absolute;
+
+    left: 7450px;
+
+    bottom: var(--piso);
+
+    width: 350px;
+
+    height: 180px;
+
+    z-index: 15;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HIDRATACIÓN HUD
+========================================================= */
+
+.hidratacion-hud {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 100px;
+
+    transform: translateX(-50%);
+
+    width: min(700px, 70vw);
+
+    z-index: 1100;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(0, 0, 0, 0.65);
+
+    border:
+        2px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.4);
+
+    color: white;
+}
+
+
+.hidratacion-titulo {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 5px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+.hidratacion-icono {
+
+    font-size: 17px;
+}
+
+
+.hidratacion-titulo strong {
+
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   BARRA
+========================================================= */
+
+.barra-hidratacion {
+
+    width: 100%;
+
+    height: 18px;
+
+    padding: 2px;
+
+    border-radius: 5px;
+
+    background:
+        #111;
+
+    border:
+        2px solid rgba(255, 255, 255, 0.35);
+
+    overflow: hidden;
+}
+
+
+.barra-hidratacion-progreso {
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #59ddff,
+            #008ed0
+        );
+
+    box-shadow:
+        0 0 8px rgba(0, 180, 255, 0.8);
+
+    transition:
+        width 0.2s ease,
+        background 0.3s ease;
+}
+
+
+.barra-hidratacion.hidratacion-baja
+.barra-hidratacion-progreso {
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ffd83d,
+            #d99b00
+        );
+
+    box-shadow:
+        0 0 8px rgba(255, 200, 0, 0.8);
+}
+
+
+.barra-hidratacion.hidratacion-critica
+.barra-hidratacion-progreso {
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ff5555,
+            #c00000
+        );
+
+    box-shadow:
+        0 0 10px #ff0000;
+
+    animation:
+        barraCritica 0.6s
+        infinite
+        alternate;
+}
+
+
+@keyframes barraCritica {
+
+    from {
+        filter: brightness(0.85);
+    }
+
+    to {
+        filter: brightness(1.35);
+    }
+}
+
+
+/* =========================================================
+   MENSAJE AGUA
+========================================================= */
+
+.mensaje-agua {
+
+    position: fixed;
+
+    left: 50%;
+
+    top: 125px;
+
+    transform:
+        translateX(-50%)
+        translateY(-15px);
+
+    padding: 10px 20px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(0, 80, 120, 0.88);
+
+    border:
+        2px solid #20cfff;
+
+    color: white;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 1200;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.mensaje-agua.visible {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+/* =========================================================
+   TRANSICIÓN
+========================================================= */
+
+.transicion-pulperia {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(0, 0, 0, 0.94);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.6s ease;
+}
+
+
+.transicion-pulperia.visible {
+
+    opacity: 1;
+
+    pointer-events: all;
+}
+
+
+.transicion-contenido {
+
+    width: min(600px, 90vw);
+
+    text-align: center;
+
+    color: white;
+}
+
+
+.transicion-icono {
+
+    font-size: 65px;
+
+    margin-bottom: 10px;
+}
+
+
+.transicion-etiqueta {
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+}
+
+
+.transicion-contenido h1 {
+
+    margin: 12px 0;
+
+    font-size: 42px;
+
+    letter-spacing: 4px;
+}
+
+
+.transicion-contenido p {
+
+    color: #ccc;
+
+    line-height: 1.6;
+}
+
+
+.transicion-linea {
+
+    width: 180px;
+
+    height: 2px;
+
+    margin: 25px auto;
+
+    background: white;
+}
+
+
+.transicion-contenido span {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: #aaa;
+}
+
+
+/* =========================================================
+   GAME OVER
+========================================================= */
+
+.pantalla-gameover {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(0, 0, 0, 0.94);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.4s ease;
+}
+
+
+.pantalla-gameover.visible {
+
+    opacity: 1;
+
+    pointer-events: all;
+}
+
+
+.gameover-contenido {
+
+    width: min(550px, 90vw);
+
+    text-align: center;
+
+    color: white;
+}
+
+
+.gameover-icono {
+
+    font-size: 60px;
+
+    margin-bottom: 10px;
+}
+
+
+.gameover-contenido h1 {
+
+    font-size: 36px;
+
+    margin-bottom: 15px;
+}
+
+
+.gameover-contenido p {
+
+    color: #ddd;
+
+    line-height: 1.5;
+}
+
+
+.gameover-secundario {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    color: #999 !important;
+}
+
+
+.gameover-contenido button {
+
+    margin-top: 25px;
+
+    padding: 13px 25px;
+
+    border: 0;
+
+    border-radius: 6px;
+
+    background: #b51d1d;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 15px rgba(255, 0, 0, 0.35);
+}
+
+
+.gameover-contenido button:hover {
+
+    background: #d52b2b;
+}
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+.controles {
+
+    position: fixed;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+
+    height: var(--controles-altura);
+
+    z-index: 1500;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.8),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+.controles button {
+
+    width: 62px;
+
+    height: 62px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid rgba(255, 255, 255, 0.3);
+
+    background:
+        rgba(20, 20, 20, 0.75);
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    touch-action: none;
+
+    user-select: none;
+
+    -webkit-user-select: none;
+
+    transition:
+        transform 0.1s ease,
+        background 0.1s ease;
+}
+
+
+.controles button:active {
+
+    transform: scale(0.9);
+
+    background:
+        rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .hud {
+
+        grid-template-columns:
+            150px
+            1fr;
+
+        padding:
+            8px 10px;
+    }
+
+
+    .hud-centro {
+
+        text-align: right;
+    }
+
+
+    .titulo-juego {
+
+        font-size: 15px;
+    }
+
+
+    .subtitulo-juego {
+
+        font-size: 9px;
+    }
+
+
+    .hud-estadisticas {
+
+        display: none;
+    }
+
+
+    .hidratacion-hud {
+
+        width: 80vw;
+
+        bottom: 95px;
+    }
+
+
+    .controles button {
+
+        width: 55px;
+
+        height: 55px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .hud-bloque {
+
+        transform: scale(0.85);
+
+        transform-origin: left center;
+    }
+
+
+    .titulo-juego {
+
+        font-size: 12px;
+    }
+
+
+    .subtitulo-juego {
+
+        font-size: 8px;
+    }
+
+
+    #sarmiento {
+
+        width: 150px;
+
+        height: 150px;
+    }
+
+
+    .enemigo {
+
+        width: 150px;
+
+        height: 150px;
+    }
+
+
+    .obstaculo {
+
+        width: 150px;
+
+        height: 150px;
+    }
+
+
+    .agua {
+
+        width: 105px;
+
+        height: 105px;
+    }
+
+}
