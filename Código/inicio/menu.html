@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,143 +21,106 @@
      PANTALLA DE INICIO
 ====================================== -->
 
-
 <section id="inicio" class="pantalla inicio">
 
+    <div class="estrellas"></div>
 
-<div class="estrellas"></div>
+    <div class="particulas">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
 
-<div class="particulas">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-</div>
+    <div class="logo-container">
+
+        <div class="logo">
+
+            <p class="escuela">
+                ESCUELA TÉCNICA N°20
+            </p>
+
+            <h1>
+                ESCAPE
+                <br>
+                A CHILE
+            </h1>
+
+            <p class="subtitulo">
+                UN JUEGO EDUCATIVO
+            </p>
+
+        </div>
+
+        <button class="comenzar" onclick="entrarMenu()">
+            ▶ PRESIONÁ PARA COMENZAR
+        </button>
+
+    </div>
+
+    <div class="montanas"></div>
+    <div class="ciudad"></div>
+
+</section>
 
 
-<div class="logo-container">
 
-    <div class="logo">
+<!-- ======================================
+     MENÚ PRINCIPAL
+====================================== -->
 
-        <p class="escuela">
-        ESCUELA TÉCNICA N°20
-        </p>
+<section id="menu" class="pantalla menu-pantalla">
+
+    <div class="estrellas"></div>
+
+    <div class="particulas">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="titulo-menu">
 
         <h1>
-        ESCAPE
-        <br>
-        A CHILE
+            ESCAPE A CHILE
         </h1>
 
-        <p class="subtitulo">
-        UN JUEGO EDUCATIVO
+        <p>
+            LA HUIDA DE SARMIENTO
         </p>
 
     </div>
 
 
-    <button class="comenzar" onclick="entrarMenu()">
-        ▶ PRESIONÁ PARA COMENZAR
-    </button>
+    <div class="botones-menu">
 
+        <a href="../nivel1/nivel1.html" class="boton">
+            ▶ JUGAR
+        </a>
 
-</div>
+        <a href="#instrucciones" class="boton">
+            📜 INSTRUCCIONES
+        </a>
 
+        <a href="#configuracion" class="boton">
+            ⚙ CONFIGURACIÓN
+        </a>
 
-<div class="montanas"></div>
+        <a href="#creditos" class="boton">
+            ★ CRÉDITOS
+        </a>
 
-<div class="ciudad"></div>
+    </div>
 
-
-</section>
-
-
-
-
-
-<!-- ======================================
-     MENU PRINCIPAL
-====================================== -->
-
-
-<section id="menu" class="pantalla menu-pantalla">
-
-
-<div class="estrellas"></div>
-
-<div class="particulas">
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span>
-</div>
-
-<div class="titulo-menu">
-
-
-<p>
-
-</p>
-
-
-<h1>
-ESCAPE A CHILE
-</h1>
-
-
-</div>
-
-
-
-
-<div class="botones-menu">
-
-
-<a href="../nivel1/nivel1.html" class="boton">
-    ▶ JUGAR
-</a>
-
-<a href="#instrucciones" class="boton">
-
-📜 INSTRUCCIONES
-
-</a>
-
-
-<a href="#opciones" class="boton">
-
-⚙ OPCIONES
-
-</a>
-
-
-<a href="#creditos" class="boton">
-
-★ CRÉDITOS
-
-</a>
-
-
-
-</div>
-
-
-
-<div class="montanas"></div>
-
-<div class="ciudad"></div>
-
-
+    <div class="montanas"></div>
+    <div class="ciudad"></div>
 
 </section>
-
-
-
-
 
 
 
@@ -164,220 +128,464 @@ ESCAPE A CHILE
      INSTRUCCIONES
 ====================================== -->
 
-
 <section id="instrucciones" class="pantalla instrucciones">
 
+    <div class="marco-instrucciones">
 
-<div class="marco">
+        <div class="titulo-instrucciones">
 
+            <span class="decoracion">◆</span>
 
-<h1>
-INSTRUCCIONES
-</h1>
+            <h1>
+                INSTRUCCIONES
+            </h1>
 
+            <span class="decoracion">◆</span>
 
+        </div>
 
-<div class="contenido-instrucciones">
 
+        <div class="instrucciones-grid">
 
 
-<div class="controles">
+            <!-- CONTROLES -->
 
+            <div class="bloque-instrucciones">
 
-<h3>
-CONTROLES
-</h3>
+                <h2>🎮 CONTROLES</h2>
 
+                <div class="control">
+                    <span class="tecla">⬅</span>
+                    <span>Moverse hacia la izquierda</span>
+                </div>
 
-<p>
-⬅ ➡ &nbsp; Moverse izquierda / derecha
-</p>
+                <div class="control">
+                    <span class="tecla">➡</span>
+                    <span>Moverse hacia la derecha</span>
+                </div>
 
+                <div class="control">
+                    <span class="tecla">⬆</span>
+                    <span>Saltar</span>
+                </div>
 
-<p>
-⬆ / A &nbsp; Saltar
-</p>
+                <div class="control">
+                    <span class="tecla">A</span>
+                    <span>Saltar</span>
+                </div>
 
+                <div class="control">
+                    <span class="tecla">B</span>
+                    <span>Atacar / Acción</span>
+                </div>
 
-<p>
-B &nbsp; Atacar / Acción
-</p>
+                <div class="control">
+                    <span class="tecla">START</span>
+                    <span>Pausar el juego</span>
+                </div>
 
+            </div>
 
-<p>
-START &nbsp; Pausa
-</p>
 
 
+            <!-- OBJETIVO -->
 
-</div>
+            <div class="bloque-instrucciones">
 
+                <h2>🎯 OBJETIVO</h2>
 
+                <div class="objetivo-item">
+                    <span>📜</span>
+                    <p>
+                        Recolectá los documentos históricos
+                        necesarios para completar el nivel.
+                    </p>
+                </div>
 
+                <div class="objetivo-item">
+                    <span>❤️</span>
+                    <p>
+                        Tenés 3 vidas. Si las perdés,
+                        la partida termina.
+                    </p>
+                </div>
 
+                <div class="objetivo-item">
+                    <span>🏃</span>
+                    <p>
+                        Evitá a los soldados federales
+                        que intentarán detenerte.
+                    </p>
+                </div>
 
+                <div class="objetivo-item">
+                    <span>❓</span>
+                    <p>
+                        Respondé correctamente las preguntas
+                        históricas.
+                    </p>
+                </div>
 
-<div class="objetivo">
+                <div class="objetivo-item">
+                    <span>⛰</span>
+                    <p>
+                        Atravesá Buenos Aires, la Pampa
+                        y los Andes para llegar a Chile.
+                    </p>
+                </div>
 
+            </div>
 
-<div class="item">
 
-📜
-Recolectá documentos históricos para completar el nivel.
 
-</div>
+            <!-- HISTORIA -->
 
+            <div class="bloque-instrucciones historia">
 
+                <h2>📖 HISTORIA</h2>
 
-<div class="item">
+                <p>
+                    Buenos Aires, 1840.
+                </p>
 
-❤️
-Tenés 3 vidas. Si respondés mal perdés una vida.
+                <p>
+                    Domingo Faustino Sarmiento, escritor y
+                    educador, debe escapar hacia Chile.
+                </p>
 
-</div>
+                <p>
+                    Para conseguirlo deberá atravesar la
+                    inmensa Pampa, evitar a los soldados
+                    federales y cruzar los Andes.
+                </p>
 
+                <p class="frase-historia">
+                    ¿Podrás ayudar a Sarmiento a llegar
+                    sano y salvo a Chile?
+                </p>
 
+            </div>
 
 
-<div class="item">
 
-🏃
-Evitá a los soldados federales que te persiguen.
+            <!-- CONSEJOS -->
 
-</div>
+            <div class="bloque-instrucciones consejos">
 
+                <h2>💡 CONSEJOS</h2>
 
+                <p>
+                    Explorá el escenario y prestá atención
+                    a los obstáculos.
+                </p>
 
+                <p>
+                    No te acerques demasiado a los enemigos.
+                </p>
 
-<div class="item">
+                <p>
+                    Recolectá todos los documentos.
+                </p>
 
-❓
-Respondé preguntas históricas al final de cada nivel.
+                <p>
+                    ¡Cuidado con perder todas tus vidas!
+                </p>
 
-</div>
+            </div>
 
+        </div>
 
 
-<div class="item">
+        <a href="#menu" class="volver">
+            ◀ VOLVER AL MENÚ
+        </a>
 
-⛰
-Atravesá Buenos Aires, la Pampa y los Andes para llegar a Chile.
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="historia">
-
-
-<h3>
-HISTORIA
-</h3>
-
-
-<p>
-
-Buenos Aires, 1840. Domingo Faustino Sarmiento,
-escritor y educador, debe escapar hacia Chile
-atravesando la inmensa Pampa y cruzando los Andes.
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-<a href="#menu" class="volver">
-
-◀ VOLVER AL MENÚ
-
-</a>
-
-
-
-
-</div>
-
+    </div>
 
 </section>
 
 
 
+<!-- ======================================
+     CONFIGURACIÓN
+====================================== -->
 
-<section id="opciones" class="pantalla extra">
+<section id="configuracion" class="pantalla configuracion">
+
+    <div class="marco-configuracion">
+
+        <div class="titulo-configuracion">
+
+            <span>⚙</span>
+
+            <h1>
+                CONFIGURACIÓN
+            </h1>
+
+            <span>⚙</span>
+
+        </div>
 
 
-<h1>
-OPCIONES
-
-</h1>
+        <div class="configuraciones">
 
 
-<a href="#menu" class="volver">
+            <!-- RESOLUCIÓN -->
 
-VOLVER
+            <div class="configuracion-item">
 
-</a>
+                <div class="configuracion-info">
 
+                    <span class="config-icon">🖥️</span>
+
+                    <div>
+                        <h2>RESOLUCIÓN</h2>
+                        <p>Ajustá el tamaño de la interfaz.</p>
+                    </div>
+
+                </div>
+
+                <select id="resolucion" onchange="cambiarResolucion()">
+
+                    <option value="100">100%</option>
+                    <option value="90">90%</option>
+                    <option value="80">80%</option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- VOLUMEN GENERAL -->
+
+            <div class="configuracion-item">
+
+                <div class="configuracion-info">
+
+                    <span class="config-icon">🔊</span>
+
+                    <div>
+                        <h2>VOLUMEN GENERAL</h2>
+                        <p>Controlá el volumen general del juego.</p>
+                    </div>
+
+                </div>
+
+                <div class="control-volumen">
+
+                    <span>🔈</span>
+
+                    <input
+                        type="range"
+                        id="volumenGeneral"
+                        min="0"
+                        max="100"
+                        value="100"
+                        oninput="actualizarVolumen()"
+                    >
+
+                    <span id="valorVolumen">100%</span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MÚSICA -->
+
+            <div class="configuracion-item">
+
+                <div class="configuracion-info">
+
+                    <span class="config-icon">🎵</span>
+
+                    <div>
+                        <h2>MÚSICA</h2>
+                        <p>Activá o desactivá la música del juego.</p>
+                    </div>
+
+                </div>
+
+                <button
+                    id="botonMusica"
+                    class="boton-config"
+                    onclick="alternarMusica()">
+                    ACTIVADA
+                </button>
+
+            </div>
+
+
+
+            <!-- SONIDOS -->
+
+            <div class="configuracion-item">
+
+                <div class="configuracion-info">
+
+                    <span class="config-icon">🔔</span>
+
+                    <div>
+                        <h2>EFECTOS DE SONIDO</h2>
+                        <p>Activá o desactivá los sonidos.</p>
+                    </div>
+
+                </div>
+
+                <button
+                    id="botonSonido"
+                    class="boton-config"
+                    onclick="alternarSonido()">
+                    ACTIVADOS
+                </button>
+
+            </div>
+
+
+
+            <!-- PANTALLA COMPLETA -->
+
+            <div class="configuracion-item">
+
+                <div class="configuracion-info">
+
+                    <span class="config-icon">⛶</span>
+
+                    <div>
+                        <h2>PANTALLA COMPLETA</h2>
+                        <p>Utilizá el juego en pantalla completa.</p>
+                    </div>
+
+                </div>
+
+                <button
+                    class="boton-config"
+                    onclick="pantallaCompleta()">
+                    ACTIVAR
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- RESTABLECER -->
+
+        <button
+            class="boton-restablecer"
+            onclick="restablecerConfiguracion()">
+
+            ↻ RESTABLECER CONFIGURACIÓN
+
+        </button>
+
+
+        <a href="#menu" class="volver">
+            ◀ VOLVER AL MENÚ
+        </a>
+
+    </div>
 
 </section>
 
 
 
+<!-- ======================================
+     CRÉDITOS
+====================================== -->
 
-<section id="creditos" class="pantalla extra">
+<section id="creditos" class="pantalla creditos">
+
+    <div class="marco-creditos">
+
+        <div class="titulo-creditos">
+
+            <span>★</span>
+
+            <h1>
+                CRÉDITOS
+            </h1>
+
+            <span>★</span>
+
+        </div>
 
 
-<h1>
-CRÉDITOS
+        <div class="creditos-contenido">
 
-</h1>
+            <div class="escuela-creditos">
+
+                <p class="institucion">
+                    ESCUELA TÉCNICA N°20 DE 20
+                </p>
+
+                <div class="linea"></div>
+
+                <p class="proyecto">
+                    PROYECTO DE VIDEOJUEGO EDUCATIVO
+                </p>
+
+            </div>
 
 
-<a href="#menu" class="volver">
+            <div class="curso">
 
-VOLVER
+                <span>🎓</span>
 
-</a>
+                <div>
+                    <h2>CURSO</h2>
+                    <p>5° 4°</p>
+                </div>
 
+            </div>
+
+
+            <div class="alumnos">
+
+                <h2>👥 ALUMNOS</h2>
+
+                <div class="alumno">
+                    <span>◆</span>
+                    <p>Cielo Iela</p>
+                </div>
+
+                <div class="alumno">
+                    <span>◆</span>
+                    <p>Benjamin Arce</p>
+                </div>
+
+                <div class="alumno">
+                    <span>◆</span>
+                    <p>Adriel Rivas</p>
+                </div>
+
+            </div>
+
+
+            <p class="frase-creditos">
+                ESCAPE A CHILE
+            </p>
+
+            <p class="frase-final">
+                Una aventura histórica para aprender jugando.
+            </p>
+
+        </div>
+
+
+        <a href="#menu" class="volver">
+            ◀ VOLVER AL MENÚ
+        </a>
+
+    </div>
 
 </section>
 
-<script>
-
-function entrarMenu(){
-
-    document
-    .getElementById("inicio")
-    .classList.add("salida");
-
-
-    setTimeout(()=>{
-
-        window.location.href="#menu";
-
-    },300);
-
-
-}
-
-</script>
-
+<script src="inicio.js"></script>
 
 </body>
 
