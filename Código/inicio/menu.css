@@ -1,1524 +1,2212 @@
+
 /* =========================================
    ESCAPE A CHILE
    STYLE SYSTEM
-   ========================================= */
+   CSS RESPONSIVE Y ORDENADO
+========================================= */
 
 
-/* Fuente general */
+/* =========================================
+   FUENTES
+========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap');
 
 
-
-*{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-
-}
-
-
-
-html{
-
-scroll-behavior:smooth;
-
-}
-
-
-
-body{
-
-font-family:Poppins, Arial, sans-serif;
-
-color:white;
-
-overflow-x:hidden;
-
-}
-
-
-
 /* =========================================
-   CONFIGURACIÓN GENERAL DE PANTALLAS
+   RESET GENERAL
 ========================================= */
 
-
-.pantalla{
-
-height:100vh;
-
-width:100%;
-
-position:relative;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-overflow:hidden;
-
-transition:
-    opacity .5s ease,
-    transform .5s ease;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.pantalla:target{
-
-    animation:entradaPantalla .5s;
-
+html {
+    scroll-behavior: smooth;
 }
 
-
-@keyframes entradaPantalla{
-
-from{
-
-    opacity:0;
-
-    transform:translateX(80px);
-
-}
-
-
-to{
-
-    opacity:1;
-
-    transform:translateX(0);
-
-}
-
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background: #12285e;
 }
 
 
 /* =========================================
-   FONDO GENERAL
+   PANTALLAS
 ========================================= */
 
+.pantalla {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    /* Transición suave */
+    opacity: 1;
+    transform: none;
+
+    transition:
+        opacity .35s ease,
+        visibility .35s ease;
+}
+
+/* Eliminamos el desplazamiento lateral
+   que hacía que la transición se viera rara */
+
+.pantalla:target {
+    animation: aparecerPantalla .35s ease;
+}
+
+@keyframes aparecerPantalla {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   FONDOS
+========================================= */
 
 .inicio,
-.menu-pantalla{
+.menu-pantalla {
+    background:
+        linear-gradient(
+            to bottom,
+            #12285e 0%,
+            #284f96 45%,
+            #e68b62 100%
+        );
+}
 
-background:
+.instrucciones {
+    background: #2b1705;
+}
 
-linear-gradient(
-to bottom,
-#12285e 0%,
-#284f96 45%,
-#e68b62 100%
-);
+.configuracion {
+    background:
+        linear-gradient(
+            135deg,
+            #101f4c,
+            #1e3b78,
+            #12285e
+        );
+}
 
+.creditos {
+    background:
+        linear-gradient(
+            135deg,
+            #111c42,
+            #263e79,
+            #101d45
+        );
+}
 
+.extra {
+    background: #14285c;
+    flex-direction: column;
 }
 
 
+/* =========================================
+   ESTRELLAS
+========================================= */
 
-.estrellas{
+.estrellas {
+    position: absolute;
+    inset: 0;
 
-position:absolute;
+    width: 100%;
+    height: 100%;
 
-width:100%;
+    background-image:
+        radial-gradient(
+            white 1px,
+            transparent 1px
+        );
 
-height:100%;
+    background-size: 70px 70px;
 
+    opacity: .6;
 
-background-image:
+    animation: moverEstrellas 30s linear infinite;
 
-radial-gradient(
-white 1px,
-transparent 1px
-);
+    z-index: 0;
 
-
-background-size:
-
-70px 70px;
-
-
-opacity:.6;
-
-
-animation:moverEstrellas 30s linear infinite;
-
-
+    pointer-events: none;
 }
 
+@keyframes moverEstrellas {
 
+    from {
+        transform: translateY(0);
+    }
 
-
-@keyframes moverEstrellas{
-
-
-from{
-
-transform:translateY(0);
-
+    to {
+        transform: translateY(70px);
+    }
 }
-
-
-to{
-
-transform:translateY(70px);
-
-}
-
-
-}
-
-
-
-
 
 
 /* =========================================
    MONTAÑAS
 ========================================= */
 
+.montanas {
+    position: absolute;
 
-.montanas{
+    bottom: 0;
+    left: 0;
 
+    width: 100%;
+    height: 45%;
 
-position:absolute;
+    background:
+        linear-gradient(
+            135deg,
+            transparent 40%,
+            #1b316d 40%
+        ),
+        linear-gradient(
+            45deg,
+            transparent 40%,
+            #263f80 40%
+        );
 
-bottom:0;
+    background-size: 260px 180px;
 
-width:100%;
+    opacity: .9;
 
-height:45%;
+    z-index: 1;
 
-
-background:
-
-linear-gradient(
-135deg,
-transparent 40%,
-#1b316d 40%
-),
-
-linear-gradient(
-45deg,
-transparent 40%,
-#263f80 40%
-);
-
-
-background-size:
-
-260px 180px;
-
-
-opacity:.9;
-
-
-z-index:1;
-
-
+    pointer-events: none;
 }
-
-
-
-
 
 
 /* =========================================
-   CIUDAD INFERIOR
+   CIUDAD
 ========================================= */
 
+.ciudad {
+    position: absolute;
 
-.ciudad{
+    bottom: 0;
+    left: 0;
 
+    width: 100%;
+    height: 25%;
 
-position:absolute;
+    background:
+        linear-gradient(
+            90deg,
+            #3a210b 10%,
+            #512e0c 10%,
+            #512e0c 20%,
+            #3a210b 20%
+        );
 
-bottom:0;
+    background-size: 120px 100%;
 
-width:100%;
+    opacity: .9;
 
-height:25%;
+    z-index: 2;
 
-
-background:
-
-linear-gradient(
-90deg,
-#3a210b 10%,
-#512e0c 10%,
-#512e0c 20%,
-#3a210b 20%
-);
-
-
-background-size:120px 100%;
-
-
-z-index:2;
-
-
-opacity:.9;
-
-
+    pointer-events: none;
 }
 
 
+/* =========================================
+   PARTÍCULAS
+========================================= */
 
+.particulas {
+    position: absolute;
+    inset: 0;
 
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+.particulas span {
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 15px solid #f9d600;
+
+    opacity: .5;
+
+    animation: flotarParticula 6s infinite linear;
+}
+
+.particulas span:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particulas span:nth-child(2) {
+    left: 25%;
+    animation-delay: 3s;
+}
+
+.particulas span:nth-child(3) {
+    left: 40%;
+    animation-delay: 6s;
+}
+
+.particulas span:nth-child(4) {
+    left: 60%;
+    animation-delay: 2s;
+}
+
+.particulas span:nth-child(5) {
+    left: 75%;
+    animation-delay: 5s;
+}
+
+.particulas span:nth-child(6) {
+    left: 90%;
+    animation-delay: 1s;
+}
+
+.particulas span:nth-child(7) {
+    left: 50%;
+    animation-delay: 8s;
+}
+
+@keyframes flotarParticula {
+
+    0% {
+        transform:
+            translateY(100vh)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .8;
+    }
+
+    100% {
+        transform:
+            translateY(-20vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
 
 
 /* =========================================
    PANTALLA INICIAL
 ========================================= */
 
+.logo-container {
+    position: relative;
 
+    z-index: 5;
 
-.logo-container{
-    z-index:5;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:60px;
-    animation:entradaLogo 1.5s;
+    width: min(90%, 500px);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 45px;
+
+    animation: entradaLogo .8s ease;
 }
 
+.logo {
+    width: 100%;
 
+    padding: 35px;
 
+    background: rgba(45, 25, 5, .85);
 
-.logo{
-
-
-width:420px;
-
-padding:35px;
-
-
-background:
-
-rgba(45,25,5,.85);
-
-
-border:
-
-3px solid #f9d600;
-
-
-box-shadow:
-
-0 0 35px #f9d600;
-
-
-text-align:center;
-
-
-
-}
-
-
-
-.escuela{
-
-
-letter-spacing:7px;
-
-font-size:18px;
-
-color:#d9a441;
-
-
-}
-
-
-
-.logo h1{
-
-
-font-family:'Bebas Neue';
-
-font-size:80px;
-
-line-height:.8;
-
-letter-spacing:8px;
-
-
-color:white;
-
-
-}
-
-
-
-.logo h1:first-letter{
-
-color:#f9d600;
-
-}
-
-
-
-
-.subtitulo{
-
-
-margin-top:20px;
-
-letter-spacing:6px;
-
-color:#d9a441;
-
-
-}
-
-
-
-
-
-/* =========================================
-   BOTÓN COMENZAR - ESTILO VIDEOJUEGO
-========================================= */
-
-
-.comenzar{
-
-    z-index:10;
-
-    position:relative;
-
-    width:420px;
-
-    padding:18px 25px;
-
-    background:rgba(20,15,5,.85);
-
-    color:#f9d600;
-
-    font-family:'Bebas Neue', Arial;
-
-    font-size:28px;
-
-    letter-spacing:6px;
-
-    border:3px solid #f9d600;
-
-    border-radius:12px;
-
-    cursor:pointer;
+    border: 3px solid #f9d600;
 
     box-shadow:
-    0 0 10px #f9d600,
-    0 0 25px #f9d600;
+        0 0 35px #f9d600;
 
-    animation:flotarBoton 3s infinite ease-in-out;
-
+    text-align: center;
 }
 
-
-/* Movimiento constante del botón */
-
-
-@keyframes flotarBoton{
-
-
-0%,100%{
-
-transform:translateY(0);
-
+.escuela {
+    letter-spacing: 7px;
+    font-size: 18px;
+    color: #d9a441;
 }
 
+.logo h1 {
+    font-family: 'Bebas Neue', sans-serif;
 
-50%{
+    font-size: clamp(55px, 8vw, 80px);
 
-transform:translateY(-12px);
+    line-height: .8;
+    letter-spacing: 8px;
 
+    color: white;
 }
 
-
+.logo h1:first-letter {
+    color: #f9d600;
 }
 
+.subtitulo {
+    margin-top: 20px;
 
+    letter-spacing: 6px;
 
-
-/* Cuando pasas el mouse */
-
-
-.comenzar:hover{
-
-
-background:#f9d600;
-
-
-color:#251300;
-
-
-box-shadow:
-
-
-0 0 20px #f9d600,
-
-0 0 60px #f9d600,
-
-0 0 100px #f9d600;
-
-
-transform:scale(1.08);
-
-
+    color: #d9a441;
 }
-
-
-
-/* Cuando lo apretás */
-
-
-.comenzar:active{
-
-
-transform:
-
-scale(.92)
-
-translateY(5px);
-
-
-box-shadow:
-
-
-0 0 80px #ff9100;
-
-
-}
-
-
-
-
-.comenzar span{
-
-
-position:relative;
-
-z-index:2;
-
-
-}
-
-
-
-
-
-@keyframes parpadeo{
-
-
-50%{
-
-opacity:.4;
-
-}
-
-
-}
-
-
-
-
-
-
-@keyframes entradaLogo{
-
-
-from{
-
-opacity:0;
-
-transform:translateY(-80px);
-
-}
-
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-
-}
-
-
-
-
 
 
 /* =========================================
-   MENU PRINCIPAL
+   BOTÓN COMENZAR
 ========================================= */
 
+.comenzar {
+    position: relative;
 
+    z-index: 10;
 
-.titulo-menu{
+    width: min(420px, 85%);
 
+    padding: 18px 25px;
 
-position:absolute;
+    background: rgba(20, 15, 5, .85);
 
-top:80px;
+    color: #f9d600;
 
-z-index:5;
+    font-family: 'Bebas Neue', Arial, sans-serif;
 
+    font-size: 28px;
 
-background:rgba(40,25,10,.7);
+    letter-spacing: 6px;
 
+    border: 3px solid #f9d600;
 
-border:
+    border-radius: 12px;
 
-2px solid #f9d600;
+    cursor: pointer;
 
+    box-shadow:
+        0 0 10px #f9d600,
+        0 0 25px #f9d600;
 
-padding:20px 60px;
+    animation: flotarBoton 3s infinite ease-in-out;
 
+    transition:
+        background .25s ease,
+        color .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
+}
 
-text-align:center;
+.comenzar:hover {
+    background: #f9d600;
 
+    color: #251300;
 
+    box-shadow:
+        0 0 20px #f9d600,
+        0 0 60px #f9d600;
+
+    transform: scale(1.04);
+}
+
+.comenzar:active {
+    transform: scale(.96);
+
+    box-shadow:
+        0 0 40px #ff9100;
+}
+
+.comenzar span {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes flotarBoton {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes entradaLogo {
+
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
+/* =========================================
+   MENÚ PRINCIPAL
+========================================= */
 
-.titulo-menu p{
+.menu-pantalla {
 
+    flex-direction: column;
 
-letter-spacing:8px;
+    justify-content: center;
+    align-items: center;
 
-font-size:14px;
+    gap: 35px;
 
-
+    padding: 40px 20px;
 }
 
 
+/* =========================================
+   TÍTULO DEL MENÚ
+========================================= */
 
+.titulo-menu {
 
-.titulo-menu h1{
+    position: relative;
 
+    z-index: 5;
 
-font-family:'Bebas Neue';
+    width: min(800px, 90%);
 
-font-size:55px;
+    padding: 20px 40px;
 
-letter-spacing:5px;
+    background: rgba(40, 25, 10, .7);
 
-color:#f9d600;
+    border: 2px solid #f9d600;
 
+    text-align: center;
 
+    flex-shrink: 0;
+}
+
+.titulo-menu p {
+
+    letter-spacing: 8px;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+}
+
+.titulo-menu h1 {
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: clamp(42px, 5vw, 55px);
+
+    letter-spacing: 5px;
+
+    color: #f9d600;
+
+    line-height: 1;
 }
 
 
+/* =========================================
+   BOTONES DEL MENÚ
+========================================= */
 
+.botones-menu {
 
+    position: relative;
 
+    z-index: 5;
 
+    width: min(500px, 100%);
 
-.botones-menu{
-    z-index:5;
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    transform:translateY(40px);
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 0;
+
+    flex-shrink: 0;
 }
 
+.boton {
 
+    position: relative;
 
-.boton{
+    overflow: hidden;
 
-position:relative;
-overflow:hidden;
+    display: block;
 
-display:block;
+    width: min(400px, 100%);
 
-width:400px;
-padding:18px;
+    padding: 18px;
 
-background:rgba(30,15,10,.8);
+    background: rgba(30, 15, 10, .8);
 
-border:2px solid #f9d600;
+    border: 2px solid #f9d600;
 
-color:#f9d600;
+    color: #f9d600;
 
-font-family:'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
 
-font-size:30px;
+    font-size: 30px;
 
-letter-spacing:5px;
+    letter-spacing: 5px;
 
-text-align:center;
+    line-height: 1;
 
-text-decoration:none;
+    text-align: center;
 
-cursor:pointer;
+    text-decoration: none;
 
-transition:.3s;
+    cursor: pointer;
 
-z-index:1;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        color .25s ease;
 
+    z-index: 1;
 }
 
+.boton::before {
 
-.boton::before{
+    content: "";
 
-content:"";
+    position: absolute;
 
-position:absolute;
+    top: 0;
+    left: -100%;
 
-top:0;
-left:-100%;
+    width: 100%;
+    height: 100%;
 
-width:100%;
-height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, .4),
+            transparent
+        );
 
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.4),
-transparent
-);
+    transition: left .5s ease;
 
-transition:.5s;
-
-z-index:-1;
-
+    z-index: -1;
 }
 
+.boton:hover {
 
-.boton:hover{
+    transform:
+        scale(1.04)
+        translateY(-3px);
 
-transform:
-scale(1.08)
-translateY(-5px);
+    background: rgba(50, 30, 15, .95);
 
-
-box-shadow:
-0 0 20px #f9d600;
-
-
+    box-shadow:
+        0 0 20px #f9d600;
 }
 
-
-
+.boton:hover::before {
+    left: 100%;
+}
 
 
 /* =========================================
    INSTRUCCIONES
 ========================================= */
 
+.marco-instrucciones {
 
+    position: relative;
 
-.instrucciones{
+    z-index: 5;
 
+    width: min(1200px, 90%);
 
-background:
+    max-height: 90vh;
 
-#2b1705;
+    overflow-y: auto;
 
+    padding: 30px;
 
+    background: rgba(30, 15, 5, .92);
+
+    border: 2px solid #f9d600;
+
+    box-shadow:
+        0 0 30px rgba(249, 214, 0, .25);
 }
 
+.titulo-instrucciones {
 
+    display: flex;
 
-.marco{
+    align-items: center;
+    justify-content: center;
 
+    gap: 25px;
 
-width:90%;
-
-height:85%;
-
-
-border:
-
-2px solid #f9d600;
-
-
-background:
-
-rgba(30,15,5,.85);
-
-
-padding:35px;
-
-
-z-index:5;
-
-
+    margin-bottom: 25px;
 }
 
+.titulo-instrucciones h1 {
 
+    font-family: 'Bebas Neue', sans-serif;
 
+    font-size: 55px;
 
-.marco h1{
+    letter-spacing: 7px;
 
+    color: #f9d600;
 
-font-family:'Bebas Neue';
-
-text-align:center;
-
-font-size:55px;
-
-letter-spacing:8px;
-
-
-color:#f9d600;
-
-
+    text-align: center;
 }
 
+.decoracion {
 
+    color: #f9d600;
 
-
-.contenido-instrucciones{
-
-
-display:flex;
-
-justify-content:space-between;
-
-
-margin-top:40px;
-
-
+    font-size: 20px;
 }
 
-
-
-
-.controles{
-
-
-width:35%;
-
-
-}
-
-
-
-.controles h3,
-.historia h3{
-
-
-color:#d9a441;
-
-letter-spacing:5px;
-
-
-}
-
-
-
-.controles p{
-
-
-margin:20px 0;
-
-font-size:18px;
-
-
-}
-
-
-
-
-.objetivo{
-
-
-width:50%;
-
-
-}
-
-
-
-.item{
-
-
-border:
-
-1px solid #70430d;
-
-
-padding:18px;
-
-
-margin-bottom:15px;
-
-
-background:
-
-rgba(80,45,10,.4);
-
-
-}
-
-
-
-
-
-
-
-.historia{
-
-
-margin-top:40px;
-
-
-border:
-
-1px solid #304b9b;
-
-
-padding:20px;
-
-
-}
-
-
-
-
-
-.historia p{
-
-
-margin-top:15px;
-
-color:#ddd;
-
-
-}
-
-
-
-
-
-
-
-.volver{
-
-
-display:block;
-
-margin:25px auto 0;
-
-
-width:260px;
-
-
-padding:15px;
-
-
-border:
-
-2px solid #f9d600;
-
-
-color:#f9d600;
-
-
-text-decoration:none;
-
-
-text-align:center;
-
-
-font-family:'Bebas Neue';
-
-
-font-size:25px;
-
-
-}
-
-
-
-
-
-.volver:hover{
-
-
-background:#f9d600;
-
-color:black;
-
-
-}
-
-
-
-
-
-/* Pantallas extra */
-
-.extra{
-
-
-background:#14285c;
-
-flex-direction:column;
-
-
-}
-
-
-
-
-
-.extra h1{
-
-
-font-size:70px;
-
-color:#f9d600;
-
-
-}
-
-/* =====================================
-   PARTICULAS TRIANGULARES
-===================================== */
-
-.particulas{
-
-position:absolute;
-width:100%;
-height:100%;
-overflow:hidden;
-
-z-index:2;
-
-}
-
-
-
-.particulas span{
-
-position:absolute;
-
-width:0;
-height:0;
-
-
-border-left:8px solid transparent;
-border-right:8px solid transparent;
-border-bottom:15px solid #f9d600;
-
-
-opacity:.5;
-
-
-animation:
-
-flotarParticula 6s infinite linear;
-
-
-}
-
-
-
-/* posiciones */
-
-.particulas span:nth-child(1){
-
-left:10%;
-animation-delay:0s;
-
-}
-
-
-.particulas span:nth-child(2){
-
-left:25%;
-animation-delay:3s;
-
-}
-
-
-.particulas span:nth-child(3){
-
-left:40%;
-animation-delay:6s;
-
-}
-
-
-.particulas span:nth-child(4){
-
-left:60%;
-animation-delay:2s;
-
-}
-
-
-.particulas span:nth-child(5){
-
-left:75%;
-animation-delay:5s;
-
-}
-
-
-.particulas span:nth-child(6){
-
-left:90%;
-animation-delay:1s;
-
-}
-
-
-.particulas span:nth-child(7){
-
-left:50%;
-animation-delay:8s;
-
-}
-
-
-
-@keyframes flotarParticula{
-
-
-0%{
-
-transform:
-translateY(100vh)
-rotate(0deg);
-
-
-opacity:0;
-
-
-}
-
-
-
-20%{
-
-opacity:.8;
-
-}
-
-
-
-100%{
-
-
-transform:
-translateY(-20vh)
-rotate(360deg);
-
-
-opacity:0;
-
-
-}
-
-
-}
 
 /* =========================================
-   RESPONSIVE DESIGN
-   Adaptación para diferentes dispositivos
+   GRID INSTRUCCIONES
 ========================================= */
 
+.instrucciones-grid {
 
+    display: grid;
 
-/* Tablets y pantallas medianas */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-@media (max-width: 1024px){
+    gap: 20px;
+}
 
+.bloque-instrucciones {
 
-.logo{
+    padding: 20px;
 
-    width:70%;
-    padding:30px;
+    background: rgba(80, 45, 10, .35);
 
+    border: 1px solid #70430d;
+}
+
+.bloque-instrucciones h2 {
+
+    margin-bottom: 15px;
+
+    color: #f9d600;
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    letter-spacing: 3px;
+
+    font-size: 28px;
 }
 
 
-.logo h1{
+/* =========================================
+   CONTROLES
+========================================= */
 
-    font-size:clamp(45px,8vw,70px);
+.control {
 
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 9px;
+
+    margin-bottom: 7px;
+
+    background: rgba(0, 0, 0, .25);
+}
+
+.tecla {
+
+    min-width: 55px;
+
+    padding: 7px;
+
+    text-align: center;
+
+    border: 1px solid #f9d600;
+
+    color: #f9d600;
+
+    font-weight: bold;
+
+    flex-shrink: 0;
 }
 
 
+/* =========================================
+   OBJETIVOS
+========================================= */
 
+.objetivo-item {
 
-.titulo-menu{
+    display: flex;
 
-    width:80%;
-    padding:20px;
+    gap: 12px;
 
+    align-items: flex-start;
+
+    margin-bottom: 12px;
+}
+
+.objetivo-item span {
+
+    font-size: 22px;
+
+    flex-shrink: 0;
+}
+
+.objetivo-item p {
+
+    color: #ddd;
+
+    font-size: 14px;
+
+    line-height: 1.5;
 }
 
 
+/* =========================================
+   HISTORIA / CONSEJOS
+========================================= */
 
-.titulo-menu h1{
+.historia,
+.consejos {
 
-    font-size:45px;
+    padding: 20px;
 
+    background: rgba(80, 45, 10, .35);
+
+    border: 1px solid #70430d;
+}
+
+.historia {
+    grid-column: 1 / 2;
+}
+
+.consejos {
+    grid-column: 2 / 3;
+}
+
+.historia p,
+.consejos p {
+
+    margin-bottom: 10px;
+
+    color: #ddd;
+
+    line-height: 1.6;
+}
+
+.frase-historia {
+
+    color: #f9d600 !important;
+
+    font-weight: bold;
 }
 
 
+/* =========================================
+   CONFIGURACIÓN
+========================================= */
 
-.boton{
+.marco-configuracion {
 
-    width:70vw;
-    max-width:390px;
+    position: relative;
 
+    z-index: 5;
+
+    width: min(1000px, 90%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+    background: rgba(15, 20, 45, .94);
+
+    border: 2px solid #f9d600;
+
+    box-shadow:
+        0 0 30px rgba(249, 214, 0, .3);
+}
+
+.titulo-configuracion {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.titulo-configuracion h1 {
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: 55px;
+
+    letter-spacing: 6px;
+
+    color: #f9d600;
+
+    text-align: center;
+}
+
+.titulo-configuracion span {
+
+    color: #f9d600;
+
+    font-size: 25px;
 }
 
 
+/* =========================================
+   LISTA CONFIGURACIÓN
+========================================= */
 
-.marco{
+.configuraciones {
 
-    width:90%;
-    height:auto;
+    display: flex;
 
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.configuracion-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px;
+
+    background: rgba(255, 255, 255, .05);
+
+    border: 1px solid rgba(249, 214, 0, .35);
 }
 
 
+/* =========================================
+   INFORMACIÓN
+========================================= */
 
-.contenido-instrucciones{
+.configuracion-info {
 
-    gap:20px;
+    display: flex;
 
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 0;
+}
+
+.config-icon {
+
+    flex-shrink: 0;
+
+    font-size: 30px;
+}
+
+.configuracion-info h2 {
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    color: #f9d600;
+
+    letter-spacing: 2px;
+
+    font-size: 23px;
+}
+
+.configuracion-info p {
+
+    color: #bbb;
+
+    font-size: 13px;
+
+    line-height: 1.4;
 }
 
 
+/* =========================================
+   SELECT
+========================================= */
 
+.configuracion-item select {
+
+    min-width: 150px;
+
+    padding: 10px 20px;
+
+    background: #20160c;
+
+    color: #f9d600;
+
+    border: 2px solid #f9d600;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
 }
 
 
+/* =========================================
+   VOLUMEN
+========================================= */
+
+.control-volumen {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+.control-volumen input {
+
+    width: 180px;
+
+    accent-color: #f9d600;
+
+    cursor: pointer;
+}
+
+#valorVolumen {
+
+    min-width: 45px;
+
+    color: #f9d600;
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   BOTONES CONFIGURACIÓN
+========================================= */
+
+.boton-config {
+
+    min-width: 130px;
+
+    padding: 10px 15px;
+
+    background: #20160c;
+
+    color: #f9d600;
+
+    border: 2px solid #f9d600;
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+.boton-config:hover {
+
+    background: #f9d600;
+
+    color: #20160c;
+
+    transform: translateY(-2px);
+}
+
+.boton-restablecer {
+
+    display: block;
+
+    margin: 20px auto 10px;
+
+    padding: 12px 25px;
+
+    background: transparent;
+
+    color: #ddd;
+
+    border: 1px solid #777;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        color .2s ease;
+}
+
+.boton-restablecer:hover {
+
+    border-color: #f9d600;
+
+    color: #f9d600;
+}
+
+
+/* =========================================
+   CRÉDITOS
+========================================= */
+
+.marco-creditos {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(850px, 90%);
+
+    padding: 40px;
+
+    text-align: center;
+
+    background: rgba(15, 20, 45, .94);
+
+    border: 2px solid #f9d600;
+
+    box-shadow:
+        0 0 35px rgba(249, 214, 0, .3);
+}
+
+.titulo-creditos {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-bottom: 30px;
+}
+
+.titulo-creditos h1 {
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    color: #f9d600;
+
+    font-size: 65px;
+
+    letter-spacing: 8px;
+}
+
+.titulo-creditos span {
+
+    color: #f9d600;
+
+    font-size: 25px;
+}
+
+
+/* =========================================
+   INSTITUCIÓN
+========================================= */
+
+.institucion {
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: 28px;
+
+    letter-spacing: 4px;
+
+    color: #f9d600;
+}
+
+.linea {
+
+    width: 70%;
+
+    height: 1px;
+
+    background: #f9d600;
+
+    margin: 15px auto;
+}
+
+.proyecto {
+
+    color: #aaa;
+
+    letter-spacing: 2px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CURSO
+========================================= */
+
+.curso {
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 30px 0;
+}
+
+.curso > span {
+
+    font-size: 35px;
+}
+
+.curso h2,
+.alumnos h2 {
+
+    color: #d9a441;
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    letter-spacing: 3px;
+}
+
+.curso p {
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   ALUMNOS
+========================================= */
+
+.alumnos {
+
+    padding: 20px;
+
+    background: rgba(255, 255, 255, .04);
+
+    border: 1px solid rgba(249, 214, 0, .3);
+}
+
+.alumno {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin: 12px;
+}
+
+.alumno span {
+
+    color: #f9d600;
+}
+
+.alumno p {
+
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   FRASE FINAL
+========================================= */
+
+.frase-creditos {
+
+    margin-top: 30px;
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: 32px;
+
+    letter-spacing: 5px;
+
+    color: #f9d600;
+}
+
+.frase-final {
+
+    margin-top: 5px;
+
+    color: #aaa;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   BOTÓN VOLVER
+========================================= */
+
+.volver {
+
+    display: block;
+
+    width: min(260px, 80%);
+
+    margin: 25px auto 0;
+
+    padding: 15px;
+
+    border: 2px solid #f9d600;
+
+    color: #f9d600;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-family: 'Bebas Neue', sans-serif;
+
+    font-size: 25px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+.volver:hover {
+
+    background: #f9d600;
+
+    color: black;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   TABLETS
+   769px - 1024px
+========================================= */
+
+@media (max-width: 1024px) {
+
+    /* -------------------------
+       GENERAL
+    ------------------------- */
+
+    .pantalla {
+        padding: 30px 15px;
+    }
+
+
+    /* -------------------------
+       INICIO
+    ------------------------- */
+
+    .logo-container {
+        width: min(90%, 500px);
+        gap: 35px;
+    }
+
+    .logo {
+        padding: 30px;
+    }
+
+
+    /* -------------------------
+       MENÚ
+    ------------------------- */
+
+    .menu-pantalla {
+        gap: 30px;
+    }
+
+    .titulo-menu {
+        width: min(700px, 90%);
+    }
+
+    .botones-menu {
+        width: min(450px, 90%);
+    }
+
+    .boton {
+        width: 100%;
+    }
+
+
+    /* -------------------------
+       INSTRUCCIONES
+    ------------------------- */
+
+    .marco-instrucciones {
+        width: 94%;
+        max-height: 90vh;
+    }
+
+
+    /* -------------------------
+       CONFIGURACIÓN
+    ------------------------- */
+
+    .marco-configuracion {
+        width: 94%;
+    }
+
+    .configuracion-item {
+        gap: 15px;
+    }
+
+
+    /* -------------------------
+       CRÉDITOS
+    ------------------------- */
+
+    .marco-creditos {
+        width: 94%;
+    }
+}
 
 
 /* =========================================
    CELULARES
+   481px - 768px
 ========================================= */
 
+@media (max-width: 768px) {
 
-@media (max-width:768px){
+    .pantalla {
+        min-height: 100vh;
+        height: auto;
+
+        padding:
+            30px 15px;
+    }
 
 
+    /* =========================
+       INICIO
+    ========================= */
 
-.pantalla{
+    .inicio {
+        min-height: 100vh;
+    }
 
-    min-height:100vh;
+    .logo-container {
+        width: 100%;
+        gap: 30px;
+    }
 
+    .logo {
+        width: 95%;
+        padding: 22px 15px;
+    }
+
+    .escuela {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    .logo h1 {
+        font-size: clamp(42px, 12vw, 55px);
+        letter-spacing: 5px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+        letter-spacing: 3px;
+    }
+
+    .comenzar {
+        width: 90%;
+        padding: 15px;
+
+        font-size: 22px;
+        letter-spacing: 4px;
+    }
+
+
+    /* =========================
+       MENÚ
+    ========================= */
+
+    .menu-pantalla {
+
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 25px;
+
+        padding: 30px 15px;
+    }
+
+    .titulo-menu {
+
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        width: 100%;
+        max-width: 500px;
+
+        padding: 16px 12px;
+
+        margin: 0;
+    }
+
+    .titulo-menu p {
+
+        font-size: 11px;
+
+        letter-spacing: 3px;
+
+        line-height: 1.4;
+    }
+
+    .titulo-menu h1 {
+
+        font-size: clamp(32px, 10vw, 42px);
+
+        letter-spacing: 4px;
+    }
+
+    .botones-menu {
+
+        width: 100%;
+        max-width: 500px;
+
+        margin: 0;
+
+        gap: 12px;
+    }
+
+    .boton {
+
+        width: 100%;
+
+        min-height: 55px;
+
+        padding: 14px 12px;
+
+        font-size: clamp(20px, 6vw, 25px);
+
+        letter-spacing: 3px;
+
+        line-height: 1.1;
+    }
+
+    .boton:hover {
+
+        transform: scale(1.02);
+    }
+
+
+    /* =========================
+       INSTRUCCIONES
+    ========================= */
+
+    .marco-instrucciones {
+
+        width: 100%;
+
+        max-height: calc(100vh - 40px);
+
+        padding: 18px;
+    }
+
+    .titulo-instrucciones {
+
+        gap: 8px;
+
+        margin-bottom: 20px;
+    }
+
+    .titulo-instrucciones h1 {
+
+        font-size: clamp(30px, 9vw, 40px);
+
+        letter-spacing: 4px;
+    }
+
+    .decoracion {
+        font-size: 14px;
+    }
+
+    .instrucciones-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .historia,
+    .consejos {
+
+        grid-column: auto;
+    }
+
+    .bloque-instrucciones {
+
+        padding: 15px;
+    }
+
+    .bloque-instrucciones h2 {
+
+        font-size: 24px;
+    }
+
+    .control {
+
+        gap: 10px;
+
+        padding: 8px;
+    }
+
+    .tecla {
+
+        min-width: 45px;
+
+        padding: 6px;
+    }
+
+    .objetivo-item p {
+
+        font-size: 13px;
+    }
+
+    .historia p,
+    .consejos p {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================
+       CONFIGURACIÓN
+    ========================= */
+
+    .marco-configuracion {
+
+        width: 100%;
+
+        max-height: calc(100vh - 40px);
+
+        padding: 18px;
+    }
+
+    .titulo-configuracion {
+
+        gap: 8px;
+
+        margin-bottom: 20px;
+    }
+
+    .titulo-configuracion h1 {
+
+        font-size: clamp(30px, 9vw, 40px);
+
+        letter-spacing: 4px;
+    }
+
+    .titulo-configuracion span {
+
+        font-size: 18px;
+    }
+
+    .configuracion-item {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 14px;
+
+        padding: 15px;
+    }
+
+    .configuracion-info {
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .config-icon {
+
+        font-size: 24px;
+    }
+
+    .configuracion-info h2 {
+
+        font-size: 20px;
+    }
+
+    .configuracion-info p {
+
+        font-size: 12px;
+    }
+
+    .configuracion-item select {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+    .control-volumen {
+
+        width: 100%;
+
+        display: flex;
+    }
+
+    .control-volumen input {
+
+        width: 100%;
+    }
+
+    .boton-config {
+
+        width: 100%;
+    }
+
+
+    /* =========================
+       CRÉDITOS
+    ========================= */
+
+    .marco-creditos {
+
+        width: 100%;
+
+        padding: 25px 18px;
+    }
+
+    .titulo-creditos {
+
+        gap: 8px;
+
+        margin-bottom: 25px;
+    }
+
+    .titulo-creditos h1 {
+
+        font-size: clamp(36px, 10vw, 48px);
+
+        letter-spacing: 5px;
+    }
+
+    .titulo-creditos span {
+
+        font-size: 17px;
+    }
+
+    .institucion {
+
+        font-size: 20px;
+
+        letter-spacing: 2px;
+    }
+
+    .linea {
+
+        width: 90%;
+    }
+
+    .proyecto {
+
+        font-size: 11px;
+    }
+
+    .curso {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        margin: 20px 0;
+    }
+
+    .curso > span {
+
+        font-size: 27px;
+    }
+
+    .curso p {
+
+        font-size: 20px;
+    }
+
+    .alumnos {
+
+        padding: 15px;
+    }
+
+    .alumno {
+
+        margin: 10px 0;
+
+        gap: 8px;
+    }
+
+    .alumno p {
+
+        font-size: 17px;
+    }
+
+    .frase-creditos {
+
+        font-size: clamp(22px, 7vw, 28px);
+
+        letter-spacing: 3px;
+    }
+
+    .frase-final {
+
+        font-size: 11px;
+    }
+
+    .volver {
+
+        width: 90%;
+
+        font-size: 22px;
+    }
 }
-
-
-
-
-/* LOGO INICIO */
-
-
-.logo{
-
-    width:90%;
-
-    padding:20px;
-
-}
-
-
-
-.escuela{
-
-    font-size:12px;
-
-    letter-spacing:3px;
-
-}
-
-
-
-.logo h1{
-
-    font-size:50px;
-
-    letter-spacing:5px;
-
-}
-
-
-
-.subtitulo{
-
-    font-size:14px;
-
-    letter-spacing:3px;
-
-}
-
-
-
-
-/* BOTON COMENZAR */
-
-
-
-
-
-
-/* MENU */
-
-
-.titulo-menu{
-
-    top:50px;
-
-    width:90%;
-
-}
-
-
-
-.titulo-menu p{
-
-    font-size:12px;
-
-}
-
-
-
-.titulo-menu h1{
-
-    font-size:38px;
-
-}
-
-
-
-
-.botones-menu{
-
-    width:100%;
-
-    align-items:center;
-
-}
-
-
-
-.boton{
-
-    width:85%;
-
-    font-size:22px;
-
-    padding:15px;
-
-}
-
-
-
-
-/* INSTRUCCIONES */
-
-
-.marco{
-
-    width:95%;
-
-    padding:20px;
-
-    overflow-y:auto;
-
-    max-height:90vh;
-
-
-}
-
-
-
-.marco h1{
-
-    font-size:40px;
-
-}
-
-
-
-.contenido-instrucciones{
-
-    flex-direction:column;
-
-}
-
-
-
-.controles,
-.objetivo{
-
-    width:100%;
-
-}
-
-
-
-.item{
-
-    font-size:14px;
-
-}
-
-
-
-.historia p{
-
-    font-size:14px;
-
-}
-
-
-
-.volver{
-
-    width:80%;
-
-}
-
-
-
-}
-
 
 
 /* =========================================
-   CELULARES MUY PEQUEÑOS
+   CELULARES PEQUEÑOS
+   Hasta 480px
 ========================================= */
 
+@media (max-width: 480px) {
 
-@media (max-width:400px){
+    .pantalla {
+        padding: 20px 10px;
+    }
 
 
+    /* -------------------------
+       INICIO
+    ------------------------- */
 
-.logo h1{
+    .logo-container {
+        gap: 25px;
+    }
 
-    font-size:40px;
+    .logo {
 
+        width: 96%;
+
+        padding: 18px 12px;
+    }
+
+    .escuela {
+
+        font-size: 10px;
+
+        letter-spacing: 2px;
+    }
+
+    .logo h1 {
+
+        font-size: 40px;
+
+        letter-spacing: 4px;
+    }
+
+    .subtitulo {
+
+        font-size: 11px;
+
+        letter-spacing: 2px;
+    }
+
+    .comenzar {
+
+        width: 94%;
+
+        font-size: 19px;
+
+        letter-spacing: 3px;
+
+        padding: 14px 10px;
+    }
+
+
+    /* -------------------------
+       MENÚ
+    ------------------------- */
+
+    .menu-pantalla {
+
+        gap: 20px;
+
+        padding: 25px 10px;
+    }
+
+    .titulo-menu {
+
+        width: 100%;
+
+        padding: 14px 8px;
+    }
+
+    .titulo-menu p {
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
+    }
+
+    .titulo-menu h1 {
+
+        font-size: 31px;
+
+        letter-spacing: 3px;
+    }
+
+    .botones-menu {
+
+        width: 100%;
+
+        gap: 10px;
+    }
+
+    .boton {
+
+        width: 100%;
+
+        min-height: 50px;
+
+        padding: 12px 8px;
+
+        font-size: 19px;
+
+        letter-spacing: 2px;
+    }
+
+
+    /* -------------------------
+       INSTRUCCIONES
+    ------------------------- */
+
+    .marco-instrucciones {
+
+        width: 100%;
+
+        padding: 14px;
+    }
+
+    .titulo-instrucciones h1 {
+
+        font-size: 30px;
+
+        letter-spacing: 3px;
+    }
+
+    .bloque-instrucciones {
+
+        padding: 12px;
+    }
+
+    .bloque-instrucciones h2 {
+
+        font-size: 22px;
+    }
+
+    .control {
+
+        gap: 8px;
+
+        font-size: 12px;
+    }
+
+    .tecla {
+
+        min-width: 40px;
+
+        padding: 5px;
+
+        font-size: 12px;
+    }
+
+
+    /* -------------------------
+       CONFIGURACIÓN
+    ------------------------- */
+
+    .marco-configuracion {
+
+        padding: 14px;
+    }
+
+    .titulo-configuracion h1 {
+
+        font-size: 30px;
+
+        letter-spacing: 3px;
+    }
+
+    .configuracion-item {
+
+        padding: 13px;
+    }
+
+    .configuracion-info h2 {
+
+        font-size: 18px;
+    }
+
+    .configuracion-info p {
+
+        font-size: 11px;
+    }
+
+    .config-icon {
+
+        font-size: 22px;
+    }
+
+
+    /* -------------------------
+       CRÉDITOS
+    ------------------------- */
+
+    .marco-creditos {
+
+        padding: 20px 12px;
+    }
+
+    .titulo-creditos h1 {
+
+        font-size: 36px;
+
+        letter-spacing: 4px;
+    }
+
+    .titulo-creditos span {
+
+        font-size: 15px;
+    }
+
+    .institucion {
+
+        font-size: 18px;
+    }
+
+    .alumno p {
+
+        font-size: 15px;
+    }
+
+    .frase-creditos {
+
+        font-size: 21px;
+
+        letter-spacing: 2px;
+    }
+
+    .volver {
+
+        width: 95%;
+
+        padding: 13px;
+
+        font-size: 20px;
+    }
 }
 
-
-
-.comenzar{
-
-    font-size:17px;
-
-}
-
-
-
-.boton{
-
-    font-size:18px;
-
-}
-
-
-
-.titulo-menu h1{
-
-    font-size:32px;
-
-}
-
-
-
-}
 
 /* =========================================
-   PC / PANTALLAS GRANDES
+   PANTALLAS GRANDES
+   1200px+
 ========================================= */
 
-@media(min-width:1200px){
+@media (min-width: 1200px) {
 
-.logo{
-    width:460px;
-    padding:35px;
+    .logo-container {
+        width: 500px;
+
+        gap: 45px;
+    }
+
+    .logo {
+
+        width: 460px;
+
+        padding: 35px;
+    }
+
+    .logo h1 {
+
+        font-size: 85px;
+    }
+
+
+    /* -------------------------
+       MENÚ
+    ------------------------- */
+
+    .menu-pantalla {
+
+        gap: 35px;
+    }
+
+    .titulo-menu {
+
+        width: 800px;
+
+        padding: 20px 60px;
+    }
+
+    .titulo-menu h1 {
+
+        font-size: 55px;
+    }
+
+    .botones-menu {
+
+        width: 400px;
+
+        gap: 18px;
+    }
+
+    .boton {
+
+        width: 380px;
+
+        padding: 18px;
+
+        font-size: 28px;
+    }
+
+
+    /* -------------------------
+       INSTRUCCIONES
+    ------------------------- */
+
+    .marco-instrucciones {
+
+        width: 75%;
+
+        max-width: 1200px;
+
+        max-height: 80vh;
+    }
+
+    .titulo-instrucciones h1 {
+
+        font-size: 60px;
+    }
+
+    .bloque-instrucciones {
+
+        font-size: 17px;
+    }
+
+
+    /* -------------------------
+       CONFIGURACIÓN
+    ------------------------- */
+
+    .marco-configuracion {
+
+        width: 75%;
+
+        max-width: 1000px;
+
+        max-height: 80vh;
+    }
+
+
+    /* -------------------------
+       CRÉDITOS
+    ------------------------- */
+
+    .marco-creditos {
+
+        width: 75%;
+
+        max-width: 850px;
+    }
 }
-
-.logo h1{
-    font-size:85px;
-}
-
-
-
-
-.titulo-menu{
-    top:40px;
-    padding:20px 60px;
-}
-
-
-.titulo-menu h1{
-    font-size:55px;
-}
-
-
-.botones-menu{
-    margin-top:120px;
-    gap:18px;
-}
-
-
-.boton{
-    width:380px;
-    padding:18px;
-    font-size:28px;
-}
-
-
-.marco{
-    width:80%;
-    height:82%;
-}
-
-
-.marco h1{
-    font-size:60px;
-}
-
-
-.item{
-    font-size:17px;
-}
-
-
-
-.marco{
-
-    width:75%;
-
-    height:80%;
-
-}
-
-
-
-.marco h1{
-
-    font-size:70px;
-
-}
-
-
-.item{
-
-    font-size:20px;
-
-}
-
-
-}
-
