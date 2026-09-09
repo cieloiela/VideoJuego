@@ -1,4 +1,3 @@
-
 /* =========================================================
    ELEMENTOS
 ========================================================= */
@@ -15,45 +14,41 @@ const mundo =
 const escenario =
     document.querySelector(".escenario");
 
-
 const pergaminos =
     document.querySelectorAll(".pergamino");
-
 
 const overlayPergamino =
     document.getElementById("overlayPergamino");
 
-
 const textoTitulo =
     document.getElementById("textoTitulo");
-
 
 const textoDocumento =
     document.getElementById("textoDocumento");
 
-
 const overlayQuiz =
     document.getElementById("overlayQuiz");
-
 
 const overlayResultado =
     document.getElementById("overlayResultado");
 
-
 const intermisionNivel =
     document.getElementById("intermisionNivel");
-
 
 const pantallaVictoria =
     document.getElementById("pantallaVictoria");
 
-
 const pantallaGameOver =
     document.getElementById("pantallaGameOver");
 
-
 const contadorPergaminos =
     document.getElementById("contadorPergaminos");
+
+const contadorPuntos =
+    document.getElementById("contadorPuntos");
+
+const contadorTiempo =
+    document.getElementById("contadorTiempo");
 
 
 /* =========================================================
@@ -83,13 +78,46 @@ const INTERVALO_FEDERAL = 7000;
 const MAX_FEDERALES_EXTRA = 4;
 
 
+/*
+ * Distancia mínima que tendrá el Federal
+ * durante el comienzo del nivel.
+ */
+const DISTANCIA_SEGURA_INICIAL = 350;
+
+
+/*
+ * Hasta esta posición el Federal no
+ * perseguirá activamente a Sarmiento.
+ */
+const FIN_ZONA_SEGURA = 550;
+
+
+/*
+ * Posición inicial del Federal.
+ *
+ * Antes estaba en 850 y podía terminar
+ * junto al primer pergamino.
+ */
+const POSICION_INICIAL_ENEMIGO = 1350;
+
+
+/* =========================================================
+   PUNTOS
+========================================================= */
+
+const PUNTOS_OBSTACULO = 100;
+
+const PUNTOS_FEDERAL = 200;
+
+
 /* =========================================================
    ESTADO
 ========================================================= */
 
 let posicionJugador = 220;
 
-let posicionEnemigo = 850;
+let posicionEnemigo =
+    POSICION_INICIAL_ENEMIGO;
 
 let posicionVertical = PISO;
 
@@ -104,13 +132,23 @@ let pergaminosRecolectados = 0;
 let juegoTerminado = false;
 
 
+/*
+ * NUEVO:
+ * Permite pausar el juego sin finalizarlo.
+ *
+ * juegoTerminado = Game Over / Victoria
+ * juegoPausado = Pergamino abierto
+ */
+let juegoPausado = false;
+
+
 /* =========================================================
    PUNTAJE Y TIEMPO
 ========================================================= */
 
 let puntos = 0;
 
-let tiempoInicio = Date.now();
+let tiempoInicio = 0;
 
 let tiempoFinal = 0;
 
@@ -118,14 +156,8 @@ let intervaloTiempo = null;
 
 
 /* =========================================================
-   ELEMENTOS DEL HUD
+   ESTADO DEL JUGADOR
 ========================================================= */
-
-const contadorPuntos =
-    document.getElementById("contadorPuntos");
-
-const contadorTiempo =
-    document.getElementById("contadorTiempo");
 
 let invulnerable = false;
 
@@ -136,7 +168,6 @@ let federalesExtra = [];
 
 /* =========================================================
    OPTIMIZACIÓN
-   NO CAMBIA LA LÓGICA DEL JUEGO
 ========================================================= */
 
 let intervaloFederales = null;
@@ -175,6 +206,14 @@ let obstaculos = [
 
 
 let obstaculosGolpeados =
+    new Set();
+
+
+let obstaculosSuperados =
+    new Set();
+
+
+let federalesSuperados =
     new Set();
 
 
@@ -267,6 +306,104 @@ let respuestaSeleccionada = false;
 
 
 /* =========================================================
+   PUNTAJE
+========================================================= */
+
+function actualizarPuntos() {
+
+    contadorPuntos.textContent =
+        String(puntos).padStart(5, "0");
+
+}
+
+
+function sumarPuntos(cantidad) {
+
+    puntos += cantidad;
+
+    actualizarPuntos();
+
+}
+
+
+/* =========================================================
+   TIEMPO
+========================================================= */
+
+function actualizarTiempo() {
+
+    if (juegoTerminado) return;
+
+    /*
+     * Mientras el pergamino está abierto,
+     * el tiempo también queda pausado.
+     */
+    if (juegoPausado) return;
+
+    const ahora = Date.now();
+
+    const segundosTotales =
+        Math.floor(
+            (ahora - tiempoInicio) / 1000
+        );
+
+    const minutos =
+        Math.floor(
+            segundosTotales / 60
+        );
+
+    const segundos =
+        segundosTotales % 60;
+
+    contadorTiempo.textContent =
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundos).padStart(2, "0");
+
+}
+
+
+function iniciarContadorTiempo() {
+
+    tiempoInicio = Date.now();
+
+    tiempoFinal = 0;
+
+    actualizarTiempo();
+
+    if (intervaloTiempo !== null) {
+
+        clearInterval(
+            intervaloTiempo
+        );
+
+    }
+
+    intervaloTiempo =
+        setInterval(
+            actualizarTiempo,
+            1000
+        );
+
+}
+
+
+function detenerContadorTiempo() {
+
+    if (intervaloTiempo !== null) {
+
+        clearInterval(
+            intervaloTiempo
+        );
+
+        intervaloTiempo = null;
+
+    }
+
+}
+
+
+/* =========================================================
    TECLADO
 ========================================================= */
 
@@ -274,7 +411,20 @@ document.addEventListener(
     "keydown",
     (evento) => {
 
-        if (juegoTerminado) return;
+        /*
+         * Si estamos leyendo un pergamino,
+         * no se permite controlar al personaje.
+         */
+        if (
+            juegoTerminado ||
+            juegoPausado
+        ) {
+
+            evento.preventDefault();
+
+            return;
+
+        }
 
 
         if (
@@ -353,11 +503,19 @@ function configurarBotonMovimiento(
     direccion
 ) {
 
+    if (!boton) return;
+
+
     boton.addEventListener(
         "pointerdown",
         (evento) => {
 
             evento.preventDefault();
+
+            if (
+                juegoTerminado ||
+                juegoPausado
+            ) return;
 
             teclas[direccion] = true;
 
@@ -414,18 +572,29 @@ configurarBotonMovimiento(
 );
 
 
-document
-    .getElementById("btnSaltar")
-    .addEventListener(
+const botonSaltar =
+    document.getElementById("btnSaltar");
+
+
+if (botonSaltar) {
+
+    botonSaltar.addEventListener(
         "pointerdown",
         (evento) => {
 
             evento.preventDefault();
 
+            if (
+                juegoTerminado ||
+                juegoPausado
+            ) return;
+
             saltar();
 
         }
     );
+
+}
 
 
 /* =========================================================
@@ -436,7 +605,8 @@ function saltar() {
 
     if (
         !saltando &&
-        !juegoTerminado
+        !juegoTerminado &&
+        !juegoPausado
     ) {
 
         saltando = true;
@@ -459,7 +629,10 @@ function saltar() {
 
 function actualizarJugador() {
 
-    if (juegoTerminado) return;
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
 
 
     if (teclas.derecha) {
@@ -538,10 +711,14 @@ function actualizarJugador() {
         personaje.querySelector("img");
 
 
-    imagen.style.transform =
-        direccionJugador === -1
-            ? "scaleX(-1)"
-            : "scaleX(1)";
+    if (imagen) {
+
+        imagen.style.transform =
+            direccionJugador === -1
+                ? "scaleX(-1)"
+                : "scaleX(1)";
+
+    }
 
 }
 
@@ -552,34 +729,74 @@ function actualizarJugador() {
 
 function actualizarEnemigo() {
 
-    if (juegoTerminado) return;
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
 
 
-    const distancia =
-        posicionJugador -
-        posicionEnemigo;
+    /*
+     * PROTECCIÓN INICIAL
+     *
+     * Mientras Sarmiento está en los primeros
+     * 550px del mapa, el Federal no lo persigue.
+     *
+     * Así no se junta inmediatamente con
+     * el primer pergamino.
+     */
+    if (
+        posicionJugador <
+        FIN_ZONA_SEGURA
+    ) {
+
+        /*
+         * Mantener siempre una distancia
+         * segura respecto de Sarmiento.
+         */
+        if (
+            posicionEnemigo -
+            posicionJugador <
+            DISTANCIA_SEGURA_INICIAL
+        ) {
+
+            posicionEnemigo =
+                posicionJugador +
+                DISTANCIA_SEGURA_INICIAL;
+
+        }
+
+    } else {
+
+        const distancia =
+            posicionJugador -
+            posicionEnemigo;
 
 
-    if (Math.abs(distancia) > 25) {
+        if (
+            Math.abs(distancia) >
+            25
+        ) {
 
-        const velocidad =
-            Math.min(
-                VELOCIDAD_MAXIMA_ENEMIGO,
-                VELOCIDAD_ENEMIGO +
-                Math.abs(distancia) *
-                0.001
-            );
+            const velocidad =
+                Math.min(
+                    VELOCIDAD_MAXIMA_ENEMIGO,
+                    VELOCIDAD_ENEMIGO +
+                    Math.abs(distancia) *
+                    0.001
+                );
 
 
-        if (distancia > 0) {
+            if (distancia > 0) {
 
-            posicionEnemigo +=
-                velocidad;
+                posicionEnemigo +=
+                    velocidad;
 
-        } else {
+            } else {
 
-            posicionEnemigo -=
-                velocidad;
+                posicionEnemigo -=
+                    velocidad;
+
+            }
 
         }
 
@@ -617,11 +834,15 @@ function actualizarEnemigo() {
         enemigo.querySelector("img");
 
 
-    imagen.style.transform =
-        posicionJugador <
-        posicionEnemigo
-            ? "scaleX(-1)"
-            : "scaleX(1)";
+    if (imagen) {
+
+        imagen.style.transform =
+            posicionJugador <
+            posicionEnemigo
+                ? "scaleX(-1)"
+                : "scaleX(1)";
+
+    }
 
 }
 
@@ -633,7 +854,6 @@ function actualizarEnemigo() {
 function hayColision(a, b) {
 
     const margen = 25;
-
 
     return (
 
@@ -652,21 +872,23 @@ function hayColision(a, b) {
 
 /* =========================================================
    OBSTÁCULOS
-   OPTIMIZADO:
-   se posicionan una sola vez.
 ========================================================= */
 
 function actualizarObstaculos() {
 
-    obstaculos.forEach((obstaculo) => {
+    obstaculos.forEach(
+        (obstaculo) => {
 
-        obstaculo.elemento.style.left =
-            obstaculo.posicion + "px";
+            if (!obstaculo.elemento) return;
 
-        obstaculo.elemento.style.bottom =
-            PISO + "px";
+            obstaculo.elemento.style.left =
+                obstaculo.posicion + "px";
 
-    });
+            obstaculo.elemento.style.bottom =
+                PISO + "px";
+
+        }
+    );
 
 }
 
@@ -679,40 +901,106 @@ function comprobarObstaculos() {
 
     if (
         juegoTerminado ||
+        juegoPausado ||
         invulnerable
     ) return;
 
 
-    obstaculos.forEach((obstaculo, indice) => {
+    obstaculos.forEach(
+        (obstaculo, indice) => {
 
-        if (
-            obstaculosGolpeados.has(indice)
-        ) {
+            if (
+                obstaculosGolpeados.has(
+                    indice
+                )
+            ) {
 
-            return;
+                return;
 
-        }
-
-
-        const distancia =
-            Math.abs(
-                posicionJugador -
-                obstaculo.posicion
-            );
+            }
 
 
-        if (distancia < 90) {
+            const distancia =
+                Math.abs(
+                    posicionJugador -
+                    obstaculo.posicion
+                );
 
 
-            if (posicionVertical <= PISO + 80) {
+            if (distancia < 90) {
 
-                perderMediaVida(indice);
+                if (
+                    posicionVertical <=
+                    PISO + 80
+                ) {
+
+                    perderMediaVida(
+                        indice
+                    );
+
+                }
 
             }
 
         }
+    );
 
-    });
+}
+
+
+/* =========================================================
+   PUNTOS POR SALTAR OBSTÁCULOS
+========================================================= */
+
+function comprobarObstaculosSuperados() {
+
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
+
+
+    obstaculos.forEach(
+        (obstaculo, indice) => {
+
+            if (
+                obstaculosSuperados.has(
+                    indice
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            const pasoObstaculo =
+                posicionJugador >
+                obstaculo.posicion + 70;
+
+
+            const estaEnElAire =
+                posicionVertical >
+                PISO + 25;
+
+
+            if (
+                pasoObstaculo &&
+                estaEnElAire
+            ) {
+
+                obstaculosSuperados.add(
+                    indice
+                );
+
+                sumarPuntos(
+                    PUNTOS_OBSTACULO
+                );
+
+            }
+
+        }
+    );
 
 }
 
@@ -721,16 +1009,21 @@ function comprobarObstaculos() {
    PERDER MEDIA VIDA
 ========================================================= */
 
-function perderMediaVida(indiceObstaculo) {
+function perderMediaVida(
+    indiceObstaculo
+) {
 
     if (
         invulnerable ||
-        juegoTerminado
+        juegoTerminado ||
+        juegoPausado
     ) return;
 
 
     if (
-        obstaculosGolpeados.has(indiceObstaculo)
+        obstaculosGolpeados.has(
+            indiceObstaculo
+        )
     ) {
 
         return;
@@ -747,7 +1040,9 @@ function perderMediaVida(indiceObstaculo) {
 
     actualizarVidas();
 
-    personaje.classList.add("daño");
+    personaje.classList.add(
+        "daño"
+    );
 
 
     if (direccionJugador === 1) {
@@ -768,17 +1063,19 @@ function perderMediaVida(indiceObstaculo) {
     }
 
 
-    if (
-        posicionJugador >
+    const limiteDerecho =
         ANCHO_MUNDO -
         ANCHO_PERSONAJE -
-        30
+        30;
+
+
+    if (
+        posicionJugador >
+        limiteDerecho
     ) {
 
         posicionJugador =
-            ANCHO_MUNDO -
-            ANCHO_PERSONAJE -
-            30;
+            limiteDerecho;
 
     }
 
@@ -818,15 +1115,29 @@ function perderMediaVida(indiceObstaculo) {
 
 
 /* =========================================================
-   COLISIÓN ENEMIGO
+   COLISIÓN ENEMIGO PRINCIPAL
 ========================================================= */
 
 function comprobarEnemigo() {
 
     if (
         juegoTerminado ||
+        juegoPausado ||
         invulnerable
     ) return;
+
+
+    /*
+     * Protección adicional en el comienzo.
+     */
+    if (
+        posicionJugador <
+        FIN_ZONA_SEGURA
+    ) {
+
+        return;
+
+    }
 
 
     const diferencia =
@@ -837,7 +1148,6 @@ function comprobarEnemigo() {
 
 
     if (diferencia < 80) {
-
 
         if (
             Math.abs(
@@ -855,19 +1165,68 @@ function comprobarEnemigo() {
 
 
 /* =========================================================
+   PUNTOS POR SALTAR FEDERAL PRINCIPAL
+========================================================= */
+
+function comprobarFederalPrincipalSuperado() {
+
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
+
+
+    const estaEnElAire =
+        posicionVertical >
+        PISO + 25;
+
+
+    const pasoFederal =
+        posicionJugador >
+        posicionEnemigo + 80;
+
+
+    if (
+        estaEnElAire &&
+        pasoFederal &&
+        !federalesSuperados.has(
+            "principal"
+        )
+    ) {
+
+        federalesSuperados.add(
+            "principal"
+        );
+
+        sumarPuntos(
+            PUNTOS_FEDERAL
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    PERDER VIDA COMPLETA
 ========================================================= */
 
 function perderVida() {
 
-    if (invulnerable) return;
+    if (
+        invulnerable ||
+        juegoTerminado ||
+        juegoPausado
+    ) return;
 
 
     vidas--;
 
     actualizarVidas();
 
-    personaje.classList.add("daño");
+    personaje.classList.add(
+        "daño"
+    );
 
 
     if (
@@ -939,36 +1298,48 @@ function actualizarVidas() {
     ];
 
 
-    corazones.forEach((corazon, indice) => {
+    corazones.forEach(
+        (corazon, indice) => {
 
-        const numeroVida = indice + 1;
+            if (!corazon) return;
 
-        corazon.classList.remove(
-            "vida-perdida"
-        );
+            const numeroVida =
+                indice + 1;
 
 
-        if (vidas >= numeroVida) {
-
-            corazon.textContent = "❤️";
-
-        } else if (
-            vidas === numeroVida - 0.5
-        ) {
-
-            corazon.textContent = "💔";
-
-        } else {
-
-            corazon.textContent = "🖤";
-
-            corazon.classList.add(
+            corazon.classList.remove(
                 "vida-perdida"
             );
 
-        }
 
-    });
+            if (
+                vidas >= numeroVida
+            ) {
+
+                corazon.textContent =
+                    "❤️";
+
+            } else if (
+                vidas ===
+                numeroVida - 0.5
+            ) {
+
+                corazon.textContent =
+                    "💔";
+
+            } else {
+
+                corazon.textContent =
+                    "🖤";
+
+                corazon.classList.add(
+                    "vida-perdida"
+                );
+
+            }
+
+        }
+    );
 
 }
 
@@ -978,9 +1349,13 @@ function actualizarCorazon(
     activo
 ) {
 
+    if (!elemento) return;
+
+
     if (activo) {
 
-        elemento.textContent = "❤️";
+        elemento.textContent =
+            "❤️";
 
         elemento.classList.remove(
             "vida-perdida"
@@ -988,7 +1363,8 @@ function actualizarCorazon(
 
     } else {
 
-        elemento.textContent = "🖤";
+        elemento.textContent =
+            "🖤";
 
         elemento.classList.add(
             "vida-perdida"
@@ -1001,19 +1377,21 @@ function actualizarCorazon(
 
 /* =========================================================
    PERGAMINOS
-   OPTIMIZADO:
-   guardamos sus posiciones una sola vez.
 ========================================================= */
 
 const posicionesPergaminos =
     Array.from(pergaminos).map(
-        (pergamino) => pergamino.offsetLeft
+        (pergamino) =>
+            pergamino.offsetLeft
     );
 
 
 function comprobarPergaminos() {
 
-    if (juegoTerminado) return;
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
 
 
     pergaminos.forEach(
@@ -1046,6 +1424,10 @@ function comprobarPergaminos() {
 }
 
 
+/* =========================================================
+   RECOGER PERGAMINO
+========================================================= */
+
 function recogerPergamino(
     pergamino
 ) {
@@ -1056,6 +1438,9 @@ function recogerPergamino(
     ) return;
 
 
+    /*
+     * Ocultar inmediatamente el documento.
+     */
     pergamino.style.display =
         "none";
 
@@ -1077,14 +1462,42 @@ function recogerPergamino(
         pergamino.dataset.texto;
 
 
-    overlayPergamino.classList.add(
-        "mostrar"
-    );
+    /*
+     * ======================================
+     * PAUSAR COMPLETAMENTE EL JUEGO
+     * ======================================
+     */
+
+    juegoPausado = true;
 
 
+    /*
+     * Soltar todas las teclas.
+     */
     teclas.izquierda = false;
 
     teclas.derecha = false;
+
+
+    /*
+     * Detener el movimiento vertical.
+     */
+    velocidadVertical = 0;
+
+    saltando = false;
+
+
+    personaje.classList.remove(
+        "saltando"
+    );
+
+
+    /*
+     * Mostrar documento.
+     */
+    overlayPergamino.classList.add(
+        "mostrar"
+    );
 
 }
 
@@ -1093,14 +1506,20 @@ function recogerPergamino(
    CERRAR PERGAMINO
 ========================================================= */
 
-document
-    .getElementById(
+const botonCerrarPergamino =
+    document.getElementById(
         "cerrarPergamino"
-    )
-    .addEventListener(
+    );
+
+
+if (botonCerrarPergamino) {
+
+    botonCerrarPergamino.addEventListener(
         "click",
         cerrarPergamino
     );
+
+}
 
 
 function cerrarPergamino() {
@@ -1109,6 +1528,19 @@ function cerrarPergamino() {
         "mostrar"
     );
 
+
+    /*
+     * Reanudar el juego.
+     */
+    juegoPausado = false;
+
+
+    /*
+     * Actualizar inmediatamente
+     * la posición de la cámara.
+     */
+    actualizarCamara();
+
 }
 
 
@@ -1116,19 +1548,21 @@ function cerrarPergamino() {
    FEDERALES EXTRA
 ========================================================= */
 
-/* =========================================================
-   FEDERALES EXTRA
-========================================================= */
-
 function crearFederal() {
 
-    if (juegoTerminado) return;
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
+
 
     if (
         federalesExtra.length >=
         MAX_FEDERALES_EXTRA
     ) {
+
         return;
+
     }
 
 
@@ -1148,16 +1582,6 @@ function crearFederal() {
     `;
 
 
-    /*
-     * El Federal aparece DETRÁS de Sarmiento.
-     *
-     * Si Sarmiento va a la derecha:
-     * Federal aparece a la izquierda (-1)
-     *
-     * Si Sarmiento va a la izquierda:
-     * Federal aparece a la derecha (+1)
-     */
-
     const OFFSET_FEDERAL = 650;
 
 
@@ -1167,12 +1591,14 @@ function crearFederal() {
     if (direccionJugador === 1) {
 
         posicionInicial =
-            posicionJugador - OFFSET_FEDERAL;
+            posicionJugador -
+            OFFSET_FEDERAL;
 
     } else {
 
         posicionInicial =
-            posicionJugador + OFFSET_FEDERAL;
+            posicionJugador +
+            OFFSET_FEDERAL;
 
     }
 
@@ -1182,7 +1608,48 @@ function crearFederal() {
             50,
             Math.min(
                 posicionInicial,
-                ANCHO_MUNDO - ANCHO_ENEMIGO
+                ANCHO_MUNDO -
+                ANCHO_ENEMIGO
+            )
+        );
+
+
+    /*
+     * Evitar que un Federal extra
+     * aparezca demasiado cerca.
+     */
+    if (
+        Math.abs(
+            posicionInicial -
+            posicionJugador
+        ) < 300
+    ) {
+
+        if (
+            posicionJugador <
+            ANCHO_MUNDO / 2
+        ) {
+
+            posicionInicial =
+                posicionJugador + 400;
+
+        } else {
+
+            posicionInicial =
+                posicionJugador - 400;
+
+        }
+
+    }
+
+
+    posicionInicial =
+        Math.max(
+            50,
+            Math.min(
+                posicionInicial,
+                ANCHO_MUNDO -
+                ANCHO_ENEMIGO
             )
         );
 
@@ -1196,52 +1663,65 @@ function crearFederal() {
 
 
     const imagen =
-        nuevoFederal.querySelector("img");
+        nuevoFederal.querySelector(
+            "img"
+        );
 
 
-    /*
-     * IMPORTANTE:
-     *
-     * El Federal mira HACIA Sarmiento.
-     *
-     * Si está a la izquierda de Sarmiento
-     * mira hacia la derecha.
-     *
-     * Si está a la derecha
-     * mira hacia la izquierda.
-     */
+    if (imagen) {
 
-    if (posicionInicial < posicionJugador) {
+        if (
+            posicionInicial <
+            posicionJugador
+        ) {
 
-        imagen.style.transform =
-            "scaleX(1)";
+            imagen.style.transform =
+                "scaleX(1)";
 
-    } else {
+        } else {
 
-        imagen.style.transform =
-            "scaleX(-1)";
+            imagen.style.transform =
+                "scaleX(-1)";
+
+        }
 
     }
 
 
-    document
-        .getElementById("enemigos")
-        .appendChild(nuevoFederal);
+    const contenedor =
+        document.getElementById(
+            "enemigos"
+        );
+
+
+    if (contenedor) {
+
+        contenedor.appendChild(
+            nuevoFederal
+        );
+
+    }
 
 
     federalesExtra.push({
 
-        elemento: nuevoFederal,
+        elemento:
+            nuevoFederal,
 
-        posicion: posicionInicial,
+        posicion:
+            posicionInicial,
 
         velocidad:
             VELOCIDAD_ENEMIGO,
 
         direccion:
-            posicionInicial < posicionJugador
+            posicionInicial <
+            posicionJugador
                 ? 1
-                : -1
+                : -1,
+
+        superado:
+            false
 
     });
 
@@ -1250,37 +1730,28 @@ function crearFederal() {
 
 /* =========================================================
    ACTUALIZAR FEDERALES EXTRA
-   PERSIGUEN A SARMIENTO
 ========================================================= */
 
 function actualizarFederalesExtra() {
 
-    if (juegoTerminado) return;
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
 
 
     federalesExtra.forEach(
         (federal) => {
-
-
-            /*
-             * El Federal siempre calcula
-             * hacia dónde está Sarmiento.
-             */
 
             const diferencia =
                 posicionJugador -
                 federal.posicion;
 
 
-            /*
-             * Si Sarmiento está a la derecha:
-             * dirección = +1
-             *
-             * Si está a la izquierda:
-             * dirección = -1
-             */
-
-            if (Math.abs(diferencia) > 25) {
+            if (
+                Math.abs(diferencia) >
+                25
+            ) {
 
                 if (diferencia > 0) {
 
@@ -1300,10 +1771,6 @@ function actualizarFederalesExtra() {
 
             }
 
-
-            /*
-             * Límites del mapa
-             */
 
             if (federal.posicion < 0) {
 
@@ -1325,10 +1792,6 @@ function actualizarFederalesExtra() {
             }
 
 
-            /*
-             * Actualizar posición
-             */
-
             federal.elemento.style.left =
                 federal.posicion + "px";
 
@@ -1337,31 +1800,92 @@ function actualizarFederalesExtra() {
                 PISO + "px";
 
 
-            /*
-             * El sprite SIEMPRE mira hacia Sarmiento.
-             */
-
             const imagen =
-                federal.elemento.querySelector("img");
+                federal.elemento.querySelector(
+                    "img"
+                );
 
 
-            imagen.style.transform =
-                posicionJugador <
-                federal.posicion
+            if (imagen) {
 
-                    ? "scaleX(-1)"
+                imagen.style.transform =
+                    posicionJugador <
+                    federal.posicion
 
-                    : "scaleX(1)";
+                        ? "scaleX(-1)"
+
+                        : "scaleX(1)";
+
+            }
 
         }
     );
 
 }
 
+
+/* =========================================================
+   PUNTOS POR SALTAR FEDERALES EXTRA
+========================================================= */
+
+function comprobarFederalesExtraSuperados() {
+
+    if (
+        juegoTerminado ||
+        juegoPausado
+    ) return;
+
+
+    const estaEnElAire =
+        posicionVertical >
+        PISO + 25;
+
+
+    federalesExtra.forEach(
+        (federal, indice) => {
+
+            if (
+                federal.superado
+            ) {
+
+                return;
+
+            }
+
+
+            const pasoFederal =
+                posicionJugador >
+                federal.posicion + 80;
+
+
+            if (
+                estaEnElAire &&
+                pasoFederal
+            ) {
+
+                federal.superado =
+                    true;
+
+
+                federalesSuperados.add(
+                    indice
+                );
+
+
+                sumarPuntos(
+                    PUNTOS_FEDERAL
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
 /* =========================================================
    LIMPIAR FEDERALES EXTRA
-   NUEVO:
-   elimina los elementos del DOM al terminar.
 ========================================================= */
 
 function limpiarFederales() {
@@ -1369,7 +1893,9 @@ function limpiarFederales() {
     federalesExtra.forEach(
         (federal) => {
 
-            if (federal.elemento) {
+            if (
+                federal.elemento
+            ) {
 
                 federal.elemento.remove();
 
@@ -1395,12 +1921,18 @@ function comprobarFinal() {
 
     if (
         juegoTerminado ||
+        juegoPausado ||
         barreraSuperada
     ) return;
 
 
     const final =
-        document.getElementById("finalNivel");
+        document.getElementById(
+            "finalNivel"
+        );
+
+
+    if (!final) return;
 
 
     const posicionBarrera =
@@ -1408,7 +1940,9 @@ function comprobarFinal() {
 
 
     if (
-        posicionJugador + ANCHO_PERSONAJE >= posicionBarrera
+        posicionJugador +
+        ANCHO_PERSONAJE >=
+        posicionBarrera
     ) {
 
         barreraSuperada = true;
@@ -1419,18 +1953,28 @@ function comprobarFinal() {
 
 }
 
+
 /* =========================================================
-   INTERMISIÓN DESPUÉS DE PASAR LA BARRERA
+   INTERMISIÓN
 ========================================================= */
 
 function pasarBarrera() {
 
+    detenerContadorTiempo();
 
-    /*
-     * DETENER COMPLETAMENTE EL JUEGO
-     */
+
+    tiempoFinal =
+        Math.floor(
+            (
+                Date.now() -
+                tiempoInicio
+            ) / 1000
+        );
+
 
     juegoTerminado = true;
+
+    juegoPausado = false;
 
 
     teclas.izquierda = false;
@@ -1442,48 +1986,28 @@ function pasarBarrera() {
     saltando = false;
 
 
-    /*
-     * =====================================================
-     * OPTIMIZACIÓN PRINCIPAL DEL LAG
-     *
-     * Detenemos el intervalo que crea federales.
-     * =====================================================
-     */
-
-    if (intervaloFederales !== null) {
+    if (
+        intervaloFederales !==
+        null
+    ) {
 
         clearInterval(
             intervaloFederales
         );
 
-        intervaloFederales = null;
+        intervaloFederales =
+            null;
 
     }
 
 
-    /*
-     * =====================================================
-     * Eliminamos todos los federales extra
-     * del DOM.
-     * =====================================================
-     */
-
     limpiarFederales();
 
-
-    /*
-     * Mostrar pantalla de intermisión
-     */
 
     intermisionNivel.classList.add(
         "mostrar"
     );
 
-
-    /*
-     * Después de unos segundos,
-     * abrir el multiple choice.
-     */
 
     setTimeout(() => {
 
@@ -1511,11 +2035,12 @@ function abrirQuiz() {
 
     juegoTerminado = true;
 
+    juegoPausado = false;
+
 
     teclas.izquierda = false;
 
     teclas.derecha = false;
-
 
     velocidadVertical = 0;
 
@@ -1543,11 +2068,14 @@ function abrirQuiz() {
 
 function mostrarPregunta() {
 
-    respuestaSeleccionada = false;
+    respuestaSeleccionada =
+        false;
 
 
     const pregunta =
-        preguntas[preguntaActual];
+        preguntas[
+            preguntaActual
+        ];
 
 
     document.getElementById(
@@ -1585,7 +2113,9 @@ function mostrarPregunta() {
 
     contenedor.innerHTML = "";
 
+
     feedback.textContent = "";
+
 
     feedback.className =
         "quiz-feedback";
@@ -1648,14 +2178,19 @@ function responderPregunta(
     botonElegido
 ) {
 
-    if (respuestaSeleccionada) return;
+    if (
+        respuestaSeleccionada
+    ) return;
 
 
-    respuestaSeleccionada = true;
+    respuestaSeleccionada =
+        true;
 
 
     const pregunta =
-        preguntas[preguntaActual];
+        preguntas[
+            preguntaActual
+        ];
 
 
     const botones =
@@ -1746,14 +2281,20 @@ function responderPregunta(
    SIGUIENTE
 ========================================================= */
 
-document
-    .getElementById(
+const botonSiguiente =
+    document.getElementById(
         "btnSiguiente"
-    )
-    .addEventListener(
+    );
+
+
+if (botonSiguiente) {
+
+    botonSiguiente.addEventListener(
         "click",
         siguientePregunta
     );
+
+}
 
 
 function siguientePregunta() {
@@ -1847,7 +2388,6 @@ function mostrarResultado() {
         boton.onclick =
             finalizarVictoria;
 
-
     } else {
 
         icono.textContent =
@@ -1929,7 +2469,21 @@ function finalizarVictoria() {
 
 function terminarJuego() {
 
+    detenerContadorTiempo();
+
+
+    tiempoFinal =
+        Math.floor(
+            (
+                Date.now() -
+                tiempoInicio
+            ) / 1000
+        );
+
+
     juegoTerminado = true;
+
+    juegoPausado = false;
 
 
     teclas.izquierda = false;
@@ -1937,25 +2491,20 @@ function terminarJuego() {
     teclas.derecha = false;
 
 
-    /*
-     * También detenemos el generador
-     * de federales en Game Over.
-     */
-
-    if (intervaloFederales !== null) {
+    if (
+        intervaloFederales !==
+        null
+    ) {
 
         clearInterval(
             intervaloFederales
         );
 
-        intervaloFederales = null;
+        intervaloFederales =
+            null;
 
     }
 
-
-    /*
-     * Eliminamos federales extra.
-     */
 
     limpiarFederales();
 
@@ -1976,7 +2525,6 @@ function terminarJuego() {
 
 /* =========================================================
    CÁMARA
-   OPTIMIZADA
 ========================================================= */
 
 function actualizarCamara() {
@@ -2012,20 +2560,18 @@ function actualizarCamara() {
     }
 
 
-    /*
-     * OPTIMIZACIÓN:
-     * si la cámara no cambió, no volvemos
-     * a escribir el transform.
-     */
-
-    if (camaraX === ultimaCamaraX) {
+    if (
+        camaraX ===
+        ultimaCamaraX
+    ) {
 
         return;
 
     }
 
 
-    ultimaCamaraX = camaraX;
+    ultimaCamaraX =
+        camaraX;
 
 
     mundo.style.transform =
@@ -2054,28 +2600,39 @@ function gameLoop() {
     }
 
 
-    actualizarJugador();
+    /*
+     * IMPORTANTE:
+     *
+     * El loop sigue existiendo,
+     * pero mientras juegoPausado sea true
+     * NO actualiza personaje, enemigos
+     * ni colisiones.
+     */
+    if (!juegoPausado) {
 
+        actualizarJugador();
 
-    actualizarEnemigo();
+        actualizarEnemigo();
 
+        actualizarFederalesExtra();
 
-    actualizarFederalesExtra();
+        comprobarEnemigo();
 
+        comprobarObstaculos();
 
-    comprobarEnemigo();
+        comprobarObstaculosSuperados();
 
+        comprobarFederalPrincipalSuperado();
 
-    comprobarObstaculos();
+        comprobarFederalesExtraSuperados();
 
+        comprobarPergaminos();
 
-    comprobarPergaminos();
+        comprobarFinal();
 
+        actualizarCamara();
 
-    comprobarFinal();
-
-
-    actualizarCamara();
+    }
 
 
     animacionJuego =
@@ -2091,6 +2648,8 @@ function gameLoop() {
 ========================================================= */
 
 function reiniciarNivel() {
+
+    detenerContadorTiempo();
 
     location.reload();
 
@@ -2118,15 +2677,41 @@ enemigo.style.bottom =
 
 
 /*
- * Los obstáculos no cambian de posición.
- * Se posicionan UNA SOLA VEZ.
+ * Inicializar HUD
+ */
+
+puntos = 0;
+
+actualizarPuntos();
+
+
+contadorTiempo.textContent =
+    "00:00";
+
+
+/*
+ * Inicializar vidas
+ */
+
+actualizarVidas();
+
+
+/*
+ * Posicionar obstáculos
  */
 
 actualizarObstaculos();
 
 
 /*
- * Iniciar juego.
+ * Iniciar contador
+ */
+
+iniciarContadorTiempo();
+
+
+/*
+ * Iniciar juego
  */
 
 gameLoop();
@@ -2136,21 +2721,19 @@ gameLoop();
    GENERACIÓN DE FEDERALES
 ========================================================= */
 
-/*
- * Guardamos el intervalo para poder destruirlo
- * cuando se llegue a la barrera o Game Over.
- */
+intervaloFederales =
+    setInterval(
+        () => {
 
-intervaloFederales = setInterval(
-    () => {
+            if (
+                !juegoTerminado &&
+                !juegoPausado
+            ) {
 
-        if (!juegoTerminado) {
+                crearFederal();
 
-            crearFederal();
+            }
 
-        }
-
-    },
-    INTERVALO_FEDERAL
-);
-
+        },
+        INTERVALO_FEDERAL
+    );
