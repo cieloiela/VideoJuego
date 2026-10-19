@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Escape de Buenos Aires - Nivel 1</title>
+
+    <link rel="stylesheet" href="nivel1.css">
+
+</head>
+
+
+<body>
+
+<section class="nivel">
+
+    <section id="transicionInicioNivel" class="transicion-inicio-nivel" aria-hidden="false">
+    <div class="transicion-inicio-contenido">
+        <div class="transicion-inicio-linea"></div>
+        <p class="transicion-inicio-etiqueta">ESCAPE DE BUENOS AIRES</p>
+        <h1>NIVEL 1</h1>
+        <p class="transicion-inicio-subtitulo">CAMINO HACIA CHILE</p>
+        <div class="transicion-inicio-linea"></div>
+    </div>
+</section>
+
+
+
+    <!-- =====================================================
+         HUD
+    ====================================================== -->
+
+   <header class="hud">
+
+    <!-- VIDAS -->
+    <div class="hud-bloque vidas-bloque">
+
+        <div class="hud-label">
+            VIDAS
+        </div>
+
+        <div class="vidas">
+
+            <span id="vida1" class="corazon">
+                ❤️
+            </span>
+
+            <span id="vida2" class="corazon">
+                ❤️
+            </span>
+
+            <span id="vida3" class="corazon">
+                ❤️
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- CENTRO -->
+    <div class="hud-centro">
+
+        <div class="titulo-juego">
+            ESCAPE DE BUENOS AIRES
+        </div>
+
+        <div class="subtitulo-juego">
+            NIVEL 1 · CAMINO HACIA CHILE
+        </div>
+
+    </div>
+
+
+    <!-- ESTADÍSTICAS -->
+    <div class="hud-estadisticas">
+
+        <div class="hud-stat">
+
+            <span class="stat-icono">
+                📜
+            </span>
+
+            <div>
+                <small>PERGAMINOS</small>
+
+                <strong id="contadorPergaminos">
+                    0/3
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="hud-stat">
+
+            <span class="stat-icono">
+                ⭐
+            </span>
+
+            <div>
+                <small>PUNTAJE</small>
+
+                <strong id="contadorPuntos">
+                    00000
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="hud-stat">
+
+            <span class="stat-icono">
+                ⏱
+            </span>
+
+            <div>
+                <small>TIEMPO</small>
+
+                <strong id="contadorTiempo">
+                    00:00
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- =====================================================
+         ESCENARIO
+    ====================================================== -->
+
+    <main class="escenario">
+
+        <div class="mundo" id="mundo">
+
+
+            <!-- =================================================
+                 SUELO
+            ================================================== -->
+
+            <div class="suelo"></div>
+
+
+
+            <!-- =================================================
+                 SARMIENTO
+            ================================================== -->
+
+            <div id="sarmiento">
+
+                <div id="sarmientoSprite" aria-hidden="true"></div>
+
+                <img
+                    src="../img/sarmiento.png"
+                    alt="Sarmiento"
+                >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PERGAMINO 1
+            ================================================== -->
+
+            <div
+                id="pergamino1"
+                class="pergamino"
+
+                data-titulo="La Argentina de 1852"
+
+                data-texto="En 1852, la Argentina atravesaba un período de grandes conflictos políticos. Buenos Aires y la Confederación Argentina se encontraban enfrentadas."
+            >
+
+                <img
+                    src="../img/pergamino.png"
+                    alt="Pergamino"
+                >
+
+                <div class="brillo-pergamino"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PERGAMINO 2
+            ================================================== -->
+
+            <div
+                id="pergamino2"
+                class="pergamino"
+
+                data-titulo="Domingo Faustino Sarmiento"
+
+                data-texto="Sarmiento fue una figura fundamental de la historia argentina. Fue escritor, educador, político y posteriormente presidente de la Nación."
+            >
+
+                <img
+                    src="../img/pergamino.png"
+                    alt="Pergamino"
+                >
+
+                <div class="brillo-pergamino"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PERGAMINO 3
+            ================================================== -->
+
+            <div
+                id="pergamino3"
+                class="pergamino"
+
+                data-titulo="El camino hacia Chile"
+
+                data-texto="Para escapar de Buenos Aires, Sarmiento deberá avanzar por el territorio y superar los obstáculos que aparecen en su camino."
+            >
+
+                <img
+                    src="../img/pergamino.png"
+                    alt="Pergamino"
+                >
+
+                <div class="brillo-pergamino"></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 OBSTÁCULOS
+            ================================================== -->
+
+            <div
+                id="obstaculo1"
+                class="obstaculo"
+            >
+
+                <img
+                    src="../img/piedra.png"
+                    alt="Piedra"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo2"
+                class="obstaculo"
+            >
+
+                <img
+                    src="../img/barril.png"
+                    alt="Barril"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo3"
+                class="obstaculo"
+            >
+
+                <img
+                    src="../img/piedra.png"
+                    alt="Piedra"
+                >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FEDERAL PRINCIPAL
+            ================================================== -->
+
+            <div
+                id="enemigo"
+                class="enemigo"
+            >
+
+                <img
+                    src="../img/federal.png"
+                    alt="Federal"
+                >
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FEDERALES EXTRA
+            ================================================== -->
+
+            <div id="enemigos"></div>
+
+
+
+            <!-- =================================================
+                 BARRERA FINAL
+            ================================================== -->
+
+            <div
+                id="finalNivel"
+                class="final-nivel"
+            >
+
+                <img
+                    src="../img/barra-victoria.png"
+                    class="sprite-final"
+                    alt="Barrera final"
+                >
+
+                <div class="texto-final">
+                    META
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         OVERLAY DEL PERGAMINO
+    ====================================================== -->
+
+    <div
+        id="overlayPergamino"
+        class="overlay-pergamino"
+    >
+
+        <div class="documento-historico">
+
+
+            <button
+                id="cerrarPergamino"
+                class="cerrar-documento"
+            >
+                ✕
+            </button>
+
+
+            <div class="decoracion-documento">
+                ✦
+            </div>
+
+
+            <div
+                class="documento-titulo"
+                id="textoTitulo"
+            >
+                Documento histórico
+            </div>
+
+
+            <div class="linea-documento"></div>
+
+
+            <div
+                class="documento-contenido"
+                id="textoDocumento"
+            >
+                Texto histórico
+            </div>
+
+
+            <div class="documento-pie">
+                DOCUMENTO HISTÓRICO
+            </div>
+
+            <p class="documento-ayuda">
+                Presioná <strong>ESPACIO</strong> o tocá <strong>✕</strong> para continuar
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         QUIZ
+    ====================================================== -->
+
+    <div
+        id="overlayQuiz"
+        class="overlay-quiz"
+    >
+
+        <div class="quiz">
+
+
+            <!-- ENCABEZADO -->
+
+            <div class="quiz-encabezado">
+
+                <div class="quiz-etiqueta">
+                    DESAFÍO HISTÓRICO
+                </div>
+
+
+                <div
+                    id="quizProgreso"
+                    class="quiz-progreso"
+                >
+                    PREGUNTA 1 DE 3
+                </div>
+
+            </div>
+
+
+
+            <!-- TÍTULO -->
+
+            <h1>
+                ¿CUÁNTO APRENDISTE?
+            </h1>
+
+
+            <p class="quiz-instruccion">
+                Respondé correctamente para poder continuar hacia Chile.
+            </p>
+
+
+
+            <!-- PREGUNTA -->
+
+            <div
+                id="quizPregunta"
+                class="quiz-pregunta"
+            >
+                Pregunta
+            </div>
+
+
+
+            <!-- OPCIONES -->
+
+            <div
+                id="quizOpciones"
+                class="quiz-opciones"
+            >
+
+            </div>
+
+
+
+            <!-- RESULTADO -->
+
+            <div
+                id="quizFeedback"
+                class="quiz-feedback"
+            >
+
+            </div>
+
+
+
+            <!-- BOTÓN SIGUIENTE -->
+
+            <button
+                id="btnSiguiente"
+                class="btn-siguiente"
+            >
+                SIGUIENTE →
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RESULTADO FINAL DEL QUIZ
+    ====================================================== -->
+
+    <div
+        id="overlayResultado"
+        class="overlay-quiz"
+    >
+
+        <div class="quiz resultado-quiz">
+
+
+            <div
+                id="resultadoIcono"
+                class="resultado-icono"
+            >
+                🏆
+            </div>
+
+
+            <h1 id="resultadoTitulo">
+                ¡EXCELENTE!
+            </h1>
+
+
+            <p
+                id="resultadoTexto"
+                class="resultado-texto"
+            >
+                Respondiste correctamente.
+            </p>
+
+
+            <div
+                id="resultadoPuntaje"
+                class="resultado-puntaje"
+            >
+                3 / 3
+            </div>
+
+
+            <button
+                id="btnResultado"
+                class="btn-siguiente"
+            >
+                CONTINUAR
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         VICTORIA
+    ====================================================== -->
+
+    <div
+        id="pantallaVictoria"
+        class="pantalla-victoria"
+    >
+
+        <div class="victoria-contenido">
+
+
+            <div class="victoria-icono">
+                🏆
+            </div>
+
+
+            <h1>
+                ¡ESCAPASTE!
+            </h1>
+
+
+            <p>
+                Sarmiento logró atravesar Buenos Aires.
+            </p>
+
+
+            <p class="victoria-secundaria">
+                ¡Superaste el desafío histórico!
+            </p>
+
+
+            <button onclick="window.location.href='../nivel2/nivel2parte1.html'">
+                CONTINUAR AL NIVEL 2 →
+            </button>
+
+            <button class="boton-repetir" onclick="reiniciarNivel()">
+                JUGAR DE NUEVO
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         INTERMISIÓN / NIVEL SUPERADO
+    ====================================================== -->
+
+    <div
+        id="intermisionNivel"
+        class="intermision-nivel"
+    >
+
+        <div class="intermision-contenido">
+
+            <div class="intermision-icono">
+                🏆
+            </div>
+
+            <div class="intermision-etiqueta">
+                NIVEL SUPERADO
+            </div>
+
+            <h1>
+                ¡PASASTE LA BARRERA!
+            </h1>
+
+            <p>
+                Sarmiento logró atravesar el camino
+                y está cada vez más cerca de Chile.
+            </p>
+
+            <div class="intermision-linea"></div>
+
+            <span>
+                PREPARATE PARA EL DESAFÍO HISTÓRICO...
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PAUSA
+    ====================================================== -->
+
+    <button
+        id="botonPausa"
+        class="boton-pausa-hud"
+        type="button"
+        aria-label="Pausar juego"
+        aria-haspopup="dialog"
+    >
+        ❚❚ <span>PAUSA</span>
+    </button>
+
+    <div
+        id="menuPausa"
+        class="menu-pausa"
+        aria-hidden="true"
+    >
+        <div class="pausa-contenido">
+            <div class="pausa-etiqueta">JUEGO EN PAUSA</div>
+            <h1>PAUSA</h1>
+
+            <div class="pausa-configuracion">
+                <h2>CONFIGURACIÓN</h2>
+
+                <label class="pausa-control">
+                    <span>VOLUMEN GENERAL</span>
+                    <span class="pausa-volumen">
+                        <input type="range" id="pausaVolumen" min="0" max="100" value="100">
+                        <strong id="pausaValorVolumen">100%</strong>
+                    </span>
+                </label>
+
+                <div class="pausa-fila">
+                    <span>MÚSICA</span>
+                    <button id="pausaMusica" class="boton-pausa-config">ACTIVADA</button>
+                </div>
+
+                <div class="pausa-fila">
+                    <span>EFECTOS DE SONIDO</span>
+                    <button id="pausaSonido" class="boton-pausa-config">ACTIVADOS</button>
+                </div>
+
+                <button id="pausaPantallaCompleta" class="boton-pausa-secundario">PANTALLA COMPLETA</button>
+            </div>
+
+            <div class="pausa-controles" aria-label="Controles del juego">
+                <h2>CONTROLES</h2>
+                <ul>
+                    <li><kbd>⬅</kbd><kbd>➡</kbd> o <kbd>A</kbd><kbd>D</kbd> <span>Moverte</span></li>
+                    <li><kbd>⬆</kbd> <kbd>W</kbd> <kbd>ESPACIO</kbd> <span>Saltar</span></li>
+                    <li><kbd>ESC</kbd> <span>Pausa</span></li>
+                </ul>
+            </div>
+
+            <div class="pausa-botones">
+                <button id="continuarJuego" class="boton-pausa-principal">CONTINUAR</button>
+                <button id="volverMenuPrincipal" class="boton-pausa-secundario">VOLVER AL MENÚ PRINCIPAL</button>
+            </div>
+
+            <p class="ayuda-pausa">Presioná ESC para continuar</p>
+        </div>
+    </div>
+
+
+
+    <!-- =====================================================
+         GAME OVER
+    ====================================================== -->
+
+    <div
+        id="pantallaGameOver"
+        class="pantalla-gameover"
+    >
+
+        <div class="gameover-contenido">
+
+
+            <div class="gameover-icono">
+                💀
+            </div>
+
+
+            <h1>
+                ¡TE ATRAPARON!
+            </h1>
+
+
+            <p>
+                Sarmiento no pudo escapar.
+            </p>
+
+
+            <button onclick="reiniciarNivel()">
+                INTENTAR DE NUEVO
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CONTROLES
+    ====================================================== -->
+
+    <div class="controles">
+
+        <button
+            id="btnIzquierda"
+            aria-label="Mover izquierda"
+        >
+            ⬅
+        </button>
+
+
+        <button
+            id="btnSaltar"
+            aria-label="Saltar"
+        >
+            ⬆
+        </button>
+
+
+        <button
+            id="btnDerecha"
+            aria-label="Mover derecha"
+        >
+            ➡
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         GUÍA "CÓMO JUGAR" (usabilidad - Sprint 6)
+    ====================================================== -->
+
+    <div id="guiaJuego" class="guia-juego" role="dialog" aria-modal="true"
+         aria-labelledby="guiaTitulo" aria-hidden="true">
+        <div class="guia-contenido">
+            <div class="pausa-etiqueta">ANTES DE EMPEZAR</div>
+            <h1 id="guiaTitulo">CÓMO JUGAR</h1>
+
+            <div class="guia-grid">
+
+                <div class="guia-bloque guia-teclado">
+                    <h2>🎮 CONTROLES</h2>
+                    <ul>
+                        <li><span class="guia-teclas"><kbd>⬅</kbd><kbd>➡</kbd><em>o</em><kbd>A</kbd><kbd>D</kbd></span><span>Moverte</span></li>
+                        <li><span class="guia-teclas"><kbd>⬆</kbd><em>/</em><kbd>W</kbd><em>/</em><kbd>ESPACIO</kbd></span><span>Saltar</span></li>
+                        <li><span class="guia-teclas"><kbd>ESC</kbd></span><span>Pausa</span></li>
+                    </ul>
+                </div>
+
+                <div class="guia-bloque guia-tactil">
+                    <h2>👆 CONTROLES TÁCTILES</h2>
+                    <ul>
+                        <li><span class="guia-teclas"><kbd>⬅</kbd><kbd>➡</kbd></span><span>Moverte</span></li>
+                        <li><span class="guia-teclas"><kbd>⬆</kbd></span><span>Saltar</span></li>
+                        <li><span class="guia-teclas"><kbd>❚❚</kbd></span><span>Pausa</span></li>
+                    </ul>
+                </div>
+
+                <div class="guia-bloque">
+                    <h2>🎯 TU MISIÓN</h2>
+                    <ul class="guia-objetivos">
+                        <li>📜 Juntá los <strong>3 pergaminos</strong>.</li>
+                        <li>🪨 Saltá los obstáculos: cada choque te quita <strong>½ vida</strong>.</li>
+                        <li>🏃 Esquivá a los federales: si te alcanzan perdés <strong>1 vida</strong>.</li>
+                        <li>🏁 Llegá a la <strong>META</strong> y respondé el desafío histórico.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <label class="guia-check">
+                <input type="checkbox" id="guiaNoMostrar">
+                <span>No volver a mostrar esta guía</span>
+            </label>
+
+            <button id="guiaEmpezar" class="boton-pausa-principal" type="button">
+                ¡EMPEZAR!
+            </button>
+
+            <p class="ayuda-pausa guia-ayuda-teclado">Presioná <strong>ESPACIO</strong> para comenzar</p>
+        </div>
+    </div>
+
+    <!-- Mensajes de feedback para el jugador -->
+    <div id="mensajesJuego" class="mensajes-juego" role="status" aria-live="polite"></div>
+
+
+</section>
+
+<audio id="musicaNivel1" src="../audio/nivel1.mp3" loop preload="auto"></audio>
+<script src="nivel1.js"></script>
+
+
+
+<div id="transicionSalidaMenu" class="transicion-salida-menu" aria-hidden="true">
+    <span>VOLVIENDO AL MENÚ</span>
+</div>
+
+</body>
+
+</html>
