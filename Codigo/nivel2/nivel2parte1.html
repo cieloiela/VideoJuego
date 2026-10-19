@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>Escape de Buenos Aires - Nivel 2</title>
+
+    <link rel="stylesheet" href="nivel2parte1.css">
+</head>
+
+<body>
+
+<section class="nivel">
+
+    <!-- =========================================
+         HUD
+    ========================================== -->
+
+    <header class="hud">
+
+        <div class="hud-bloque vidas-bloque">
+
+            <div class="hud-label">
+                VIDAS
+            </div>
+
+            <div class="vidas">
+
+                <span id="vida1" class="corazon">
+                    ❤️
+                </span>
+
+                <span id="vida2" class="corazon">
+                    ❤️
+                </span>
+
+                <span id="vida3" class="corazon">
+                    ❤️
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="hud-centro">
+
+            <div class="titulo-juego">
+                ESCAPE DE BUENOS AIRES
+            </div>
+
+            <div class="subtitulo-juego">
+                NIVEL 2 · LA LLANURA PAMPEANA
+            </div>
+
+        </div>
+
+
+        <div class="hud-estadisticas">
+
+            <div class="hud-stat">
+
+                <span class="stat-icono">
+                    ⭐
+                </span>
+
+                <div>
+
+                    <small>
+                        PUNTAJE
+                    </small>
+
+                    <strong id="contadorPuntos">
+                        00000
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="hud-stat">
+
+                <span class="stat-icono">
+                    ⏱
+                </span>
+
+                <div>
+
+                    <small>
+                        TIEMPO
+                    </small>
+
+                    <strong id="contadorTiempo">
+                        00:00
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <button id="botonPausa" class="boton-pausa-hud" type="button" aria-label="Pausar juego" aria-haspopup="dialog">❚❚ <span>PAUSA</span></button>
+
+
+    <!-- =========================================
+         ESCENARIO
+    ========================================== -->
+
+    <main class="escenario">
+
+        <div
+            class="mundo"
+            id="mundo"
+        >
+
+            <!-- PISO -->
+
+            <div class="suelo"></div>
+
+
+            <!-- =================================
+                 SARMIENTO
+            ================================== -->
+
+            <div id="sarmiento">
+
+                <img
+                    src="../img/sarmiento.png"
+                    alt="Sarmiento"
+                >
+
+            </div>
+
+
+            <!-- =================================
+                 AGUA
+            ================================== -->
+
+            <!-- CAJAS CON AGUA -->
+
+<div class="recurso-caja" id="caja1">
+    <img src="../img/caja.png">
+</div>
+
+<div class="agua escondida" id="aguaCaja1">
+    <img src="../img/agua.png" alt="Agua para hidratar a Sarmiento">
+</div>
+
+
+<div class="recurso-caja" id="caja2">
+    <img src="../img/caja.png">
+</div>
+
+<div class="agua escondida" id="aguaCaja2">
+    <img src="../img/agua.png">
+</div>
+
+
+<div class="recurso-caja" id="caja3">
+    <img src="../img/caja.png">
+</div>
+
+<div class="agua escondida" id="aguaCaja3">
+    <img src="../img/agua.png">
+</div>
+
+            <!-- =================================
+                 OBSTÁCULOS
+            ================================== -->
+
+            <div
+                id="obstaculo1"
+                class="obstaculo obstaculo-carreta"
+            >
+
+                <img
+                    src="../img/carretarota.png"
+                    alt="Carreta rota"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo2"
+                class="obstaculo obstaculo-arena"
+            >
+
+                <img
+                    src="../img/arena.png"
+                    alt="Montículo de arena"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo3"
+                class="obstaculo obstaculo-arena"
+            >
+
+                <img
+                    src="../img/arena.png"
+                    alt="Montículo de arena"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo4"
+                class="obstaculo obstaculo-carreta"
+            >
+
+                <img
+                    src="../img/carretarota.png"
+                    alt="Carreta rota"
+                >
+
+            </div>
+             
+
+
+            <div
+                id="obstaculo5"
+                class="obstaculo obstaculo-arena"
+            >
+
+                <img
+                    src="../img/arena.png"
+                    alt="Montículo de arena"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo6"
+                class="obstaculo obstaculo-carreta"
+            >
+
+                <img
+                    src="../img/carretarota.png"
+                    alt="Carreta rota"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo7"
+                class="obstaculo obstaculo-arena"
+            >
+
+                <img
+                    src="../img/arena.png"
+                    alt="Montículo de arena"
+                >
+
+            </div>
+
+
+            <div
+                id="obstaculo8"
+                class="obstaculo obstaculo-carreta"
+            >
+
+                <img
+                    src="../img/carretarota.png"
+                    alt="Carreta rota"
+                >
+
+            </div>
+
+
+            <!-- =================================
+                 FEDERAL PRINCIPAL
+            ================================== -->
+
+            <div
+                id="enemigo"
+                class="enemigo"
+            >
+
+                <img
+                    src="../img/federal.png"
+                    alt="Federal"
+                >
+
+            </div>
+
+
+            <!-- FEDERALES EXTRA -->
+
+            <div id="enemigos"></div>
+
+
+            <!-- =================================
+                 PULPERÍA
+            ================================== -->
+
+            <div
+                id="negocio"
+                class="negocio"
+            >
+
+                <img
+                    src="../img/negocio.png"
+                    alt="Pulpería abandonada"
+                >
+
+                <div class="indicador-negocio">
+                    🏚
+                </div>
+
+                <div class="texto-negocio">
+                    PULPERÍA
+                </div>
+
+            </div>
+
+
+            <div
+                id="zonaEntrada"
+                class="zona-entrada"
+            ></div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         HIDRATACIÓN
+    ========================================== -->
+
+    <div class="hidratacion-hud">
+
+        <div class="hidratacion-titulo">
+
+            <span class="hidratacion-icono">
+                💧
+            </span>
+
+            <span>
+                HIDRATACIÓN
+            </span>
+
+            <strong id="contadorHidratacion">
+                100%
+            </strong>
+
+        </div>
+
+
+        <div class="barra-hidratacion">
+
+            <div
+                id="barraHidratacion"
+                class="barra-hidratacion-progreso"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENSAJE AGUA -->
+
+    <div
+        id="mensajeAgua"
+        class="mensaje-agua"
+    >
+        💧 HIDRATACIÓN RESTAURADA
+    </div>
+
+
+    <!-- =========================================
+         TRANSICIÓN PULPERÍA
+    ========================================== -->
+
+    <div
+        id="transicionPulperia"
+        class="transicion-pulperia"
+    >
+
+        <div class="transicion-contenido">
+
+            <div class="transicion-icono">
+                🏚
+            </div>
+
+            <div class="transicion-etiqueta">
+                REFUGIO ENCONTRADO
+            </div>
+
+            <h1>
+                LA PULPERÍA
+            </h1>
+
+            <p>
+                Sarmiento encontró un viejo refugio
+                en medio de la llanura.
+            </p>
+
+            <div class="transicion-linea"></div>
+
+            <span>
+                ALGO EXTRAÑO LO ESPERA ADENTRO...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         GAME OVER
+    ========================================== -->
+
+    <div
+        id="pantallaGameOver"
+        class="pantalla-gameover"
+    >
+
+        <div class="gameover-contenido">
+
+            <div class="gameover-icono">
+                💀
+            </div>
+
+            <h1>
+                ¡NO SOBREVIVISTE!
+            </h1>
+
+            <p>
+                Sarmiento no logró atravesar
+                la llanura pampeana.
+            </p>
+
+            <p class="gameover-secundario">
+                La falta de agua y los Federales
+                hicieron demasiado difícil el camino.
+            </p>
+
+            <button onclick="reiniciarNivel()">
+                INTENTAR DE NUEVO
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENÚ DE PAUSA (misma estructura funcional que el nivel 1) -->
+    <div id="menuPausa" class="menu-pausa" aria-hidden="true">
+        <div class="pausa-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloPausa">
+            <div class="pausa-etiqueta">JUEGO EN PAUSA</div>
+            <h1 id="tituloPausa">PAUSA</h1>
+            <p>La travesía quedó detenida. Ajustá las opciones o retomá el camino.</p>
+
+            <div class="pausa-configuracion">
+                <h2>CONFIGURACIÓN</h2>
+                <label class="pausa-control">
+                    <span>VOLUMEN GENERAL</span>
+                    <span class="pausa-volumen"><input type="range" id="pausaVolumen" min="0" max="100" value="100"><strong id="pausaValorVolumen">100%</strong></span>
+                </label>
+                <div class="pausa-fila"><span>MÚSICA</span><button id="pausaMusica" class="boton-pausa-config" type="button">ACTIVADA</button></div>
+                <div class="pausa-fila"><span>EFECTOS DE SONIDO</span><button id="pausaSonido" class="boton-pausa-config" type="button">ACTIVADOS</button></div>
+                <button id="pausaPantallaCompleta" class="boton-pausa-secundario" type="button">PANTALLA COMPLETA</button>
+            </div>
+
+            <div class="pausa-controles" aria-label="Controles del juego">
+                <h2>CONTROLES</h2>
+                <ul>
+                    <li><kbd>←</kbd><kbd>→</kbd> o <kbd>A</kbd><kbd>D</kbd><span>Moverte</span></li>
+                    <li><kbd>↑</kbd><kbd>W</kbd><kbd>ESPACIO</kbd><span>Saltar</span></li>
+                    <li><kbd>ESC</kbd><span>Pausa</span></li>
+                </ul>
+            </div>
+
+            <div class="pausa-botones">
+                <button id="continuarJuego" class="boton-pausa-principal" type="button">CONTINUAR</button>
+                <button id="volverMenuPrincipal" class="boton-pausa-secundario" type="button">VOLVER AL MENÚ PRINCIPAL</button>
+            </div>
+            <small>Presioná ESC para continuar.</small>
+        </div>
+    </div>
+
+<!-- =========================================
+         CONTROLES
+    ========================================== -->
+
+    <div class="controles">
+
+        <button
+            id="btnIzquierda"
+            aria-label="Mover izquierda"
+        >
+            ⬅
+        </button>
+
+        <button
+            id="btnSaltar"
+            aria-label="Saltar"
+        >
+            ⬆
+        </button>
+
+        <button
+            id="btnDerecha"
+            aria-label="Mover derecha"
+        >
+            ➡
+        </button>
+
+    </div>
+
+</section>
+
+
+<audio id="musicaNivel2" src="../audio/nivel1.mp3" loop preload="none" aria-hidden="true"></audio>
+<script src="nivel2parte1.js"></script>
+
+</body>
+
+</html>

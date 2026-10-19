@@ -1,0 +1,1967 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+/* =========================================================
+   ESCAPE DE BUENOS AIRES
+   NIVEL 2 - PARTE 1
+   LA LLANURA PAMPEANA
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+body {
+
+    background: #111;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --hud-altura: 88px;
+
+    --controles-altura: 90px;
+
+    --piso: 90px;
+
+    --rojo: #ff2020;
+
+    --rojo-neon: #ff0000;
+
+    --agua: #20bfff;
+
+}
+
+
+
+/* =========================================================
+   NIVEL
+========================================================= */
+
+.nivel {
+
+    position: relative;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: #000;
+
+}
+
+
+
+/* =========================================================
+   HUD
+========================================================= */
+
+.hud {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+
+    width: 100%;
+
+    height: var(--hud-altura);
+
+
+    z-index: 1000;
+
+
+    display: grid;
+
+
+    grid-template-columns:
+        220px
+        1fr
+        300px;
+
+
+    align-items: center;
+
+
+    padding: 10px 20px;
+
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(10,10,10,.96),
+            rgba(10,10,10,.80)
+        );
+
+
+    border-bottom:
+        2px solid rgba(255,255,255,.12);
+
+
+    color:white;
+
+
+    pointer-events:none;
+
+}
+
+
+
+/* =========================================================
+   VIDAS
+========================================================= */
+
+.hud-bloque {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+
+
+.hud-label {
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    opacity:.8;
+
+}
+
+
+
+.vidas {
+
+    display:flex;
+
+    gap:7px;
+
+    font-size:25px;
+
+}
+
+
+
+.corazon {
+
+    display:inline-block;
+
+    transition:
+
+        transform .2s ease,
+
+        filter .2s ease,
+
+        opacity .2s ease;
+
+}
+
+
+
+.corazon.perdido {
+
+    filter:grayscale(1);
+
+    opacity:.18;
+
+    transform:scale(.85);
+
+}
+
+
+
+/* =========================================================
+   CENTRO HUD
+========================================================= */
+
+
+.hud-centro {
+
+    text-align:center;
+
+}
+
+
+
+.titulo-juego {
+
+    font-size:21px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-shadow:
+        0 2px 5px #000;
+
+}
+
+
+
+.subtitulo-juego {
+
+    margin-top:4px;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    color:#ddd;
+
+}
+
+
+
+/* =========================================================
+   ESTADISTICAS
+========================================================= */
+
+
+.hud-estadisticas {
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:20px;
+
+}
+
+
+
+.hud-stat {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+
+.stat-icono {
+
+    font-size:22px;
+
+}
+
+
+
+.hud-stat small {
+
+    display:block;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+    opacity:.65;
+
+}
+
+
+
+.hud-stat strong {
+
+    display:block;
+
+    font-size:16px;
+
+    letter-spacing:1px;
+
+}
+
+
+
+/* =========================================================
+   ESCENARIO
+========================================================= */
+
+
+.escenario {
+
+    position:absolute;
+
+
+    top:var(--hud-altura);
+
+    left:0;
+
+
+    width:100%;
+
+
+    height:
+
+        calc(
+
+            100vh
+
+            - var(--hud-altura)
+
+            - var(--controles-altura)
+
+        );
+
+
+    overflow:hidden;
+
+
+    background:#c9a66b;
+
+}
+
+
+
+/* =========================================================
+   MUNDO
+========================================================= */
+
+.mundo {
+
+    width:12000px;
+    height:100%;
+
+    background-image:url("../img/fondo1.png");
+
+    background-repeat:repeat-x;
+
+    background-position:left bottom;
+
+    background-size:auto 100%;
+
+}
+
+
+/* =========================================================
+   PISO
+========================================================= */
+
+
+.suelo {
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:20000px;
+
+    height:144px;
+
+
+    background-image:url("../img/tierra.png");
+
+    background-repeat:repeat-x;
+
+    background-position:left bottom;
+
+    background-size:auto 144px;
+
+
+    /* elimina la separación con el fondo */
+    border-top:none;
+
+
+    /* sombra mucho más suave */
+    box-shadow:
+        0 -3px 12px rgba(0,0,0,.35);
+
+
+    z-index:5;
+
+}
+/* =========================================================
+   SARMIENTO
+========================================================= */
+
+#sarmiento {
+
+    position:absolute;
+
+    width:200px;
+
+    height:200px;
+
+
+    /* queda apoyado sobre el suelo */
+    bottom:var(--piso);
+
+
+    z-index:30;
+
+
+    pointer-events:none;
+
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+}
+
+
+
+#sarmiento img {
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:contain;
+
+
+    display:block;
+
+
+    image-rendering:pixelated;
+
+
+    filter:
+
+        drop-shadow(
+            0 6px 3px rgba(0,0,0,.45)
+        );
+
+}
+
+
+
+/* =========================================================
+   FEDERALES
+========================================================= */
+
+
+.enemigo {
+
+    position:absolute;
+
+
+    width:190px;
+
+    height:190px;
+
+
+    bottom:var(--piso);
+
+
+    z-index:25;
+
+
+    pointer-events:none;
+
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+}
+
+
+
+.enemigo img {
+
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:contain;
+
+
+    display:block;
+
+
+    image-rendering:pixelated;
+
+
+    filter:
+
+        drop-shadow(
+            0 6px 3px rgba(0,0,0,.5)
+        );
+
+}
+
+
+
+/* =========================================================
+   OBSTACULOS
+========================================================= */
+
+
+/* =========================================================
+   OBSTACULOS
+========================================================= */
+
+
+.obstaculo {
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    bottom:var(--piso);
+
+    z-index:20;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    pointer-events:none;
+}
+
+
+
+.obstaculo img {
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+
+    image-rendering:pixelated;
+
+
+    /* baja solo la imagen */
+    transform:translateY(80px);
+
+
+    /* borde blanco fino */
+    filter:
+    drop-shadow(0 0 4px rgba(255,220,120,.45))
+    drop-shadow(0 5px 5px rgba(0,0,0,.45));
+}
+
+
+
+
+/* =========================================================
+   ALERTA DE OBSTACULO
+========================================================= */
+
+
+.obstaculo::before {
+
+
+    content:"⚠";
+
+
+    position:absolute;
+
+
+    left:50%;
+
+
+    top:-55px;
+
+
+    transform:translateX(-50%);
+
+
+    font-size:40px;
+
+
+    color:#ff2020;
+
+
+    text-shadow:
+
+        0 0 5px #ff0000,
+
+        0 0 12px #ff0000,
+
+        0 0 25px #ff0000;
+
+
+    z-index:50;
+
+
+    animation:
+
+        alertaObstaculo .7s infinite alternate;
+
+}
+
+
+
+.recurso-caja {
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    bottom:var(--piso);
+
+    z-index:40;
+
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:center;
+
+    cursor:pointer;
+
+}
+
+
+.recurso-caja img {
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    image-rendering:pixelated;
+
+
+    filter:
+        drop-shadow(0 0 5px rgba(255,200,80,.5))
+        drop-shadow(0 5px 5px rgba(0,0,0,.5));
+
+}
+
+.agua.escondida {
+
+    display:none;
+
+}
+#caja1 {
+    left: 2800px;
+}
+
+
+@keyframes alertaObstaculo {
+
+
+    from {
+
+        opacity:.45;
+
+        transform:
+
+            translateX(-50%)
+
+            scale(.85);
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+        transform:
+
+            translateX(-50%)
+
+            scale(1.1);
+
+    }
+
+}
+
+
+
+@keyframes brilloObstaculo {
+
+
+    from {
+
+        opacity:.3;
+
+    }
+
+
+    to {
+
+        opacity:1;
+
+    }
+
+}
+
+
+
+
+
+/* =========================================================
+   POSICIONES OBSTACULOS
+========================================================= */
+
+
+#obstaculo1 {
+    left:1000px;
+}
+
+#obstaculo2 {
+    left:2300px;
+}
+
+#obstaculo3 {
+    left:3600px;
+}
+
+#obstaculo4 {
+    left:5000px;
+}
+
+#obstaculo5 {
+    left:6300px;
+}
+
+#obstaculo6 {
+    left:7600px;
+}
+
+#obstaculo7 {
+    left:9000px;
+}
+
+#obstaculo8 {
+    left:10500px;
+}
+
+
+/* =========================================================
+   AGUA
+========================================================= */
+
+
+.agua {
+
+
+    position:absolute;
+
+
+    width:140px;
+
+    height:140px;
+
+
+    bottom:var(--piso);
+
+
+    z-index:18;
+
+
+    cursor:pointer;
+
+
+    display:flex;
+
+
+    align-items:flex-end;
+
+
+    justify-content:center;
+
+
+    animation:
+
+        aguaFlotando 1.3s ease-in-out infinite;
+
+}
+
+
+
+.agua img {
+
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:contain;
+
+
+    image-rendering:pixelated;
+
+
+
+    filter:
+
+        drop-shadow(
+            0 0 10px rgba(0,190,255,.8)
+        );
+
+}
+
+
+
+.brillo-agua {
+
+
+    position:absolute;
+
+
+    left:50%;
+
+
+    bottom:3px;
+
+
+    width:70px;
+
+
+    height:14px;
+
+
+    transform:translateX(-50%);
+
+
+    border-radius:50%;
+
+
+    background:
+
+        rgba(80,220,255,.55);
+
+
+    filter:blur(5px);
+
+
+}
+
+
+
+@keyframes aguaFlotando {
+
+
+    0%,100% {
+
+        transform:translateY(0);
+
+    }
+
+
+    50% {
+
+        transform:translateY(-8px);
+
+    }
+
+}
+
+
+
+/* =========================================================
+   POSICIONES AGUA
+========================================================= */
+
+
+#agua1 {
+    left:1350px;
+}
+
+
+#agua2 {
+    left:4100px;
+}
+
+
+#agua3 {
+    left:6600px;
+}
+
+/* =========================================================
+   PULPERIA
+========================================================= */
+
+
+.negocio {
+
+    position:absolute;
+
+
+    left:11500px;
+
+
+    bottom:var(--piso);
+
+
+    width:350px;
+
+    height:350px;
+
+
+    z-index:22;
+
+
+    display:flex;
+
+
+    align-items:flex-end;
+
+
+    justify-content:center;
+
+}
+
+
+
+.negocio img {
+
+width:100%;
+height:100%;
+
+object-fit:contain;
+
+transform:translateY(45px);
+
+}
+
+.indicador-negocio {
+
+
+    position:absolute;
+
+
+    top:-45px;
+
+
+    font-size:35px;
+
+
+    animation:
+
+        indicadorPulperia 1s infinite alternate;
+
+}
+
+
+
+@keyframes indicadorPulperia {
+
+
+    from {
+
+        transform:translateY(0);
+
+    }
+
+
+    to {
+
+        transform:translateY(-8px);
+
+    }
+
+}
+
+
+
+.texto-negocio {
+
+
+    position:absolute;
+
+
+    top:10px;
+
+
+    padding:6px 15px;
+
+
+    border-radius:6px;
+
+
+    background:
+
+        rgba(0,0,0,.75);
+
+
+    color:white;
+
+
+    font-size:14px;
+
+
+    font-weight:bold;
+
+
+    letter-spacing:2px;
+
+}
+
+
+
+
+/* =========================================================
+   ZONA ENTRADA PULPERIA
+========================================================= */
+
+
+.zona-entrada {
+
+
+    position:absolute;
+
+
+    left:7450px;
+
+
+    bottom:var(--piso);
+
+
+    width:400px;
+
+
+    height:200px;
+
+
+    z-index:15;
+
+
+    pointer-events:none;
+
+}
+
+
+
+
+/* =========================================================
+   HIDRATACION HUD
+========================================================= */
+
+
+.hidratacion-hud {
+
+
+    position:fixed;
+
+
+    left:50%;
+
+
+    bottom:100px;
+
+
+    transform:translateX(-50%);
+
+
+
+    width:min(700px,70vw);
+
+
+
+    z-index:1100;
+
+
+
+    padding:10px 15px;
+
+
+
+    border-radius:10px;
+
+
+
+    background:
+
+        rgba(0,0,0,.7);
+
+
+
+    border:
+
+        2px solid rgba(255,255,255,.15);
+
+
+
+    color:white;
+
+}
+
+
+
+
+.hidratacion-titulo {
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    gap:8px;
+
+
+    margin-bottom:6px;
+
+
+    font-size:13px;
+
+
+    font-weight:bold;
+
+
+}
+
+
+
+.hidratacion-icono {
+
+
+    font-size:18px;
+
+}
+
+
+
+
+/* =========================================================
+   BARRA HIDRATACION
+========================================================= */
+
+
+.barra-hidratacion {
+
+
+    width:100%;
+
+
+    height:20px;
+
+
+
+    padding:2px;
+
+
+
+    border-radius:6px;
+
+
+
+    background:#111;
+
+
+
+    border:
+
+        2px solid rgba(255,255,255,.35);
+
+
+
+    overflow:hidden;
+
+}
+
+
+
+.barra-hidratacion-progreso {
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    border-radius:4px;
+
+
+
+    background:
+
+        linear-gradient(
+
+            to bottom,
+
+            #59ddff,
+
+            #008ed0
+
+        );
+
+
+
+    box-shadow:
+
+        0 0 10px rgba(0,180,255,.8);
+
+
+
+    transition:
+
+        width .2s ease;
+
+}
+
+
+
+
+.barra-hidratacion.hidratacion-baja
+.barra-hidratacion-progreso {
+
+
+    background:
+
+        linear-gradient(
+
+            to bottom,
+
+            #ffd83d,
+
+            #d99b00
+
+        );
+
+}
+
+
+
+
+.barra-hidratacion.hidratacion-critica
+.barra-hidratacion-progreso {
+
+
+    background:
+
+        linear-gradient(
+
+            to bottom,
+
+            #ff5555,
+
+            #c00000
+
+        );
+
+
+    animation:
+
+        barraCritica .6s infinite alternate;
+
+}
+
+
+
+
+@keyframes barraCritica {
+
+
+    from {
+
+        filter:brightness(.8);
+
+    }
+
+
+    to {
+
+        filter:brightness(1.3);
+
+    }
+
+}
+
+
+
+
+
+/* =========================================================
+   MENSAJE AGUA
+========================================================= */
+
+
+.mensaje-agua {
+
+
+    position:fixed;
+
+
+    left:50%;
+
+
+    top:125px;
+
+
+
+    transform:
+
+        translateX(-50%)
+
+        translateY(-20px);
+
+
+
+    padding:10px 20px;
+
+
+
+    border-radius:7px;
+
+
+
+    background:
+
+        rgba(0,80,120,.9);
+
+
+
+    border:
+
+        2px solid #20cfff;
+
+
+
+    color:white;
+
+
+
+    font-weight:bold;
+
+
+
+    opacity:0;
+
+
+
+    pointer-events:none;
+
+
+
+    z-index:1200;
+
+
+
+    transition:
+
+        opacity .25s,
+
+        transform .25s;
+
+}
+
+
+
+.mensaje-agua.visible {
+
+
+    opacity:1;
+
+
+
+    transform:
+
+        translateX(-50%)
+
+        translateY(0);
+
+}
+
+
+
+
+
+/* =========================================================
+   TRANSICION PULPERIA
+========================================================= */
+
+
+.transicion-pulperia {
+
+
+    position:fixed;
+
+
+    inset:0;
+
+
+    z-index:3000;
+
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+
+    background:
+
+        rgba(0,0,0,.95);
+
+
+
+    opacity:0;
+
+
+
+    pointer-events:none;
+
+
+
+    transition:opacity .6s;
+
+}
+
+
+
+.transicion-pulperia.visible {
+
+
+    opacity:1;
+
+
+    pointer-events:auto;
+
+}
+
+
+
+.transicion-contenido {
+
+
+    width:min(600px,90vw);
+
+
+    text-align:center;
+
+
+    color:white;
+
+}
+
+
+
+.transicion-icono {
+
+
+    font-size:70px;
+
+
+}
+
+
+
+.transicion-contenido h1 {
+
+
+    margin:15px 0;
+
+
+    font-size:42px;
+
+
+    letter-spacing:4px;
+
+}
+
+
+
+
+/* =========================================================
+   GAME OVER
+========================================================= */
+
+
+.pantalla-gameover {
+
+
+    position:fixed;
+
+
+    inset:0;
+
+
+    z-index:4000;
+
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+
+    background:
+
+        rgba(0,0,0,.95);
+
+
+
+    opacity:0;
+
+
+    pointer-events:none;
+
+
+
+    transition:opacity .4s;
+
+}
+
+
+
+.pantalla-gameover.visible {
+
+
+    opacity:1;
+
+
+    pointer-events:auto;
+
+}
+
+
+
+.gameover-contenido {
+
+
+    text-align:center;
+
+
+    color:white;
+
+}
+
+
+
+.gameover-icono {
+
+
+    font-size:65px;
+
+}
+
+
+
+.gameover-contenido h1 {
+
+
+    font-size:40px;
+
+
+    margin:15px;
+
+}
+
+
+
+.gameover-contenido button {
+
+
+    margin-top:25px;
+
+
+    padding:14px 30px;
+
+
+    border:0;
+
+
+    border-radius:8px;
+
+
+
+    background:#b51d1d;
+
+
+
+    color:white;
+
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+}
+
+
+
+
+/* =========================================================
+   CONTROLES
+========================================================= */
+
+
+.controles {
+
+
+    position:fixed;
+
+
+    bottom:0;
+
+
+    left:0;
+
+
+
+    width:100%;
+
+
+
+    height:var(--controles-altura);
+
+
+
+    z-index:1500;
+
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+
+    gap:15px;
+
+
+
+    background:
+
+        linear-gradient(
+
+            to top,
+
+            rgba(0,0,0,.8),
+
+            transparent
+
+        );
+
+}
+
+
+
+.controles button {
+
+
+    width:62px;
+
+
+    height:62px;
+
+
+
+    border-radius:50%;
+
+
+
+    border:
+
+        2px solid rgba(255,255,255,.3);
+
+
+
+    background:
+
+        rgba(20,20,20,.75);
+
+
+
+    color:white;
+
+
+
+    font-size:25px;
+
+
+    cursor:pointer;
+
+}
+
+
+
+.controles button:active {
+
+
+    transform:scale(.9);
+
+}
+
+
+
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+
+@media(max-width:750px){
+
+
+    .hud {
+
+
+        grid-template-columns:
+
+            150px
+
+            1fr;
+
+    }
+
+
+
+    .hud-estadisticas {
+
+        display:none;
+
+    }
+
+
+
+    .hidratacion-hud {
+
+
+        width:80vw;
+
+        bottom:95px;
+
+    }
+
+
+
+}
+
+
+
+@media(max-width:450px){
+
+
+    #sarmiento {
+
+
+        width:160px;
+
+        height:160px;
+
+    }
+
+
+
+    .enemigo {
+
+
+        width:160px;
+
+        height:160px;
+
+    }
+
+
+
+    .obstaculo {
+
+
+        width:210px;
+
+        height:210px;
+
+    }
+
+
+
+    .agua {
+
+
+        width:110px;
+
+        height:110px;
+
+    }
+
+}
+
+/* =========================================================
+   PALETA UNIFICADA + PAUSA TÁCTIL
+========================================================= */
+:root {
+    --tinta:#1c1510; --sombra:#2b190d; --cuero:#6b421f;
+    --tierra:#87592f; --arena:#c4944d; --oro:#f3d18c;
+    --pergamino:#f4e8c1; --acento:#b56d5e;
+}
+body, .nivel { background: var(--tinta); }
+.hud { background: linear-gradient(to bottom, rgba(28,21,16,.97), rgba(43,25,13,.92)); border-bottom-color: rgba(196,148,77,.45); }
+.hud-label, .subtitulo-juego { color: var(--oro); }
+.escenario { background: var(--arena); }
+
+.boton-pausa-hud {
+ position:fixed; top:calc(var(--hud-altura) + 9px); right:18px; z-index:3000; min-height:48px;
+ display:inline-flex; align-items:center; gap:8px; padding:0 16px;
+ border:1px solid var(--arena); border-radius:12px;
+ background:linear-gradient(135deg,var(--cuero),var(--sombra));
+ color:var(--pergamino); font-weight:900; letter-spacing:1px;
+ box-shadow:0 5px 18px rgba(28,21,16,.45); cursor:pointer; touch-action:manipulation;
+}
+.menu-pausa { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(28,21,16,.78); backdrop-filter:blur(7px); }
+.menu-pausa.mostrar { display:flex; }
+.pausa-contenido { width:min(440px,100%); padding:34px 28px; text-align:center; border:1px solid var(--arena); border-radius:20px; color:var(--pergamino); background:linear-gradient(145deg,var(--sombra),#20160c); box-shadow:0 20px 60px rgba(0,0,0,.55); }
+.pausa-etiqueta { color:var(--oro); letter-spacing:3px; font-size:11px; font-weight:800; }
+.pausa-contenido h1 { margin:8px 0 10px; color:var(--oro); letter-spacing:5px; font-size:clamp(34px,9vw,58px); }
+.pausa-contenido p { color:#d3b27c; line-height:1.6; }
+.pausa-botones { display:grid; gap:12px; margin-top:26px; }
+.boton-pausa-principal, .boton-pausa-secundario { min-height:52px; border-radius:12px; padding:0 16px; font-weight:900; letter-spacing:1px; cursor:pointer; touch-action:manipulation; }
+.boton-pausa-principal { border:1px solid var(--oro); background:linear-gradient(135deg,var(--arena),var(--cuero)); color:var(--tinta); }
+.boton-pausa-secundario { border:1px solid rgba(196,148,77,.65); background:transparent; color:var(--pergamino); }
+.pausa-contenido small { display:block; margin-top:18px; color:#d3b27c; opacity:.8; }
+@media(max-width:700px){ .boton-pausa-hud{top:calc(var(--hud-altura) + 7px);right:10px;min-width:48px;padding:0 13px}.boton-pausa-hud span{display:none}.hud{padding-right:72px}.hud-estadisticas{gap:8px}.pausa-contenido{padding:28px 20px} }
+
+
+/* =========================================================
+   SISTEMA VISUAL COMPARTIDO CON EL MENÚ PRINCIPAL
+   Cordillera: azul noche, hielo y detalles dorados.
+========================================================= */
+:root {
+    --tinta: #08101e;
+    --sombra: #0b1429;
+    --cuero: #20385d;
+    --tierra: #355477;
+    --arena: #a9c7f5;
+    --oro: #e8c58a;
+    --pergamino: #eaf3ff;
+    --acento: #7fa9dc;
+}
+html, body, button, input, select, textarea {
+    font-family: 'Poppins', Arial, sans-serif;
+}
+body, .nivel { background: var(--tinta); color: var(--pergamino); }
+.hud {
+    background: linear-gradient(180deg, rgba(7,12,26,.98), rgba(11,20,41,.94));
+    border-bottom: 1px solid rgba(216,237,255,.28);
+    box-shadow: 0 5px 24px rgba(0,0,0,.34);
+}
+.hud-label, .hud-stat small, .subtitulo-juego { color: var(--oro); text-shadow: none; }
+.titulo-juego, .nombre-nivel, .transicion-inicio-nivel h1,
+.gameover-contenido h1, .pausa-contenido h1 {
+    font-family: 'Bebas Neue', 'Poppins', sans-serif;
+    letter-spacing: 2px;
+}
+.titulo-juego { color: #f4f7ff; text-shadow: 0 2px 8px #0008; }
+.hud-stat strong, .progreso { color: #eaf3ff; text-shadow: 0 2px 0 #0a142c; }
+.boton-pausa-hud {
+    border-color: rgba(232,197,138,.72);
+    background: linear-gradient(135deg, #20385d, #0b1429);
+    color: #eaf3ff;
+    border-radius: 8px;
+}
+/* La jugabilidad y los colores propios del escenario no se reemplazan. */
+.escenario { background-color: #142348; }
+
+/* Menú de pausa completo, inspirado en el del nivel 1. */
+.menu-pausa {
+    position: fixed; inset: 0; z-index: 10000;
+    display: none; align-items: center; justify-content: center;
+    padding: 18px; background: rgba(4,9,20,.82);
+    backdrop-filter: blur(9px);
+}
+.menu-pausa.mostrar { display: flex; }
+.pausa-contenido {
+    width: min(620px, 96vw); max-height: 92dvh; overflow-y: auto;
+    padding: clamp(22px, 4vw, 34px); color: #eaf3ff;
+    background: linear-gradient(145deg, rgba(22,39,70,.99), rgba(7,15,31,.995));
+    border: 1px solid rgba(232,197,138,.72); border-radius: 14px;
+    box-shadow: 0 22px 70px rgba(0,0,0,.65), 0 0 26px rgba(125,174,232,.12);
+    text-align: center;
+}
+.pausa-etiqueta { color: #e8c58a; font-size: 11px; font-weight: 800; letter-spacing: 3px; }
+.pausa-contenido h1 { margin: 7px 0 16px; font-size: clamp(38px, 7vw, 60px); color: #f4f8ff; text-shadow: 0 3px 0 #0a142c; }
+.pausa-contenido > p { margin: 0 auto 18px; color: #c0d0e8; line-height: 1.55; }
+.pausa-configuracion, .pausa-controles {
+    display: grid; gap: 12px; text-align: left; padding: 17px;
+    margin: 14px 0; border: 1px solid rgba(169,207,255,.22);
+    background: rgba(7,15,31,.48); border-radius: 9px;
+}
+.pausa-configuracion h2, .pausa-controles h2 { color: #e8c58a; font-size: 13px; letter-spacing: 2px; }
+.pausa-control, .pausa-fila { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 38px; color: #eaf3ff; font-size: 12px; font-weight: 600; }
+.pausa-volumen { display: flex; align-items: center; gap: 10px; width: min(330px, 60%); }
+.pausa-volumen input { flex: 1; min-width: 80px; accent-color: #e8c58a; }
+#pausaValorVolumen { color: #e8c58a; min-width: 42px; text-align: right; }
+.boton-pausa-config, .boton-pausa-secundario, .boton-pausa-principal {
+    min-height: 42px; border: 1px solid rgba(232,197,138,.58); border-radius: 7px;
+    padding: 9px 13px; font: 700 11px 'Poppins', Arial, sans-serif;
+    letter-spacing: .8px; cursor: pointer; transition: transform .18s, filter .18s, background .18s;
+}
+.boton-pausa-config { min-width: 125px; background: rgba(169,199,245,.1); color: #e8c58a; }
+.boton-pausa-principal { background: linear-gradient(135deg,#e8c58a,#a9c7f5); color: #08101e; border-color: #eaf3ff; }
+.boton-pausa-secundario { background: rgba(216,237,255,.045); color: #eaf3ff; }
+.boton-pausa-config:hover, .boton-pausa-secundario:hover, .boton-pausa-principal:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.pausa-controles ul { list-style: none; display: grid; gap: 9px; padding: 0; }
+.pausa-controles li { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; color: #c0d0e8; font-size: 12px; }
+.pausa-controles li span { margin-left: auto; color: #eaf3ff; }
+.pausa-controles kbd { min-width: 28px; padding: 4px 6px; text-align: center; background: #20385d; border: 1px solid #7898c3; border-radius: 4px; color: #f4f8ff; font: 700 11px 'Poppins', sans-serif; }
+.pausa-botones { display: grid; gap: 10px; }
+.pausa-botones button { width: 100%; }
+.pausa-contenido small { display: block; margin-top: 15px; color: #a9c7f5; opacity: .8; font-size: 11px; }
+@media (max-width: 600px) {
+    .pausa-contenido { padding: 20px 16px; }
+    .pausa-control, .pausa-fila { align-items: flex-start; flex-direction: column; gap: 7px; }
+    .pausa-volumen { width: 100%; }
+    .boton-pausa-config { width: 100%; }
+}

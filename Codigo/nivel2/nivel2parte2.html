@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#101b35">
+  <title>Escape de Buenos Aires — Nivel 2: La travesía por la cordillera</title>
+  <link rel="stylesheet" href="nivel2parte2.css">
+</head>
+<body>
+<section class="nivel" id="nivelCordillera" aria-label="Nivel 2: La travesía por la cordillera">
+  <header class="hud">
+    <div class="bloque-vidas">
+      <span class="etiqueta">VIDAS</span>
+      <div class="vidas" id="vidas" aria-label="Tres vidas">
+        <span class="corazon">♥</span><span class="corazon">♥</span><span class="corazon">♥</span>
+      </div>
+    </div>
+    <div class="titulo-hud">
+      <strong>ESCAPE DE BUENOS AIRES</strong>
+      <span>NIVEL 2 · LA TRAVESÍA POR LA CORDILLERA</span>
+    </div>
+    <div class="estadisticas">
+      <div><small>PUNTAJE</small><strong id="contadorPuntos">00000</strong></div>
+      <div><small>TIEMPO</small><strong id="contadorTiempo">00:00</strong></div>
+    </div>
+  </header>
+  <button class="boton-pausa" id="botonPausa" type="button" aria-label="Pausar juego">Ⅱ <span>PAUSA</span></button>
+
+  <main class="escenario" id="escenario">
+    <div class="mundo" id="mundo">
+      <div class="capa-montanas" id="fondoMontanas" aria-hidden="true"></div>
+      <div class="capa-bosque" id="fondoBosque" aria-hidden="true"></div>
+      <div class="capa-bruma" aria-hidden="true"></div>
+      <div class="decoraciones" id="decoraciones" aria-hidden="true"></div>
+      <div class="rio brecha" id="brecha1" aria-hidden="true"><span class="espuma"></span></div>
+      <div class="rio brecha rio-puente" id="brecha2" aria-hidden="true"><span class="espuma"></span></div>
+      <div class="puente" id="puente" aria-hidden="true">
+        <div class="baranda"></div><div class="tablas"></div><div class="poste poste-a"></div><div class="poste poste-b"></div>
+      </div>
+      <div class="suelo" id="suelo" aria-hidden="true"></div>
+
+      <div id="objetos" aria-label="Obstáculos"></div>
+      <div id="enemigos" aria-label="Enemigos"></div>
+
+      <div id="sarmiento" aria-label="Sarmiento">
+        <div id="sarmientoSprite" aria-hidden="true"></div>
+      </div>
+
+      <div class="meta" id="meta">
+        <img src="../img/cordillera/cabana.png" alt="Refugio en la cordillera" class="cabaña-meta">
+        <div class="bandera-chile" aria-label="Bandera de Chile"><span></span></div>
+        <div class="cartel-meta">PASO A CHILE</div>
+      </div>
+    </div>
+    <div class="indicador-progreso"><span id="textoProgreso">TRAVESÍA 0%</span><div class="pista-progreso"><div id="barraProgreso"></div></div></div>
+  </main>
+
+  <div class="objetivo"><span>OBJETIVO</span><strong>Esquivá a los perseguidores, saltá los obstáculos y cruzá el paso cordillerano.</strong></div>
+  <div class="mensaje-juego" id="mensajeJuego" role="status" aria-live="polite"></div>
+
+  <div class="controles" aria-label="Controles táctiles">
+    <button id="btnIzquierda" type="button" aria-label="Mover a la izquierda">◀</button>
+    <button id="btnSaltar" type="button" aria-label="Saltar">▲<small>SALTAR</small></button>
+    <button id="btnDerecha" type="button" aria-label="Mover a la derecha">▶</button>
+  </div>
+
+  <section class="pantalla-superpuesta intro visible" id="pantallaIntro" aria-labelledby="tituloIntro">
+    <div class="panel-superpuesto">
+      <div class="sello">EXPEDICIÓN · 1852</div>
+      <h1 id="tituloIntro">LA TRAVESÍA<br><em>POR LA CORDILLERA</em></h1>
+      <p>El frío, los pasos estrechos y los perseguidores separan a Sarmiento de Chile.</p>
+      <div class="leyenda-controles"><span>← → / A D · MOVER</span><span>ESPACIO / ↑ · SALTAR</span><span>ESC · PAUSA</span></div>
+      <button id="btnComenzar" type="button">COMENZAR TRAVESÍA <span>→</span></button>
+    </div>
+  </section>
+
+  <section class="pantalla-superpuesta pausa" id="menuPausa" aria-hidden="true" aria-labelledby="tituloPausa">
+    <div class="panel-superpuesto panel-pausa pausa-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloPausa">
+      <div class="sello pausa-etiqueta">JUEGO EN PAUSA · CORDILLERA</div>
+      <h1 id="tituloPausa">PAUSA</h1>
+      <p>La travesía quedó detenida. Ajustá las opciones o retomá el camino.</p>
+
+      <div class="pausa-configuracion">
+        <h2>CONFIGURACIÓN</h2>
+        <label class="pausa-control">
+          <span>VOLUMEN GENERAL</span>
+          <span class="pausa-volumen"><input type="range" id="pausaVolumen" min="0" max="100" value="100"><strong id="pausaValorVolumen">100%</strong></span>
+        </label>
+        <div class="pausa-fila"><span>MÚSICA</span><button id="pausaMusica" class="boton-pausa-config" type="button">ACTIVADA</button></div>
+        <div class="pausa-fila"><span>EFECTOS DE SONIDO</span><button id="pausaSonido" class="boton-pausa-config" type="button">ACTIVADOS</button></div>
+        <button id="pausaPantallaCompleta" class="boton-pausa-config" type="button">PANTALLA COMPLETA</button>
+      </div>
+
+      <div class="pausa-controles" aria-label="Controles del juego">
+        <h2>CONTROLES</h2>
+        <ul>
+          <li><kbd>←</kbd><kbd>→</kbd> o <kbd>A</kbd><kbd>D</kbd><span>Moverte</span></li>
+          <li><kbd>↑</kbd><kbd>W</kbd><kbd>ESPACIO</kbd><span>Saltar / escapar</span></li>
+          <li><kbd>ESC</kbd><span>Pausa</span></li>
+        </ul>
+      </div>
+
+      <div class="pausa-botones">
+        <button id="continuarJuego" class="boton-pausa-principal" type="button">CONTINUAR</button>
+        <button id="reiniciarPausa" class="secundario" type="button">REINICIAR NIVEL</button>
+        <button id="volverMenuPrincipal" class="secundario" type="button">VOLVER AL MENÚ</button>
+      </div>
+      <small>Presioná ESC para continuar.</small>
+    </div>
+  </section>
+
+  <section class="pantalla-superpuesta resultado" id="pantallaGameOver" aria-hidden="true" aria-labelledby="tituloGameOver">
+    <div class="panel-superpuesto">
+      <div class="sello">FIN DE LA TRAVESÍA</div>
+      <h1 id="tituloGameOver">EL CAMINO TE VENCIÓ</h1>
+      <p>Sarmiento no consiguió cruzar la cordillera. Volvé a intentarlo y aprovechá los saltos para evitar peligros.</p>
+      <button id="reintentar" type="button">INTENTAR DE NUEVO ↻</button>
+      <button class="secundario" id="volverMenuGameOver" type="button">VOLVER AL MENÚ</button>
+    </div>
+  </section>
+
+  <section class="pantalla-superpuesta resultado" id="pantallaVictoria" aria-hidden="true" aria-labelledby="tituloVictoria">
+    <div class="panel-superpuesto">
+      <div class="sello">MISIÓN CUMPLIDA</div>
+      <h1 id="tituloVictoria">¡LLEGASTE A CHILE!</h1>
+      <p>Sarmiento logró atravesar la cordillera y dejar atrás a sus perseguidores.</p>
+      <div class="resultado-puntaje">PUNTAJE FINAL <strong id="puntajeFinal">00000</strong></div>
+      <button id="jugarDeNuevo" type="button">VOLVER A JUGAR ↻</button>
+      <button class="secundario" id="volverMenuVictoria" type="button">VOLVER AL MENÚ</button>
+    </div>
+  </section>
+</section>
+<audio id="musicaNivel2" src="../audio/nivel1.mp3" loop preload="none" aria-hidden="true"></audio>
+<script src="nivel2parte2.js"></script>
+</body>
+</html>
