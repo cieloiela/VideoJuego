@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#160e0b">
+  <title>Escape de Buenos Aires — Nivel 3: La pulpería</title>
+  <link rel="stylesheet" href="pulperia.css">
+</head>
+<body>
+<div class="juego-pulperia" id="juegoPulperia">
+  <header class="hud-pulperia">
+    <div class="hud-bloque vidas-bloque"><span class="hud-label">VITALIDAD</span><div class="corazones" id="vidaFacundo" aria-label="Cinco puntos de salud">♥ ♥ ♥ ♥ ♥</div></div>
+    <div class="hud-titulo"><strong>ESCAPE DE BUENOS AIRES</strong><span>NIVEL 3 · LA PULPERÍA</span></div>
+    <div class="hud-datos">
+      <div class="dato-kills"><small>FEDERALES DERROTADOS</small><strong><span id="kills">00</span><i> / 30</i></strong><div class="progreso-kills"><span id="progresoKills"></span></div></div>
+      <div class="dato-tiempo"><small>TIEMPO</small><strong id="tiempo">01:30</strong></div>
+    </div>
+    <button class="boton-pausa" id="botonPausa" type="button" aria-label="Pausar partida">Ⅱ <span>PAUSA</span></button>
+  </header>
+
+  <main class="campo-pulperia" id="campoPulperia" aria-label="Arena de combate en una pulpería histórica">
+    <div class="escenario-fondo" aria-hidden="true"></div>
+    <div class="bruma-lampara" aria-hidden="true"></div>
+    <div class="adorno pared-calavera" aria-hidden="true"><img src="../img/pulperia/prop_calavera.png" alt=""></div>
+    <div class="adorno lampara-superior" aria-hidden="true"><img src="../img/pulperia/prop_lampara.png" alt=""></div>
+    <div class="adorno estante-lateral" aria-hidden="true"><img src="../img/pulperia/prop_estante.png" alt=""></div>
+    <div class="adorno cartel-pulperia" aria-hidden="true"><img src="../img/pulperia/prop_cartel_pulperia.png" alt=""></div>
+    <div class="adorno lampara-ambiente" aria-hidden="true"><img src="../img/pulperia/prop_lampara_ambiente.png" alt=""></div>
+    <div class="adorno tapiz-secundario" aria-hidden="true"><img src="../img/pulperia/prop_tapiz_secundario.png" alt=""></div>
+    <div class="decoracion-suelo deco-mesa" aria-hidden="true"><img src="../img/pulperia/prop_mesa.png" alt=""></div>
+    <div class="decoracion-suelo deco-barril" aria-hidden="true"><img src="../img/pulperia/prop_barril.png" alt=""></div>
+    <div class="decoracion-suelo deco-caja" aria-hidden="true"><img src="../img/pulperia/prop_caja.png" alt=""></div>
+    <div class="decoracion-suelo deco-banco" aria-hidden="true"><img src="../img/pulperia/prop_banco.png" alt=""></div>
+    <div class="piso-pulperia" aria-hidden="true"></div>
+    <div class="destellos-ambiente" id="destellosAmbiente" aria-hidden="true"></div>
+    <div id="coleccionables" class="coleccionables" aria-label="Objetos recolectables"></div>
+    <div id="enemigos" class="enemigos" aria-label="Federales enemigos"></div>
+    <div id="efectos" class="efectos" aria-hidden="true"></div>
+
+    <div id="facundo" class="actor actor-jugador" aria-label="Facundo controlado por el jugador">
+      <div class="aura-facundo" aria-hidden="true"></div>
+      <img id="facundoSprite" src="../img/pulperia/facundo_run_1.png" alt="Facundo">
+      <div id="espadaJugador" class="destello-espada" aria-hidden="true"></div>
+      <div class="barra-vida-jugador"><span id="barraVidaFacundo"></span></div>
+    </div>
+    <div class="objetivo-combate"><span class="sello-mini">DESAFÍO DE LA PULPERÍA</span><strong>Derrotá a 30 federales antes de que se agote el tiempo.</strong><small>Encadená cortes, esquivá y reservá la ronda para cuando te rodeen.</small></div>
+    <div class="aviso-juego" id="avisoJuego" role="status" aria-live="polite"></div>
+    <div class="aviso-habilidad" id="avisoHabilidad" aria-live="polite"></div>
+  </main>
+
+  <footer class="controles-pulperia" aria-label="Controles de combate">
+    <div class="controles-izquierda">
+      <button id="moverIzquierda" class="control direccion" type="button" aria-label="Mover a la izquierda">◀</button>
+      <button id="moverDerecha" class="control direccion" type="button" aria-label="Mover a la derecha">▶</button>
+    </div>
+    <div class="ayuda-controles"><span><kbd>A/D</kbd> o <kbd>←/→</kbd> mover</span><span><kbd>J</kbd> corte · <kbd>K</kbd> tajo pesado · <kbd>E</kbd> ronda · <kbd>Shift</kbd> esquivar</span></div>
+    <div class="controles-derecha">
+      <button id="btnSaltar" class="control salto" type="button" aria-label="Saltar">↑<small>SALTAR</small></button>
+      <button id="btnCorte" class="control ataque" type="button" aria-label="Corte rápido"><strong>J</strong><small>CORTE</small></button>
+      <button id="btnTajo" class="control ataque pesado" type="button" aria-label="Tajo pesado"><strong>K</strong><small>TAJO</small></button>
+      <button id="btnRonda" class="control especial" type="button" aria-label="Ronda federal"><strong>E</strong><small>RONDA</small><i id="recargaRonda">LISTA</i></button>
+    </div>
+  </footer>
+</div>
+
+<!-- Cinemática narrativa: arranca en negro y blanco en toda la pantalla. -->
+<section class="cinematica visible" id="cinematica" aria-modal="true" role="dialog" aria-labelledby="tituloCine">
+  <div class="cine-fondo" aria-hidden="true"></div><div class="cine-grano" aria-hidden="true"></div><div class="cine-vineta" aria-hidden="true"></div>
+  <div class="cine-ornamento ornamento-izq" aria-hidden="true">✦<span>✧</span>✦</div>
+  <div class="cine-ornamento ornamento-der" aria-hidden="true">✦<span>✧</span>✦</div>
+  <div class="cine-contenido">
+    <div class="cine-sello" id="cineSello">CRÓNICAS DE LAS PROVINCIAS · 1835</div>
+    <div class="cine-kicker" id="cineKicker">CAPÍTULO III</div>
+    <h1 id="tituloCine">LA PULPERÍA</h1>
+    <div class="cine-separador"><span></span>✦<span></span></div>
+    <p id="textoCine" class="texto-cine">Al caer la tarde, una pulpería recibe viajeros, rumores y hombres armados. Bajo la luz de los faroles, las disputas de la época también se juegan a puerta cerrada.</p>
+    <div class="cine-contador"><span id="cinePaso">01</span><span class="cine-linea"><i id="cineProgreso"></i></span><span>04</span></div>
+    <div class="cine-botones"><button id="cineSiguiente" class="boton-oro" type="button">CONTINUAR <span>→</span></button><button id="cineOmitir" class="boton-texto" type="button">OMITIR RELATO</button></div>
+    <small class="cine-nota">RECREACIÓN HISTÓRICA CON UNA LICENCIA FANTÁSTICA DE JUEGO</small>
+  </div>
+</section>
+
+<section class="transformacion" id="transformacion" aria-hidden="true">
+  <div class="transformacion-fondo"></div><div class="transformacion-flash" id="transformacionFlash"></div>
+  <div class="transformacion-titulo"><small>UN RECUERDO TOMA FORMA</small><strong>DE SARMIENTO A FACUNDO</strong></div>
+  <div class="transformacion-personajes">
+    <img id="sarmientoTransformacion" src="../img/sarmiento_anim/transition_1.png" alt="Sarmiento">
+    <div class="transformacion-sello">✦</div>
+    <img id="facundoTransformacion" src="../img/pulperia/facundo_run_1.png" alt="Facundo">
+  </div>
+  <p>La narración se vuelve leyenda. En esta recreación, tomás el lugar del Tigre de los Llanos.</p>
+</section>
+
+<section class="overlay-juego overlay-pausa" id="menuPausa" aria-hidden="true" aria-labelledby="tituloPausa">
+  <div class="panel-overlay">
+    <div class="sello-panel">PULPERÍA · PAUSA</div><h2 id="tituloPausa">PAUSA</h2><p>La pelea espera. Recuperá el aliento y volvé al combate.</p>
+    <div class="pausa-dos-columnas"><div><h3>CONFIGURACIÓN</h3><label class="volumen-label" for="volumen">VOLUMEN GENERAL <strong id="volumenValor">70%</strong></label><input id="volumen" type="range" min="0" max="100" value="70"><div class="ajuste-fila"><span>MÚSICA</span><button id="toggleMusica" type="button">ACTIVADA</button></div><div class="ajuste-fila"><span>EFECTOS</span><button id="toggleSonido" type="button">ACTIVADOS</button></div><button id="togglePantalla" class="boton-secundario ancho" type="button">PANTALLA COMPLETA</button></div>
+    <div><h3>CONTROLES</h3><ul class="lista-controles"><li><kbd>A/D</kbd><kbd>←/→</kbd><span>Caminar</span></li><li><kbd>ESPACIO</kbd><span>Saltar / esquivar un corte</span></li><li><kbd>J</kbd><span>Corte rápido</span></li><li><kbd>K</kbd><span>Tajo pesado (rompe guardias)</span></li><li><kbd>E</kbd><span>Ronda federal (área)</span></li><li><kbd>SHIFT</kbd><span>Esquiva con invulnerabilidad breve</span></li><li><kbd>ESC</kbd><span>Pausar / continuar</span></li></ul></div></div>
+    <div class="botones-overlay"><button id="continuarJuego" class="boton-oro" type="button">VOLVER AL COMBATE</button><button id="reiniciarJuego" class="boton-secundario" type="button">REINICIAR DESAFÍO</button><button id="volverMenu" class="boton-secundario" type="button">VOLVER AL MENÚ PRINCIPAL</button></div>
+  </div>
+</section>
+
+<section class="overlay-juego overlay-resultado" id="resultadoJuego" aria-hidden="true" aria-labelledby="resultadoTitulo">
+  <div class="panel-overlay resultado-panel"><div class="sello-panel" id="resultadoSello">DESAFÍO FINALIZADO</div><h2 id="resultadoTitulo">¡LA PULPERÍA RESISTE!</h2><p id="resultadoTexto">Derrotaste a treinta federales.</p><div class="resultado-estadisticas"><div><small>DERROTADOS</small><strong id="resultadoKills">30 / 30</strong></div><div><small>TIEMPO SOBRANTE</small><strong id="resultadoTiempo">00:00</strong></div><div><small>PUNTAJE</small><strong id="resultadoPuntos">00000</strong></div></div><button id="reintentar" class="boton-oro" type="button">JUGAR OTRA VEZ ↻</button><button id="volverNivel2" class="boton-secundario" type="button">VOLVER A LA CORDILLERA</button><button id="volverMenuResultado" class="boton-secundario" type="button">VOLVER AL MENÚ</button></div>
+</section>
+
+<audio id="musicaPulperia" src="../audio/nivel1.mp3" loop preload="none"></audio>
+<script src="pulperia.js"></script>
+</body>
+</html>
