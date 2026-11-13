@@ -1,0 +1,3 @@
+Sprites extraídos de la hoja de sprites proporcionada por el usuario.
+La animación de Sarmiento se reutiliza desde ../sarmiento_anim/ del proyecto.
+El fondo panorámico se guarda como fondo_llanura.png.
