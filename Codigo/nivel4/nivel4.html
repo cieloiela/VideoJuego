@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#101b35">
-  <title>Escape de Buenos Aires — Nivel 2: La travesía por la cordillera</title>
-  <link rel="stylesheet" href="nivel2parte2.css">
+  <title>Escape de Buenos Aires — Nivel 4: La travesía por la cordillera</title>
+  <link rel="stylesheet" href="nivel4.css">
 </head>
 <body>
-<section class="nivel" id="nivelCordillera" aria-label="Nivel 2: La travesía por la cordillera">
+<section class="nivel" id="nivelCordillera" aria-label="Nivel 4: La travesía por la cordillera">
   <header class="hud">
     <div class="bloque-vidas">
       <span class="etiqueta">VIDAS</span>
@@ -18,7 +18,7 @@
     </div>
     <div class="titulo-hud">
       <strong>ESCAPE DE BUENOS AIRES</strong>
-      <span>NIVEL 2 · LA TRAVESÍA POR LA CORDILLERA</span>
+      <span>NIVEL 4 · LA TRAVESÍA POR LA CORDILLERA</span>
     </div>
     <div class="estadisticas">
       <div><small>PUNTAJE</small><strong id="contadorPuntos">00000</strong></div>
@@ -85,6 +85,18 @@
     </div>
   </section>
 
+  <section class="carga-cordillera" id="cargaNivel4" aria-hidden="true">
+    <div class="carga-cordillera-panel">
+      <span>PREPARANDO LA EXPEDICIÓN</span><h2>LA CORDILLERA</h2>
+      <div class="carga-cordillera-barra"><i id="progresoCargaNivel4"></i></div>
+      <strong id="porcentajeCargaNivel4">0%</strong>
+      <small>Usá las piedritas para defenderte y recordá que los pinos pueden atraparte.</small>
+    </div>
+  </section>
+  <section class="transicion-cordillera" id="transicionNivel4" aria-hidden="true">
+    <div><span>ESCAPE DE BUENOS AIRES</span><h1>NIVEL 4</h1><p>LA TRAVESÍA POR LA CORDILLERA</p></div>
+  </section>
+
   <section class="pantalla-superpuesta pausa" id="menuPausa" aria-hidden="true" aria-labelledby="tituloPausa">
     <div class="panel-superpuesto panel-pausa pausa-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloPausa">
       <div class="sello pausa-etiqueta">JUEGO EN PAUSA · CORDILLERA</div>
@@ -143,7 +155,7 @@
     </div>
   </section>
 </section>
-<audio id="musicaNivel2" src="../audio/nivel1.mp3" loop preload="none" aria-hidden="true"></audio>
-<script src="nivel2parte2.js"></script>
+<audio id="musicaNivel4" src="../audio/nivel1.mp3" loop preload="none" aria-hidden="true"></audio>
+<script src="nivel4.js"></script>
 </body>
 </html>

@@ -148,3 +148,51 @@ html, body, button, input, select, textarea { font-family: 'Poppins', Arial, san
 .panel-superpuesto:has(.instrucciones-nivel){width:min(650px,100%);padding:clamp(19px,3vw,32px)}
 .panel-superpuesto:has(.instrucciones-nivel) p{margin:12px auto 14px}
 @media(max-width:560px){.instrucciones-nivel{grid-template-columns:1fr;gap:6px;margin:12px 0 8px}.instruccion{min-height:51px;padding:7px 9px}.instruccion small{font-size:8px}.instruccion strong{font-size:9px}.panel-superpuesto:has(.instrucciones-nivel){max-height:94%;overflow-y:auto;padding:17px}.panel-superpuesto:has(.instrucciones-nivel) h1{font-size:clamp(25px,7vw,37px)}.panel-superpuesto:has(.instrucciones-nivel) p{font-size:11px;margin:9px auto 10px}}
+
+/* Pantallas de carga y presentación del capítulo, en paleta fría cordillerana. */
+.carga-cordillera,.transicion-cordillera{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at 50% 40%,#243b55f2,#080e1afc 78%);opacity:0;visibility:hidden;transition:opacity .42s,visibility .42s}
+.carga-cordillera.visible,.transicion-cordillera.visible{opacity:1;visibility:visible}
+.carga-cordillera-panel{width:min(640px,92vw);padding:clamp(24px,4vw,42px);text-align:center;background:linear-gradient(145deg,#1b3048,#0a1220);border:1px solid #8ba6c4;border-radius:12px;box-shadow:0 20px 80px #000b}
+.carga-cordillera-panel>span,.transicion-cordillera span{color:#d0b77f;font-weight:900;font-size:10px;letter-spacing:.22em}
+.carga-cordillera-panel h2{font-family:Georgia,serif;color:#f3ead4;font-size:clamp(22px,3.3vw,34px);margin:13px 0 22px}
+.carga-cordillera-barra{height:12px;border:1px solid #9eb2c7;border-radius:20px;overflow:hidden;background:#07101a}
+.carga-cordillera-barra i{display:block;width:0;height:100%;background:linear-gradient(90deg,#527da8,#d0b77f);box-shadow:0 0 14px #8aaed0;transition:width .08s linear}
+.carga-cordillera-panel strong{display:block;color:#f3dba8;font-size:20px;margin:12px}
+.carga-cordillera-panel small{color:#b9c8d7}
+.transicion-cordillera{background:linear-gradient(135deg,#132940,#060b14);text-align:center}
+.transicion-cordillera>div{animation:rotuloCordillera .8s ease both}
+.transicion-cordillera h1{font-family:Georgia,serif;font-size:clamp(58px,10vw,105px);color:#f1ead9;margin:12px 0;text-shadow:0 8px 30px #83a9c7aa}
+.transicion-cordillera p{color:#d0b77f;letter-spacing:.28em;font-weight:900}
+@keyframes rotuloCordillera{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+
+/* Microtransiciones uniformes para botones, controles y acciones del nivel. */
+button{transition:transform .18s ease,filter .2s ease,box-shadow .2s ease,background-color .22s ease,color .22s ease}button:active{transform:translateY(1px)}
+
+
+
+/* RESPONSIVE EXTRA: cordillera — ajustes de HUD y botones para pantallas angostas. */
+@media (max-width: 520px) {
+  .nivel { width:100%; min-width:0; height:100dvh; }
+  .hud { grid-template-columns:58px minmax(0,1fr) 98px; gap:3px; padding:5px 6px; }
+  .titulo-hud { min-width:0; }
+  .titulo-hud strong { font-size:clamp(9px,2.5vw,11px); line-height:1.05; white-space:normal; }
+  .titulo-hud span { font-size:6px; }
+  .estadisticas { gap:4px; justify-content:flex-end; }
+  .estadisticas div { min-width:34px; }
+  .estadisticas small { font-size:6px; }
+  .estadisticas strong { font-size:10px; }
+  .vidas { font-size:16px; }
+  .boton-pausa { top:calc(var(--hud-h) + 3px); right:5px; }
+  .controles { padding:4px 5px; gap:4px; justify-content:space-around; }
+  .controles button { width:clamp(42px,12vw,56px); min-width:0; height:43px; }
+  .controles #btnSaltar, .controles #btnLanzar { width:clamp(48px,14vw,64px); min-width:0; height:43px; }
+  .objetivo { width:min(54vw,205px); right:5px; bottom:calc(var(--controls-h) + 5px); }
+  .indicador-progreso { width:48vw; bottom:4px; }
+  .panel-superpuesto { width:min(94vw,600px); max-height:calc(100dvh - 18px); overflow-y:auto; }
+}
+@media (max-height: 430px) and (orientation:landscape) {
+  :root { --hud-h:50px; --controls-h:48px; --floor-h:62px; --ground-level:58px; }
+  .hud { grid-template-columns:64px minmax(0,1fr) 130px; }
+  .controles button, .controles #btnSaltar, .controles #btnLanzar { height:36px; }
+  .objetivo, .indicador-progreso { display:none; }
+}

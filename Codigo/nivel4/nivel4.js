@@ -1,6 +1,10 @@
 'use strict';
 
-/* Nivel 2, parte 2: travesía por la cordillera.
+// Guardar el último nivel visitado para permitir continuar desde el menú.
+try { localStorage.setItem("escapeChileUltimoNivel", "nivel4"); } catch (e) {}
+
+
+/* Nivel 4: travesía por la cordillera.
    La animación de Sarmiento reutiliza los mismos cuadros y ritmos del nivel 1. */
 const mundo = document.getElementById('mundo');
 const escenario = document.getElementById('escenario');
@@ -22,6 +26,10 @@ const textoProgreso = document.getElementById('textoProgreso');
 const botonPausa = document.getElementById('botonPausa');
 const menuPausa = document.getElementById('menuPausa');
 const pantallaIntro = document.getElementById('pantallaIntro');
+const cargaNivel4 = document.getElementById('cargaNivel4');
+const transicionNivel4 = document.getElementById('transicionNivel4');
+let secuenciaInicioNivel4 = false;
+
 const pantallaGameOver = document.getElementById('pantallaGameOver');
 const pantallaVictoria = document.getElementById('pantallaVictoria');
 const mensajeJuego = document.getElementById('mensajeJuego');
@@ -30,17 +38,17 @@ const pausaValorVolumen = document.getElementById('pausaValorVolumen');
 const pausaMusica = document.getElementById('pausaMusica');
 const pausaSonido = document.getElementById('pausaSonido');
 const pausaPantallaCompleta = document.getElementById('pausaPantallaCompleta');
-const musicaNivel2 = document.getElementById('musicaNivel2');
+const musicaNivel4 = document.getElementById('musicaNivel4');
 
 const ANCHO_MUNDO = 10000;
 const META_X = 9560;
 const PISO = 80;
 const ANCHO_JUGADOR = 136;
-const VELOCIDAD_JUGADOR = 6.1;
+const VELOCIDAD_JUGADOR = 5.25; // +25% para que el desplazamiento sea más ágil
 const VELOCIDAD_PIEDRITA = 12.8;
 const ENFRIAMIENTO_DISPARO = 290;
-const FUERZA_SALTO = 16.1;
-const GRAVEDAD = 0.61;
+const FUERZA_SALTO = 18.6; // salto algo más alto para superar obstáculos y cruzar brechas
+const GRAVEDAD = 0.67; // arco ligeramente más corto para recuperar el control antes
 const GAPS = [{ inicio: 3860, fin: 4015 }, { inicio: 6260, fin: 6475 }];
 const PUENTE = { inicio: 6220, fin: 6820 };
 
@@ -89,26 +97,26 @@ const animacionSarmiento = { estado: 'idle', indice: 0, ultimoCambio: 0, anterio
 
 const DEFINICION_OBSTACULOS = [
   { tipo: 'caja', archivo: 'caja_madera.png', x: 1000, puntos: 100, nombre: 'caja de madera' },
-  { tipo: 'muro', archivo: 'muro_piedras.png', x: 1900, puntos: 100, nombre: 'muro de piedras' },
-  { tipo: 'valla', archivo: 'valla_madera.png', x: 2700, puntos: 100, nombre: 'valla de madera' },
-  { tipo: 'carreta', archivo: 'carreta_rota.png', x: 3400, puntos: 100, nombre: 'carreta rota' },
-  { tipo: 'roca-nieve', archivo: 'roca_nieve.png', x: 4500, puntos: 100, nombre: 'roca cubierta de nieve' },
-  { tipo: 'fogata', archivo: 'fogata.png', x: 5260, puntos: 100, nombre: 'fogata' },
-  { tipo: 'troncos', archivo: 'troncos.png', x: 6000, puntos: 100, nombre: 'troncos caídos' },
-  { tipo: 'valla', archivo: 'valla_rota.png', x: 7200, puntos: 100, nombre: 'valla rota' },
-  { tipo: 'muro', archivo: 'muro_piedras.png', x: 8050, puntos: 100, nombre: 'muro de piedra' },
+  { tipo: 'muro', archivo: 'muro_piedras.png', x: 2200, puntos: 100, nombre: 'muro de piedras' },
+  { tipo: 'valla', archivo: 'valla_madera.png', x: 2800, puntos: 100, nombre: 'valla de madera' },
+  { tipo: 'carreta', archivo: 'carreta_rota.png', x: 4500, puntos: 100, nombre: 'carreta rota' },
+  { tipo: 'roca-nieve', archivo: 'roca_nieve.png', x: 5100, puntos: 100, nombre: 'roca cubierta de nieve' },
+  { tipo: 'fogata', archivo: 'fogata.png', x: 6900, puntos: 100, nombre: 'fogata' },
+  { tipo: 'troncos', archivo: 'troncos.png', x: 7400, puntos: 100, nombre: 'troncos caídos' },
+  { tipo: 'valla', archivo: 'valla_rota.png', x: 7900, puntos: 100, nombre: 'valla rota' },
+  { tipo: 'muro', archivo: 'muro_piedras.png', x: 8900, puntos: 100, nombre: 'muro de piedra' },
   { tipo: 'pinchos', archivo: '', x: 1650, puntos: 125, nombre: 'pinchos' },
-  { tipo: 'pinchos', archivo: '', x: 3250, puntos: 125, nombre: 'pinchos' },
-  { tipo: 'pinchos', archivo: '', x: 5000, puntos: 125, nombre: 'pinchos' },
-  { tipo: 'pinchos', archivo: '', x: 7900, puntos: 125, nombre: 'pinchos' },
-  { tipo: 'caja', archivo: 'caja_madera.png', x: 9140, puntos: 100, nombre: 'caja de madera' }
+  { tipo: 'pinchos', archivo: '', x: 3400, puntos: 125, nombre: 'pinchos' },
+  { tipo: 'pinchos', archivo: '', x: 5700, puntos: 125, nombre: 'pinchos' },
+  { tipo: 'pinchos', archivo: '', x: 8400, puntos: 125, nombre: 'pinchos' },
+  { tipo: 'caja', archivo: 'caja_madera.png', x: 9400, puntos: 100, nombre: 'caja de madera' }
 ];
 const DEFINICION_ENEMIGOS = [
-  { tipo: 'soldado', x: 1450, frames: 7, archivo: 'soldado_run_', velocidad: 1.05 },
-  { tipo: 'perseguidor', x: 2350, frames: 7, archivo: 'perseguidor_run_', velocidad: 1.25 },
+  { tipo: 'soldado', x: 1350, frames: 7, archivo: 'soldado_run_', velocidad: 1.05 },
+  { tipo: 'perseguidor', x: 2500, frames: 7, archivo: 'perseguidor_run_', velocidad: 1.25 },
   { tipo: 'soldado', x: 3070, frames: 7, archivo: 'soldado_run_', velocidad: 1.12 },
   { tipo: 'perseguidor', x: 4850, frames: 7, archivo: 'perseguidor_run_', velocidad: 1.18 },
-  { tipo: 'perro', x: 5650, frames: 5, archivo: 'perro_run_', velocidad: 1.5 },
+  { tipo: 'perro', x: 6000, frames: 5, archivo: 'perro_run_', velocidad: 1.5 },
   { tipo: 'perseguidor', x: 7700, frames: 7, archivo: 'perseguidor_run_', velocidad: 1.28 },
   { tipo: 'soldado', x: 8600, frames: 7, archivo: 'soldado_run_', velocidad: 1.22 }
 ];
@@ -629,7 +637,7 @@ function terminarJuego(victoria) {
   juegoTerminado = true;
   juegoActivo = false;
   juegoPausado = false;
-  if (musicaNivel2) musicaNivel2.pause();
+  if (musicaNivel4) musicaNivel4.pause();
   moverIzquierda = false;
   moverDerecha = false;
   if (victoria) {
@@ -664,12 +672,12 @@ function guardarPreferenciasPausa() {
   catch (error) { /* No interrumpir el juego si el almacenamiento está bloqueado. */ }
 }
 function aplicarMusicaNivel2() {
-  if (!musicaNivel2) return;
-  musicaNivel2.volume = Math.max(0, Math.min(100, Number(preferenciasPausa.volumen))) / 100;
+  if (!musicaNivel4) return;
+  musicaNivel4.volume = Math.max(0, Math.min(100, Number(preferenciasPausa.volumen))) / 100;
   if (preferenciasPausa.musica && juegoIniciado && !juegoPausado && !juegoTerminado) {
-    musicaNivel2.play().catch(() => {});
+    musicaNivel4.play().catch(() => {});
   } else {
-    musicaNivel2.pause();
+    musicaNivel4.pause();
   }
 }
 function intentarIniciarMusicaNivel2() {
@@ -701,7 +709,7 @@ pausaPantallaCompleta.addEventListener('click', () => {
 function abrirPausa() {
   if (!juegoIniciado || !juegoActivo || juegoTerminado || juegoPausado) return;
   juegoPausado = true;
-  if (musicaNivel2) musicaNivel2.pause();
+  if (musicaNivel4) musicaNivel4.pause();
   leerPreferenciasPausa();
   moverIzquierda = false;
   moverDerecha = false;
@@ -716,14 +724,45 @@ function cerrarPausa() {
   ultimoFrame = 0;
   aplicarMusicaNivel2();
 }
-function volverMenu() { if (musicaNivel2) musicaNivel2.pause(); window.location.href = '../inicio/inicio.html#menu'; }
+function volverMenu() { if (musicaNivel4) musicaNivel4.pause(); window.location.href = '../inicio/inicio.html#menu'; }
 function reiniciarNivel() { window.location.reload(); }
 function comenzarNivel() {
-  if (juegoIniciado || juegoTerminado) return;
-  juegoIniciado = true;
-  aplicarMusicaNivel2();
+  if (juegoIniciado || juegoTerminado || secuenciaInicioNivel4) return;
+  secuenciaInicioNivel4 = true;
   pantallaIntro.classList.remove('visible');
   pantallaIntro.setAttribute('aria-hidden', 'true');
+  if (!cargaNivel4 || !transicionNivel4) {
+    finalizarInicioNivel4();
+    return;
+  }
+  cargaNivel4.classList.add('visible');
+  cargaNivel4.setAttribute('aria-hidden','false');
+  const barra=document.getElementById('progresoCargaNivel4');
+  const porcentaje=document.getElementById('porcentajeCargaNivel4');
+  const inicio=performance.now(),duracion=3200;
+  function avanzar(ahora) {
+    const avance=Math.min(1,(ahora-inicio)/duracion),valor=Math.round(avance*100);
+    if(barra)barra.style.width=valor+'%';
+    if(porcentaje)porcentaje.textContent=valor+'%';
+    if(avance<1)requestAnimationFrame(avanzar);
+    else {
+      cargaNivel4.classList.remove('visible');
+      cargaNivel4.setAttribute('aria-hidden','true');
+      transicionNivel4.classList.add('visible');
+      transicionNivel4.setAttribute('aria-hidden','false');
+      window.setTimeout(()=>{
+        transicionNivel4.classList.remove('visible');
+        transicionNivel4.setAttribute('aria-hidden','true');
+        finalizarInicioNivel4();
+      },850);
+    }
+  }
+  requestAnimationFrame(avanzar);
+}
+function finalizarInicioNivel4() {
+  juegoIniciado = true;
+  secuenciaInicioNivel4 = false;
+  aplicarMusicaNivel2();
   ultimoFrame = 0;
   mostrarMensaje('¡La travesía comienza!');
 }
