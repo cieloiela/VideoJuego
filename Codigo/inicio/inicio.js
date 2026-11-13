@@ -215,6 +215,8 @@ let cargaTerminada = false;
 
 function iniciarNivel1(evento) {
     if (evento) evento.preventDefault();
+    // JUGAR inicia una campaña nueva; CONTINUAR usa el último nivel guardado.
+    try { localStorage.setItem("escapeChileUltimoNivel", "nivel1"); } catch (e) {}
     if (cargaActiva) return;
 
     cargaActiva = true;
@@ -240,7 +242,7 @@ function iniciarNivel1(evento) {
     pantalla.setAttribute("aria-hidden", "false");
 
     let inicio = performance.now();
-    const duracion = 4000;
+    const duracion = 3200; // 20% menos tiempo de carga
 
     intervaloCarga = requestAnimationFrame(actualizarCarga);
 
@@ -291,7 +293,33 @@ document.addEventListener("keydown", (evento) => {
    INICIAR
 ====================================== */
 
+const RUTAS_NIVELES = {
+    nivel1: "../nivel1/nivel1.html",
+    nivel2: "../nivel2/nivel2parte1.html",
+    nivel3: "../nivel3/pulperia.html",
+    nivel4: "../nivel4/nivel4.html"
+};
+
+function configurarContinuarPartida() {
+    const boton = document.getElementById("botonContinuarPartida");
+    if (!boton) return;
+    let ultimoNivel = "";
+    try { ultimoNivel = localStorage.getItem("escapeChileUltimoNivel") || ""; } catch (e) {}
+    const ruta = RUTAS_NIVELES[ultimoNivel];
+    if (!ruta) {
+        boton.hidden = true;
+        return;
+    }
+    boton.hidden = false;
+    boton.href = ruta;
+    boton.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        window.location.href = ruta;
+    }, { once: true });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    configurarContinuarPartida();
     cargarConfiguracion();
 
     const hash = window.location.hash.substring(1);

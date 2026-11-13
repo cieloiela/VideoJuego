@@ -2551,3 +2551,14 @@ body.entrada-desde-nivel::before {
 
 /* PALETA GLOBAL UNIFICADA */
 :root{--tinta:#1c1510;--sombra:#2b190d;--cuero:#6b421f;--tierra:#87592f;--arena:#c4944d;--oro:#f3d18c;--pergamino:#f4e8c1;--acento:#b56d5e;} 
+
+/* Créditos: integrantes en orden de aporte con roles claros. */
+.alumno-rol{display:flex;align-items:flex-start;gap:10px;margin:9px 0}
+.alumno-rol>div{display:flex;flex-direction:column;gap:2px}
+.alumno-rol p{margin:0}
+.alumno-rol small{display:block;color:#c8b99d;font-size:clamp(10px,1.1vw,12px);line-height:1.35}
+
+
+/* Continuar partida: comparte el estilo del menú y solo aparece si hay progreso. */
+.boton-continuar[hidden] { display: none !important; }
+.boton-continuar:not([hidden]) { border-color: #f6c66b; background: rgba(92, 48, 17, .92); }
