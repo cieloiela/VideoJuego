@@ -1,3 +1,7 @@
+
+// Guardar el último nivel visitado para permitir continuar desde el menú.
+try { localStorage.setItem("escapeChileUltimoNivel", "nivel1"); } catch (e) {}
+
 /* =========================================================
    ELEMENTOS
 ========================================================= */
@@ -75,7 +79,7 @@ const ANCHO_PERSONAJE = 120;
 
 const ANCHO_ENEMIGO = 120;
 
-const VELOCIDAD_JUGADOR = 6;
+const VELOCIDAD_JUGADOR = 4.2; // misma velocidad base que la llanura
 
 const GRAVEDAD = 0.55;
 
@@ -652,9 +656,18 @@ volverMenuPrincipal.addEventListener("click", () => {
    TECLADO
 ========================================================= */
 
+let bloquearEspacioHastaSoltar = false;
+
 document.addEventListener(
     "keydown",
     (evento) => {
+
+        // Evita que la repetición de ESPACIO cierre el documento y además salte.
+        if (bloquearEspacioHastaSoltar && evento.code === "Space") {
+            evento.preventDefault();
+            return;
+        }
+
 
         /*
          * Si estamos leyendo un pergamino,
@@ -669,6 +682,7 @@ document.addEventListener(
             (evento.code === "Space" || evento.key === " ")
         ) {
             evento.preventDefault();
+            bloquearEspacioHastaSoltar = true;
             cerrarPergamino();
             return;
         }
@@ -738,6 +752,8 @@ document.addEventListener(
 document.addEventListener(
     "keyup",
     (evento) => {
+
+        if (evento.code === "Space") bloquearEspacioHastaSoltar = false;
 
         if (
             evento.key === "ArrowRight" ||

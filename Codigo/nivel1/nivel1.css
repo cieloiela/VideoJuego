@@ -3018,3 +3018,42 @@ kbd {
     .documento-ayuda { animation: none; }
     .mensaje-juego { animation: none; }
 }
+
+/* Microtransiciones uniformes para botones, controles y acciones del nivel. */
+button{transition:transform .18s ease,filter .2s ease,box-shadow .2s ease,background-color .22s ease,color .22s ease}button:active{transform:translateY(1px)}
+
+
+
+/* =========================================================
+   ADAPTACIÓN RESPONSIVE SEGURA — SOLO VIEWPORTS PEQUEÑOS
+   No modifica físicas, coordenadas del mundo ni velocidad.
+========================================================= */
+@media (max-width: 640px) {
+  html, body { width:100%; min-width:0; overflow:hidden; }
+  .nivel { width:100%; min-height:100svh; height:100dvh; }
+  .hud { grid-template-columns:minmax(0,1fr); gap:3px; padding:6px 9px; min-height:0; height:auto; }
+  .hud-centro { order:-1; }
+  .hud-estadisticas { justify-content:center; flex-wrap:wrap; gap:8px 14px; }
+  .vidas-bloque { justify-content:center; }
+  .escenario { top:var(--hud-mobile-h, 112px); bottom:var(--controls-mobile-h, 78px); }
+  .controles { bottom:max(5px, env(safe-area-inset-bottom)); gap:8px; padding:0 8px; }
+  .controles button { min-width:48px; min-height:46px; touch-action: manipulation; }
+  .boton-pausa-hud { top:5px; right:7px; }
+  .mensajes-juego { top:116px; width:94vw; }
+  .documento-historico, .quiz, .victoria-contenido, .gameover-contenido, .intermision-contenido,
+  .guia-contenido, .pausa-contenido { width:min(94vw,560px); max-height:calc(100dvh - 24px); overflow-y:auto; }
+}
+@media (max-width: 380px) {
+  .hud { padding:4px 6px; gap:2px; }
+  .hud-label { font-size:8px; }
+  .hud-stat strong { font-size:12px; }
+  .controles { gap:5px; }
+  .controles button { min-width:43px; min-height:43px; }
+}
+@media (max-height: 520px) and (orientation:landscape) {
+  .hud { height:54px; min-height:54px; grid-template-columns:1fr 1.2fr 1fr; padding:3px 8px; gap:5px; }
+  .hud-centro { order:0; }
+  .escenario { top:54px; bottom:58px; }
+  .controles { bottom:2px; }
+  .controles button { min-height:40px; }
+}
