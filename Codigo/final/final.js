@@ -1,0 +1,1 @@
+document.getElementById('volverMenu').addEventListener('click',()=>{window.location.href='../inicio/inicio.html#menu';});document.getElementById('jugarOtraVez').addEventListener('click',()=>{window.location.href='../inicio/inicio.html';});document.addEventListener('keydown',e=>{if(e.key==='Escape')window.location.href='../inicio/inicio.html#menu';});
