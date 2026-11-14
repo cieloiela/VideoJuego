@@ -1,0 +1,1704 @@
+{
+  "readme": "Cada PNG es un fotograma u objeto individual en un lienzo transparente de tamaño uniforme, con márgenes consistentes y base alineada. Los atlas originales se conservan sin modificar. El orden de extracción es de arriba hacia abajo y de izquierda a derecha.",
+  "characters": {
+    "atlas": "atlas_personajes_original.png",
+    "folder": "personajes/",
+    "cell_size": [
+      176,
+      176
+    ],
+    "count": 78,
+    "groups": [
+      [
+        0,
+        160,
+        "fila_1_facundo_carrera_y_reposo"
+      ],
+      [
+        160,
+        320,
+        "fila_2_facundo_ataques"
+      ],
+      [
+        320,
+        470,
+        "fila_3_facundo_reacciones_caidas_y_efectos"
+      ],
+      [
+        470,
+        610,
+        "fila_4_federal_carrera_y_reposo"
+      ],
+      [
+        610,
+        760,
+        "fila_5_federal_ataques"
+      ],
+      [
+        760,
+        890,
+        "fila_6_gaucho_carrera_y_reposo"
+      ],
+      [
+        890,
+        1100,
+        "fila_7_gaucho_ataques_y_caidas"
+      ]
+    ],
+    "frames": [
+      {
+        "file": "personaje_001.png",
+        "source_bbox": [
+          145,
+          27,
+          109,
+          121
+        ],
+        "area": 5594,
+        "center": [
+          788.3,
+          516.4
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_002.png",
+        "source_bbox": [
+          258,
+          26,
+          99,
+          120
+        ],
+        "area": 5475,
+        "center": [
+          196.0,
+          86.1
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_003.png",
+        "source_bbox": [
+          454,
+          27,
+          102,
+          121
+        ],
+        "area": 5094,
+        "center": [
+          299.7,
+          86.6
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_004.png",
+        "source_bbox": [
+          557,
+          27,
+          95,
+          119
+        ],
+        "area": 4996,
+        "center": [
+          500.8,
+          88.2
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_005.png",
+        "source_bbox": [
+          656,
+          27,
+          100,
+          119
+        ],
+        "area": 5503,
+        "center": [
+          600.0,
+          84.9
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_006.png",
+        "source_bbox": [
+          763,
+          26,
+          102,
+          120
+        ],
+        "area": 5060,
+        "center": [
+          700.8,
+          87.2
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_007.png",
+        "source_bbox": [
+          895,
+          27,
+          87,
+          122
+        ],
+        "area": 5587,
+        "center": [
+          804.6,
+          83.4
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_008.png",
+        "source_bbox": [
+          37,
+          28,
+          107,
+          121
+        ],
+        "area": 5897,
+        "center": [
+          940.3,
+          89.3
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_009.png",
+        "source_bbox": [
+          354,
+          28,
+          108,
+          119
+        ],
+        "area": 5668,
+        "center": [
+          83.4,
+          84.9
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_010.png",
+        "source_bbox": [
+          1085,
+          28,
+          64,
+          122
+        ],
+        "area": 4924,
+        "center": [
+          401.5,
+          86.3
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_011.png",
+        "source_bbox": [
+          994,
+          30,
+          69,
+          120
+        ],
+        "area": 5077,
+        "center": [
+          1117.0,
+          90.8
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_012.png",
+        "source_bbox": [
+          1167,
+          31,
+          67,
+          118
+        ],
+        "area": 5037,
+        "center": [
+          1031.3,
+          91.8
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_013.png",
+        "source_bbox": [
+          1260,
+          30,
+          67,
+          119
+        ],
+        "area": 5206,
+        "center": [
+          1201.1,
+          92.0
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_014.png",
+        "source_bbox": [
+          1352,
+          30,
+          64,
+          121
+        ],
+        "area": 5018,
+        "center": [
+          1295.7,
+          92.3
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_015.png",
+        "source_bbox": [
+          1438,
+          31,
+          63,
+          120
+        ],
+        "area": 4837,
+        "center": [
+          1384.9,
+          92.2
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_016.png",
+        "source_bbox": [
+          248,
+          170,
+          89,
+          130
+        ],
+        "area": 5595,
+        "center": [
+          1118.0,
+          123.0
+        ],
+        "row_group": "fila_1_facundo_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_017.png",
+        "source_bbox": [
+          358,
+          171,
+          104,
+          130
+        ],
+        "area": 5776,
+        "center": [
+          290.7,
+          241.2
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_018.png",
+        "source_bbox": [
+          464,
+          171,
+          100,
+          128
+        ],
+        "area": 5295,
+        "center": [
+          402.1,
+          238.4
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_019.png",
+        "source_bbox": [
+          1116,
+          170,
+          128,
+          135
+        ],
+        "area": 6172,
+        "center": [
+          506.9,
+          238.4
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_020.png",
+        "source_bbox": [
+          1243,
+          171,
+          136,
+          134
+        ],
+        "area": 6498,
+        "center": [
+          1172.8,
+          246.4
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_021.png",
+        "source_bbox": [
+          905,
+          176,
+          90,
+          129
+        ],
+        "area": 5856,
+        "center": [
+          1307.7,
+          242.6
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_022.png",
+        "source_bbox": [
+          1006,
+          182,
+          109,
+          123
+        ],
+        "area": 5304,
+        "center": [
+          948.5,
+          239.1
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_023.png",
+        "source_bbox": [
+          28,
+          189,
+          106,
+          110
+        ],
+        "area": 5140,
+        "center": [
+          1049.8,
+          241.7
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_024.png",
+        "source_bbox": [
+          141,
+          189,
+          101,
+          111
+        ],
+        "area": 5252,
+        "center": [
+          75.4,
+          245.3
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_025.png",
+        "source_bbox": [
+          562,
+          192,
+          119,
+          113
+        ],
+        "area": 5243,
+        "center": [
+          185.4,
+          245.1
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_026.png",
+        "source_bbox": [
+          668,
+          196,
+          130,
+          109
+        ],
+        "area": 5839,
+        "center": [
+          610.7,
+          247.8
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_027.png",
+        "source_bbox": [
+          1368,
+          209,
+          121,
+          96
+        ],
+        "area": 4703,
+        "center": [
+          946.0,
+          205.0
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_028.png",
+        "source_bbox": [
+          176,
+          327,
+          77,
+          118
+        ],
+        "area": 5053,
+        "center": [
+          951.0,
+          271.0
+        ],
+        "row_group": "fila_2_facundo_ataques"
+      },
+      {
+        "file": "personaje_029.png",
+        "source_bbox": [
+          60,
+          328,
+          80,
+          118
+        ],
+        "area": 5083,
+        "center": [
+          214.4,
+          385.0
+        ],
+        "row_group": "fila_3_facundo_reacciones_caidas_y_efectos"
+      },
+      {
+        "file": "personaje_030.png",
+        "source_bbox": [
+          285,
+          347,
+          91,
+          98
+        ],
+        "area": 4426,
+        "center": [
+          97.2,
+          386.1
+        ],
+        "row_group": "fila_3_facundo_reacciones_caidas_y_efectos"
+      },
+      {
+        "file": "personaje_031.png",
+        "source_bbox": [
+          401,
+          352,
+          97,
+          90
+        ],
+        "area": 3943,
+        "center": [
+          327.8,
+          392.0
+        ],
+        "row_group": "fila_3_facundo_reacciones_caidas_y_efectos"
+      },
+      {
+        "file": "personaje_032.png",
+        "source_bbox": [
+          45,
+          486,
+          94,
+          106
+        ],
+        "area": 4666,
+        "center": [
+          957.3,
+          423.7
+        ],
+        "row_group": "fila_3_facundo_reacciones_caidas_y_efectos"
+      },
+      {
+        "file": "personaje_033.png",
+        "source_bbox": [
+          145,
+          486,
+          99,
+          109
+        ],
+        "area": 4610,
+        "center": [
+          87.1,
+          539.7
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_034.png",
+        "source_bbox": [
+          252,
+          487,
+          98,
+          107
+        ],
+        "area": 4213,
+        "center": [
+          190.0,
+          540.5
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_035.png",
+        "source_bbox": [
+          350,
+          487,
+          95,
+          106
+        ],
+        "area": 4121,
+        "center": [
+          291.8,
+          539.5
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_036.png",
+        "source_bbox": [
+          449,
+          488,
+          92,
+          110
+        ],
+        "area": 4191,
+        "center": [
+          389.6,
+          541.9
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_037.png",
+        "source_bbox": [
+          554,
+          488,
+          84,
+          109
+        ],
+        "area": 3846,
+        "center": [
+          492.8,
+          543.2
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_038.png",
+        "source_bbox": [
+          637,
+          489,
+          98,
+          106
+        ],
+        "area": 4430,
+        "center": [
+          589.9,
+          541.6
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_039.png",
+        "source_bbox": [
+          746,
+          490,
+          96,
+          110
+        ],
+        "area": 4351,
+        "center": [
+          683.2,
+          543.4
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_040.png",
+        "source_bbox": [
+          885,
+          491,
+          70,
+          108
+        ],
+        "area": 3916,
+        "center": [
+          788.4,
+          544.1
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_041.png",
+        "source_bbox": [
+          976,
+          492,
+          50,
+          107
+        ],
+        "area": 3658,
+        "center": [
+          914.6,
+          546.2
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_042.png",
+        "source_bbox": [
+          1317,
+          493,
+          53,
+          109
+        ],
+        "area": 3766,
+        "center": [
+          1001.8,
+          546.0
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_043.png",
+        "source_bbox": [
+          1398,
+          492,
+          88,
+          109
+        ],
+        "area": 4192,
+        "center": [
+          1342.8,
+          549.3
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_044.png",
+        "source_bbox": [
+          1060,
+          494,
+          68,
+          107
+        ],
+        "area": 3794,
+        "center": [
+          1438.2,
+          550.1
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_045.png",
+        "source_bbox": [
+          1147,
+          494,
+          68,
+          107
+        ],
+        "area": 3909,
+        "center": [
+          1088.1,
+          548.8
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_046.png",
+        "source_bbox": [
+          1233,
+          494,
+          52,
+          108
+        ],
+        "area": 3742,
+        "center": [
+          1176.0,
+          550.2
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_047.png",
+        "source_bbox": [
+          353,
+          612,
+          118,
+          122
+        ],
+        "area": 4811,
+        "center": [
+          1257.0,
+          584.0
+        ],
+        "row_group": "fila_4_federal_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_048.png",
+        "source_bbox": [
+          146,
+          614,
+          122,
+          118
+        ],
+        "area": 5092,
+        "center": [
+          406.7,
+          675.7
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_049.png",
+        "source_bbox": [
+          247,
+          614,
+          103,
+          118
+        ],
+        "area": 4380,
+        "center": [
+          196.7,
+          672.9
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_050.png",
+        "source_bbox": [
+          39,
+          620,
+          94,
+          104
+        ],
+        "area": 4060,
+        "center": [
+          299.9,
+          678.3
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_051.png",
+        "source_bbox": [
+          465,
+          624,
+          132,
+          113
+        ],
+        "area": 4836,
+        "center": [
+          77.4,
+          673.0
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_052.png",
+        "source_bbox": [
+          792,
+          636,
+          75,
+          105
+        ],
+        "area": 3746,
+        "center": [
+          521.8,
+          682.2
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_053.png",
+        "source_bbox": [
+          891,
+          639,
+          62,
+          102
+        ],
+        "area": 3630,
+        "center": [
+          831.0,
+          689.1
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_054.png",
+        "source_bbox": [
+          980,
+          638,
+          54,
+          103
+        ],
+        "area": 3397,
+        "center": [
+          919.7,
+          690.9
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_055.png",
+        "source_bbox": [
+          617,
+          647,
+          132,
+          93
+        ],
+        "area": 4946,
+        "center": [
+          1007.2,
+          689.6
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_056.png",
+        "source_bbox": [
+          1073,
+          670,
+          86,
+          73
+        ],
+        "area": 3257,
+        "center": [
+          674.5,
+          694.0
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_057.png",
+        "source_bbox": [
+          1177,
+          673,
+          86,
+          70
+        ],
+        "area": 3243,
+        "center": [
+          1108.6,
+          707.9
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_058.png",
+        "source_bbox": [
+          36,
+          771,
+          87,
+          107
+        ],
+        "area": 4617,
+        "center": [
+          1007.0,
+          727.0
+        ],
+        "row_group": "fila_5_federal_ataques"
+      },
+      {
+        "file": "personaje_059.png",
+        "source_bbox": [
+          148,
+          771,
+          92,
+          106
+        ],
+        "area": 4718,
+        "center": [
+          73.3,
+          825.5
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_060.png",
+        "source_bbox": [
+          256,
+          771,
+          84,
+          107
+        ],
+        "area": 4317,
+        "center": [
+          187.4,
+          826.3
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_061.png",
+        "source_bbox": [
+          346,
+          772,
+          92,
+          106
+        ],
+        "area": 4522,
+        "center": [
+          290.1,
+          823.7
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_062.png",
+        "source_bbox": [
+          454,
+          774,
+          89,
+          104
+        ],
+        "area": 4461,
+        "center": [
+          387.2,
+          826.2
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_063.png",
+        "source_bbox": [
+          558,
+          776,
+          88,
+          105
+        ],
+        "area": 4317,
+        "center": [
+          492.3,
+          826.7
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_064.png",
+        "source_bbox": [
+          1176,
+          776,
+          77,
+          107
+        ],
+        "area": 4302,
+        "center": [
+          595.2,
+          829.9
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_065.png",
+        "source_bbox": [
+          657,
+          779,
+          95,
+          104
+        ],
+        "area": 4352,
+        "center": [
+          391.0,
+          779.0
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_066.png",
+        "source_bbox": [
+          767,
+          779,
+          75,
+          102
+        ],
+        "area": 3982,
+        "center": [
+          693.6,
+          831.1
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_067.png",
+        "source_bbox": [
+          887,
+          778,
+          72,
+          103
+        ],
+        "area": 4112,
+        "center": [
+          800.3,
+          831.0
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_068.png",
+        "source_bbox": [
+          990,
+          778,
+          63,
+          105
+        ],
+        "area": 4000,
+        "center": [
+          919.8,
+          830.3
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_069.png",
+        "source_bbox": [
+          1083,
+          778,
+          72,
+          105
+        ],
+        "area": 4129,
+        "center": [
+          1019.9,
+          831.7
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_070.png",
+        "source_bbox": [
+          371,
+          896,
+          128,
+          107
+        ],
+        "area": 4630,
+        "center": [
+          1120.0,
+          859.0
+        ],
+        "row_group": "fila_6_gaucho_carrera_y_reposo"
+      },
+      {
+        "file": "personaje_071.png",
+        "source_bbox": [
+          503,
+          899,
+          101,
+          104
+        ],
+        "area": 4078,
+        "center": [
+          426.0,
+          951.8
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_072.png",
+        "source_bbox": [
+          25,
+          903,
+          97,
+          100
+        ],
+        "area": 4195,
+        "center": [
+          544.0,
+          954.7
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_073.png",
+        "source_bbox": [
+          263,
+          906,
+          103,
+          97
+        ],
+        "area": 4339,
+        "center": [
+          70.8,
+          953.5
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_074.png",
+        "source_bbox": [
+          139,
+          908,
+          110,
+          95
+        ],
+        "area": 4621,
+        "center": [
+          304.5,
+          954.4
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_075.png",
+        "source_bbox": [
+          636,
+          917,
+          97,
+          86
+        ],
+        "area": 4076,
+        "center": [
+          187.4,
+          955.7
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_076.png",
+        "source_bbox": [
+          780,
+          916,
+          77,
+          85
+        ],
+        "area": 3631,
+        "center": [
+          682.8,
+          960.5
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_077.png",
+        "source_bbox": [
+          884,
+          918,
+          72,
+          83
+        ],
+        "area": 3534,
+        "center": [
+          816.2,
+          958.4
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      },
+      {
+        "file": "personaje_078.png",
+        "source_bbox": [
+          985,
+          928,
+          83,
+          76
+        ],
+        "area": 3582,
+        "center": [
+          218.0,
+          923.0
+        ],
+        "row_group": "fila_7_gaucho_ataques_y_caidas"
+      }
+    ]
+  },
+  "props": {
+    "atlas": "atlas_utileria_original.png",
+    "folder": "utileria/",
+    "cell_size": [
+      256,
+      224
+    ],
+    "count": 30,
+    "groups": [
+      [
+        0,
+        250,
+        "fila_1_mobiliario_y_barriles"
+      ],
+      [
+        250,
+        520,
+        "fila_2_estantes_y_decoracion"
+      ],
+      [
+        520,
+        810,
+        "fila_3_accesos_iluminacion_y_fuego"
+      ],
+      [
+        810,
+        1100,
+        "fila_4_pacas_y_pisos"
+      ]
+    ],
+    "frames": [
+      {
+        "file": "objeto_001.png",
+        "source_bbox": [
+          18,
+          48,
+          315,
+          181
+        ],
+        "area": 40895,
+        "center": [
+          777.2,
+          499.9
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_002.png",
+        "source_bbox": [
+          1356,
+          74,
+          146,
+          156
+        ],
+        "area": 21510,
+        "center": [
+          168.5,
+          157.0
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_003.png",
+        "source_bbox": [
+          732,
+          81,
+          87,
+          148
+        ],
+        "area": 9050,
+        "center": [
+          75.0,
+          76.5
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_004.png",
+        "source_bbox": [
+          852,
+          80,
+          112,
+          149
+        ],
+        "area": 14689,
+        "center": [
+          770.7,
+          157.2
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_005.png",
+        "source_bbox": [
+          352,
+          95,
+          190,
+          133
+        ],
+        "area": 11997,
+        "center": [
+          908.1,
+          154.1
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_006.png",
+        "source_bbox": [
+          1002,
+          112,
+          147,
+          110
+        ],
+        "area": 13661,
+        "center": [
+          450.0,
+          158.2
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_007.png",
+        "source_bbox": [
+          586,
+          115,
+          87,
+          113
+        ],
+        "area": 7018,
+        "center": [
+          1074.6,
+          167.3
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_008.png",
+        "source_bbox": [
+          1184,
+          121,
+          126,
+          106
+        ],
+        "area": 13080,
+        "center": [
+          629.5,
+          169.6
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_009.png",
+        "source_bbox": [
+          977,
+          265,
+          77,
+          218
+        ],
+        "area": 12203,
+        "center": [
+          1246.6,
+          173.5
+        ],
+        "row_group": "fila_1_mobiliario_y_barriles"
+      },
+      {
+        "file": "objeto_010.png",
+        "source_bbox": [
+          23,
+          281,
+          219,
+          198
+        ],
+        "area": 40433,
+        "center": [
+          1015.6,
+          373.3
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_011.png",
+        "source_bbox": [
+          817,
+          286,
+          133,
+          197
+        ],
+        "area": 17150,
+        "center": [
+          132.4,
+          382.0
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_012.png",
+        "source_bbox": [
+          1085,
+          289,
+          187,
+          191
+        ],
+        "area": 22937,
+        "center": [
+          981.0,
+          287.0
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_013.png",
+        "source_bbox": [
+          488,
+          297,
+          136,
+          159
+        ],
+        "area": 19393,
+        "center": [
+          1165.3,
+          409.4
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_014.png",
+        "source_bbox": [
+          638,
+          307,
+          161,
+          150
+        ],
+        "area": 9790,
+        "center": [
+          556.3,
+          376.4
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_015.png",
+        "source_bbox": [
+          256,
+          321,
+          208,
+          111
+        ],
+        "area": 12327,
+        "center": [
+          718.1,
+          369.1
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_016.png",
+        "source_bbox": [
+          1306,
+          343,
+          204,
+          109
+        ],
+        "area": 16239,
+        "center": [
+          1113.0,
+          325.0
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_017.png",
+        "source_bbox": [
+          408,
+          512,
+          72,
+          215
+        ],
+        "area": 7940,
+        "center": [
+          1249.0,
+          437.0
+        ],
+        "row_group": "fila_2_estantes_y_decoracion"
+      },
+      {
+        "file": "objeto_018.png",
+        "source_bbox": [
+          654,
+          528,
+          208,
+          200
+        ],
+        "area": 19531,
+        "center": [
+          444.4,
+          640.0
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_019.png",
+        "source_bbox": [
+          903,
+          544,
+          240,
+          221
+        ],
+        "area": 48386,
+        "center": [
+          757.9,
+          651.0
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_020.png",
+        "source_bbox": [
+          26,
+          546,
+          135,
+          208
+        ],
+        "area": 25927,
+        "center": [
+          1023.1,
+          655.6
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_021.png",
+        "source_bbox": [
+          193,
+          557,
+          140,
+          171
+        ],
+        "area": 22081,
+        "center": [
+          92.8,
+          648.9
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_022.png",
+        "source_bbox": [
+          549,
+          568,
+          66,
+          141
+        ],
+        "area": 4673,
+        "center": [
+          262.8,
+          642.2
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_023.png",
+        "source_bbox": [
+          1176,
+          588,
+          229,
+          155
+        ],
+        "area": 33418,
+        "center": [
+          585.2,
+          645.9
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_024.png",
+        "source_bbox": [
+          1431,
+          598,
+          88,
+          137
+        ],
+        "area": 9066,
+        "center": [
+          1290.6,
+          664.6
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_025.png",
+        "source_bbox": [
+          32,
+          827,
+          189,
+          134
+        ],
+        "area": 21837,
+        "center": [
+          859.0,
+          678.0
+        ],
+        "row_group": "fila_3_accesos_iluminacion_y_fuego"
+      },
+      {
+        "file": "objeto_026.png",
+        "source_bbox": [
+          1202,
+          826,
+          67,
+          134
+        ],
+        "area": 8201,
+        "center": [
+          127.4,
+          896.8
+        ],
+        "row_group": "fila_4_pacas_y_pisos"
+      },
+      {
+        "file": "objeto_027.png",
+        "source_bbox": [
+          1296,
+          826,
+          215,
+          134
+        ],
+        "area": 20060,
+        "center": [
+          1235.1,
+          891.7
+        ],
+        "row_group": "fila_4_pacas_y_pisos"
+      },
+      {
+        "file": "objeto_028.png",
+        "source_bbox": [
+          642,
+          851,
+          192,
+          95
+        ],
+        "area": 17690,
+        "center": [
+          1424.8,
+          906.6
+        ],
+        "row_group": "fila_4_pacas_y_pisos"
+      },
+      {
+        "file": "objeto_029.png",
+        "source_bbox": [
+          248,
+          853,
+          368,
+          93
+        ],
+        "area": 33493,
+        "center": [
+          738.0,
+          898.3
+        ],
+        "row_group": "fila_4_pacas_y_pisos"
+      },
+      {
+        "file": "objeto_030.png",
+        "source_bbox": [
+          859,
+          852,
+          323,
+          106
+        ],
+        "area": 33330,
+        "center": [
+          431.2,
+          898.9
+        ],
+        "row_group": "fila_4_pacas_y_pisos"
+      }
+    ]
+  }
+}

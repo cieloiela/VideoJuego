@@ -1,0 +1,14 @@
+SPRINT 6 — SPRITES DEL NIVEL 3 SEPARADOS
+
+CONTENIDO
+- atlas_personajes_original.png: atlas original de Facundo y federales.
+- atlas_utileria_original.png: atlas original de mobiliario, decoraciones y piezas del piso.
+- personajes/: 78 fotogramas individuales con fondo transparente, en lienzos uniformes de 176x176 px y pies alineados.
+- utileria/: 30 objetos individuales con fondo transparente, en lienzos uniformes de 256x224 px y base alineada.
+- manifest.json: coordenadas originales, orden de lectura y agrupación orientativa por filas.
+
+Los atlas originales se conservan sin modificar. Cada recorte usa solamente su componente alfa para evitar que partes de sprites vecinos entren en el mismo PNG. Los efectos de sable que aparecen como componentes separados se mantienen en el atlas original para recortarlos aparte si se necesitan.
+
+Estos recursos se agregan como material separado para futuras animaciones. No se sustituyen automáticamente las animaciones activas del nivel 3.
+
+- sarmiento_original_reutilizado/: fotogramas originales de Sarmiento copiados del proyecto para mantener la continuidad visual; no se regeneraron.
