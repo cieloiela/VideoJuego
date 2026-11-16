@@ -268,7 +268,7 @@ function obtenerGrupoAnimacionSarmiento() {
 function mostrarFrameSarmiento(grupo, indice) {
   if (!spriteSarmiento || !grupo?.length) return;
   const frame = grupo[Math.max(0, Math.min(indice, grupo.length - 1))];
-  spriteSarmiento.style.backgroundImage = `url("../img/sarmiento_anim/${frame}")`;
+  spriteSarmiento.style.backgroundImage = `url("../IMG/pulperia/sprint6_sprites_separados/sarmiento_original_reutilizado/${frame}")`;
   spriteSarmiento.style.backgroundPosition = 'center bottom';
   spriteSarmiento.style.backgroundSize = '100% 100%';
   spriteSarmiento.style.transform = 'none';
