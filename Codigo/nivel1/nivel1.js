@@ -911,7 +911,7 @@ function saltar() {
    ANIMACIÓN SARMIENTO
 ========================================================= */
 
-const rutaFramesSarmiento = "../img/sarmiento_anim/";
+const rutaFramesSarmiento = "../IMG/pulperia/sprint6_sprites_separados/sarmiento_original_reutilizado/";
 
 function obtenerGrupoAnimacionSarmiento() {
     if (saltando) {
